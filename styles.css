@@ -2474,6 +2474,19 @@ main {
   color: var(--text-primary);
 }
 
+/* Página templates: conteúdo restrito só após login (sem depender só de sessionStorage) */
+body.templates-page #templates-app-wrap {
+  display: none !important;
+}
+
+body.templates-page.templates-page--unlocked #templates-gate-wrap {
+  display: none !important;
+}
+
+body.templates-page.templates-page--unlocked #templates-app-wrap {
+  display: block !important;
+}
+
 /* Gate + tokens (UI alinhada ao resto do site) */
 .templates-gate-shell {
   min-height: calc(72vh - 56px);
@@ -2483,7 +2496,7 @@ main {
   padding: 40px 20px 72px;
 }
 
-.templates-gate-card.templates-gate-card {
+.templates-gate-card {
   max-width: 420px;
   width: 100%;
   margin: 0 auto;

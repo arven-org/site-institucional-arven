@@ -5,7 +5,6 @@
   if (window.__ARVEN_TEMPLATES_PAGE_INIT__) return;
   window.__ARVEN_TEMPLATES_PAGE_INIT__ = true;
 
-  var STORAGE_KEY = "arven_templates_session_v1";
   var HASH_HEX = "2d5a0ef2aeb36f5be57f0b3e30567a3ac858ea60d3ce6074a33f78883217ea11";
 
   var gateWrap;
@@ -214,15 +213,14 @@
       appWrap.removeAttribute("hidden");
       appWrap.setAttribute("aria-hidden", "false");
     }
+    document.body.classList.add("templates-page--unlocked");
     try {
-      try {
-        sessionStorage.setItem(STORAGE_KEY, "1");
-      } catch (e) {}
       renderTokensAndToc();
       bindTokenActions();
       var h = document.getElementById("tokens-page-title");
       if (h) h.focus({ preventScroll: true });
     } catch (err) {
+      document.body.classList.remove("templates-page--unlocked");
       if (gateWrap) {
         gateWrap.removeAttribute("hidden");
         gateWrap.hidden = false;
@@ -232,31 +230,8 @@
         appWrap.hidden = true;
         appWrap.setAttribute("aria-hidden", "true");
       }
-      try {
-        sessionStorage.removeItem(STORAGE_KEY);
-      } catch (e2) {}
       showError("Erro ao carregar os tokens. Recarregue a página.");
     }
-  }
-
-  function tryRestore() {
-    try {
-      if (sessionStorage.getItem(STORAGE_KEY) === "1") {
-        if (gateWrap) {
-          gateWrap.setAttribute("hidden", "");
-          gateWrap.hidden = true;
-        }
-        if (appWrap) {
-          appWrap.hidden = false;
-          appWrap.removeAttribute("hidden");
-          appWrap.setAttribute("aria-hidden", "false");
-        }
-        renderTokensAndToc();
-        bindTokenActions();
-        return true;
-      }
-    } catch (e) {}
-    return false;
   }
 
   function resetSubmitBtn() {
@@ -296,10 +271,9 @@
     btnMd = document.getElementById("templates-download-md");
     tocEl = document.getElementById("templates-toc");
 
-    if (tryRestore()) {
-      bindDownloadMd();
-      return;
-    }
+    try {
+      sessionStorage.removeItem("arven_templates_session_v1");
+    } catch (e) {}
 
     if (form && input) {
       form.addEventListener("submit", function (e) {
