@@ -7,7 +7,8 @@
         "/cases.html",
         "/servicos.html",
         "/sobre.html",
-        "/qualificacao.html"
+        "/qualificacao.html",
+        "/templates.html"
       ],
       "numberOfRuns": 1
     },

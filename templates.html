@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Tokens — Design System — Arven</title>
+  <meta name="description" content="Tokens visuais da marca Arven para parceiros e equipe. Acesso restrito." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">Arven</a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="cases.html" class="nav__link--gradient">Resultados</a></li>
+        <li><a href="sobre.html">A Arven</a></li>
+        <li><a href="templates.html" class="nav__link--login" aria-current="page">Login</a></li>
+        <li><a href="qualificacao.html">Contato</a></li>
+      </ul>
+      <a href="https://calendar.app.google/sySLt6Ry9kKkv5BQ6" class="nav__cta" target="_blank" rel="noopener noreferrer">Agendar call</a>
+      <button type="button" class="nav__toggle" aria-controls="nav-links" aria-expanded="false" aria-label="Abrir menu">
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <section id="templates-gate" class="templates-gate" aria-labelledby="templates-gate-title">
+      <div class="templates-gate__panel">
+        <h1 id="templates-gate-title" class="templates-gate__title">Acesso restrito</h1>
+        <p class="templates-gate__lead">Digite a senha para ver os templates.</p>
+        <form id="templates-gate-form" class="templates-gate__form" novalidate>
+          <label class="sr-only" for="templates-gate-password">Senha</label>
+          <input
+            class="templates-gate__input lead-form__input"
+            type="password"
+            id="templates-gate-password"
+            name="password"
+            autocomplete="current-password"
+            placeholder="Senha"
+            required
+          />
+          <p id="templates-gate-error" class="templates-gate__error" hidden role="alert"></p>
+          <button type="submit" class="btn btn--primary templates-gate__submit" id="templates-gate-submit">Entrar</button>
+        </form>
+      </div>
+    </section>
+
+    <div id="templates-content" class="templates-content" hidden aria-hidden="true">
+      <section class="page-hero page-hero--compact">
+        <p class="page-hero__tag">Design system</p>
+        <h1 class="page-hero__headline" tabindex="-1">Design tokens</h1>
+        <p class="page-hero__sub templates-content__intro">
+          Referência rápida de cores, tipografia e raios usados no site institucional e materiais Arven.
+          Uso interno e de parceiros autorizados.
+        </p>
+      </section>
+
+      <section class="templates-section" aria-labelledby="tokens-cores">
+        <h2 id="tokens-cores" class="templates-section__title">Cores</h2>
+        <p class="templates-section__desc">Valores alinhados a <code class="templates-code">:root</code> em <code class="templates-code">styles.css</code>.</p>
+        <div class="ds-swatches">
+          <figure class="ds-swatch" style="--swatch: var(--bg); --swatch-border: rgba(255,255,255,0.12);">
+            <figcaption class="ds-swatch__meta">
+              <span class="ds-swatch__name">--bg</span>
+              <span class="ds-swatch__hex">#0a0a0a</span>
+            </figcaption>
+          </figure>
+          <figure class="ds-swatch" style="--swatch: var(--bg-surface);">
+            <figcaption class="ds-swatch__meta">
+              <span class="ds-swatch__name">--bg-surface</span>
+              <span class="ds-swatch__hex">#111111</span>
+            </figcaption>
+          </figure>
+          <figure class="ds-swatch" style="--swatch: var(--bg-raised);">
+            <figcaption class="ds-swatch__meta">
+              <span class="ds-swatch__name">--bg-raised</span>
+              <span class="ds-swatch__hex">#161616</span>
+            </figcaption>
+          </figure>
+          <figure class="ds-swatch" style="--swatch: var(--text-primary);">
+            <figcaption class="ds-swatch__meta">
+              <span class="ds-swatch__name">--text-primary</span>
+              <span class="ds-swatch__hex">#f0ede8</span>
+            </figcaption>
+          </figure>
+          <figure class="ds-swatch" style="--swatch: var(--text-secondary);">
+            <figcaption class="ds-swatch__meta">
+              <span class="ds-swatch__name">--text-secondary</span>
+              <span class="ds-swatch__hex">#8a8680</span>
+            </figcaption>
+          </figure>
+          <figure class="ds-swatch" style="--swatch: var(--text-tertiary);">
+            <figcaption class="ds-swatch__meta">
+              <span class="ds-swatch__name">--text-tertiary</span>
+              <span class="ds-swatch__hex">#4a4845</span>
+            </figcaption>
+          </figure>
+          <figure class="ds-swatch" style="--swatch: var(--accent);">
+            <figcaption class="ds-swatch__meta">
+              <span class="ds-swatch__name">--accent</span>
+              <span class="ds-swatch__hex">#e8e0d0</span>
+            </figcaption>
+          </figure>
+          <figure class="ds-swatch" style="--swatch: var(--green);">
+            <figcaption class="ds-swatch__meta">
+              <span class="ds-swatch__name">--green</span>
+              <span class="ds-swatch__hex">#1a3a2a</span>
+            </figcaption>
+          </figure>
+          <figure class="ds-swatch" style="--swatch: var(--green-text);">
+            <figcaption class="ds-swatch__meta">
+              <span class="ds-swatch__name">--green-text</span>
+              <span class="ds-swatch__hex">#4ade80</span>
+            </figcaption>
+          </figure>
+        </div>
+        <p class="templates-note">
+          Bordas: <code class="templates-code">--border</code>
+          <span class="templates-note__sep">·</span>
+          <code class="templates-code">rgba(255,255,255,0.08)</code>
+          <span class="templates-note__sep">·</span>
+          hover <code class="templates-code">--border-hover</code>
+        </p>
+      </section>
+
+      <section class="templates-section" aria-labelledby="tokens-tipo">
+        <h2 id="tokens-tipo" class="templates-section__title">Tipografia</h2>
+        <div class="ds-type-grid">
+          <div class="ds-type-card">
+            <p class="ds-type-label">Sans — títulos / UI</p>
+            <p class="ds-type-sample ds-type-sample--sans">Geist · The quick brown fox jumps over the lazy dog.</p>
+            <p class="ds-type-tokens"><code class="templates-code">--font-sans</code></p>
+          </div>
+          <div class="ds-type-card">
+            <p class="ds-type-label">Mono — tags / labels técnicos</p>
+            <p class="ds-type-sample ds-type-sample--mono">Geist Mono · 0123456789 · ABCDEF</p>
+            <p class="ds-type-tokens"><code class="templates-code">--font-mono</code></p>
+          </div>
+        </div>
+        <ul class="templates-list">
+          <li><strong>Corpo</strong> base: 15px, line-height 1.6</li>
+          <li><strong>Hero</strong> e headlines: escalas fluidas em componentes (ver <code class="templates-code">.hero__headline</code>, <code class="templates-code">.page-hero__headline</code>)</li>
+        </ul>
+      </section>
+
+      <section class="templates-section" aria-labelledby="tokens-outros">
+        <h2 id="tokens-outros" class="templates-section__title">Raios e layout</h2>
+        <div class="ds-inline-tokens">
+          <div class="ds-inline-tokens__row">
+            <span class="ds-inline-tokens__label">--radius-sm</span>
+            <span class="ds-inline-tokens__sample" style="border-radius: var(--radius-sm);"></span>
+            <span class="ds-inline-tokens__val">6px</span>
+          </div>
+          <div class="ds-inline-tokens__row">
+            <span class="ds-inline-tokens__label">--radius-md</span>
+            <span class="ds-inline-tokens__sample" style="border-radius: var(--radius-md);"></span>
+            <span class="ds-inline-tokens__val">10px</span>
+          </div>
+          <div class="ds-inline-tokens__row">
+            <span class="ds-inline-tokens__label">--radius-lg</span>
+            <span class="ds-inline-tokens__sample" style="border-radius: var(--radius-lg);"></span>
+            <span class="ds-inline-tokens__val">14px</span>
+          </div>
+          <div class="ds-inline-tokens__row">
+            <span class="ds-inline-tokens__label">--max-w</span>
+            <span class="ds-inline-tokens__val">1320px</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="templates-section templates-section--slim">
+        <p class="templates-footnote">
+          Para materiais fora do site (apresentações, anúncios), mantenha contraste legível sobre fundo escuro e prefira
+          <code class="templates-code">--text-primary</code> / <code class="templates-code">--accent</code> para texto de destaque.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="index.html" class="footer__logo">Arven</a>
+          <p class="footer__tagline">Assessoria de aquisição para negócios B2B.</p>
+        </div>
+        <div class="footer__cols">
+          <div class="footer__col">
+            <p class="footer__col-label" id="footer-nav-label">Navegação</p>
+            <ul class="footer__links" aria-labelledby="footer-nav-label">
+              <li><a href="servicos.html">Serviços</a></li>
+              <li><a href="cases.html">Resultados</a></li>
+              <li><a href="sobre.html">A Arven</a></li>
+              <li><a href="templates.html" aria-current="page">Login</a></li>
+              <li><a href="index.html#faq">FAQ</a></li>
+              <li><a href="qualificacao.html">Contato</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-label" id="footer-contact-label">Contato</p>
+            <ul class="footer__links" aria-labelledby="footer-contact-label">
+              <li><a href="https://calendar.app.google/sySLt6Ry9kKkv5BQ6" target="_blank" rel="noopener noreferrer">Agendar call</a></li>
+              <li><a href="https://wa.me/5549999202126?text=Ol%C3%A1%21%20Vim%20pelo%20site%20institucional%20da%20Arven%20e%20gostaria%20de%20aten%C3%A7%C3%A3o." target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+              <li><a href="index.html#diagnostico">Diagnóstico gratuito</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-label" id="footer-social-label">Redes</p>
+            <ul class="footer__links" aria-labelledby="footer-social-label">
+              <li><a href="https://www.instagram.com/arvensolutions/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://www.linkedin.com/company/arvenaquisicao" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div class="footer__legal">
+          <p class="footer__legal-name">ARVEN CONSULTORIA TECNOLOGIA &amp; OUTSOURCING</p>
+          <p class="footer__legal-meta">
+            <span class="footer__cnpj">CNPJ 65.183.229/0001-54</span>
+            <span class="footer__legal-sep" aria-hidden="true">·</span>
+            <span class="footer__rights">&copy; 2026 Todos os direitos reservados</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/nav.js" defer></script>
+  <script src="js/templates-gate.js" defer></script>
+</body>
+</html>
