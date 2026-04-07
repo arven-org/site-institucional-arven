@@ -21,7 +21,6 @@
         <li><a href="/servicos">Serviços</a></li>
         <li><a href="/cases" class="nav__link--gradient">Resultados</a></li>
         <li><a href="/sobre">A Arven</a></li>
-        <li><a href="/templates" class="nav__link--login">Login</a></li>
         <li><a href="/qualificacao" aria-current="page">Contato</a></li>
       </ul>
       <a href="#arven-lead-form" class="nav__cta">Agendar call</a>
@@ -35,31 +34,28 @@
 
   <main>
 
-    <section class="page-hero page-hero--compact page-hero--qualificacao">
-      <p class="page-hero__tag">Contato</p>
-      <h1 class="page-hero__headline">Preencha o formulário para entendermos o momento do seu negócio de forma personalizada.</h1>
-    </section>
-
     <section class="lead-form-shell lead-form-shell--full" aria-labelledby="lead-form-title">
-      <h2 id="lead-form-title" class="sr-only">Formulário de qualificação</h2>
 
       <form id="arven-lead-form" class="lead-form" novalidate>
         <div class="lead-form__hp" aria-hidden="true">
           <label for="lead-honeypot">Website</label>
           <input type="text" id="lead-honeypot" name="_honeypot" tabindex="-1" autocomplete="off" />
         </div>
+
+        <div class="lead-form__progress" role="progressbar" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1" aria-label="Progresso do formulário">
+          <div class="lead-form__progress-fill"></div>
+        </div>
+
+        <div class="lead-form__form-header">
+          <p class="page-hero__tag">Contato</p>
+          <h1 id="lead-form-title" class="page-hero__headline lead-form__page-headline">Preencha o formulário para entendermos o momento do seu negócio de forma personalizada.</h1>
+        </div>
+
         <div class="lead-form__meta">
-          <div class="lead-form__progress" role="progressbar" aria-valuemin="1" aria-valuemax="9" aria-valuenow="1" aria-label="Progresso do formulário">
-            <div class="lead-form__progress-fill"></div>
-          </div>
-          <p class="lead-form__step-label" data-lead-step-label>Passo 1 de 9</p>
+          <p class="lead-form__step-label" data-lead-step-label>Passo 1 de 8</p>
         </div>
 
         <p class="lead-form__error" hidden role="alert">Preencha os campos obrigatórios para continuar.</p>
-
-        <div class="lead-form__step lead-form__step--intro" data-step="intro">
-          <p class="sr-only">Início do formulário. Use Continuar para a primeira pergunta.</p>
-        </div>
 
         <div class="lead-form__step" hidden data-step="nome">
           <label class="lead-form__label" for="lead-nome">Como podemos te chamar?</label>
@@ -171,7 +167,6 @@
               <li><a href="/servicos">Serviços</a></li>
               <li><a href="/cases">Resultados</a></li>
               <li><a href="/sobre">A Arven</a></li>
-              <li><a href="/templates">Login</a></li>
               <li><a href="/#faq">FAQ</a></li>
               <li><a href="/qualificacao" aria-current="page">Contato</a></li>
             </ul>
@@ -182,6 +177,7 @@
               <li><a href="#arven-lead-form">Agendar call</a></li>
               <li><a href="#arven-lead-form">WhatsApp</a></li>
               <li><a href="#arven-lead-form">Diagnóstico gratuito</a></li>
+              <li><a href="/templates">Área Interna</a></li>
             </ul>
           </div>
           <div class="footer__col">

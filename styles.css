@@ -26,6 +26,9 @@ html { scroll-behavior: smooth; }
   --green:        #1a3a2a;
   --green-text:   #4ade80;
 
+  --blue:         #0f1f3a;
+  --blue-text:    #60a5fa;
+
   --font-sans: 'Geist', -apple-system, sans-serif;
   --font-mono: 'Geist Mono', monospace;
 
@@ -432,12 +435,12 @@ main {
   margin: 0 auto;
   padding: 11px 12px 11px 10px;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(96, 165, 250, 0.12);
+  background: rgba(59, 130, 246, 0.05);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 1px 0 rgba(96, 165, 250, 0.06) inset,
     0 20px 40px -16px rgba(0, 0, 0, 0.65);
   opacity: 0;
   animation: heroFunnelStep 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -472,12 +475,12 @@ main {
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-sm);
-  background: rgba(74, 222, 128, 0.07);
-  color: var(--green-text);
+  background: rgba(96, 165, 250, 0.10);
+  color: var(--blue-text);
 }
 
 .hero-funnel__step:nth-child(5) .hero-funnel__icon {
-  background: rgba(74, 222, 128, 0.14);
+  background: rgba(96, 165, 250, 0.18);
 }
 
 .hero-funnel__icon svg {
@@ -1383,24 +1386,33 @@ main {
   display: none !important;
 }
 
-.lead-form__meta {
-  margin-bottom: 24px;
-}
-
 .lead-form__progress {
   height: 3px;
   border-radius: 2px;
   background: var(--bg-raised);
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: 24px;
 }
 
 .lead-form__progress-fill {
   height: 100%;
-  width: 11.11%;
+  width: 12.5%;
   border-radius: 2px;
-  background: var(--text-tertiary);
+  background: rgba(255, 255, 255, 0.32);
   transition: width 0.25s ease;
+}
+
+.lead-form__form-header {
+  margin-bottom: 28px;
+}
+
+.lead-form__page-headline {
+  max-width: min(56rem, 100%);
+  margin-bottom: 0;
+}
+
+.lead-form__meta {
+  margin-bottom: 20px;
 }
 
 .lead-form__step-label {
@@ -1420,9 +1432,6 @@ main {
   min-height: 200px;
 }
 
-.lead-form__step--intro {
-  min-height: 0;
-}
 
 .lead-form__lead,
 .lead-form__hint {
@@ -2462,18 +2471,6 @@ main {
 /* ============================================================
    TEMPLATES / DESIGN TOKENS
    ============================================================ */
-.nav__link--login {
-  color: var(--text-secondary);
-}
-
-.nav__link--login:hover {
-  color: var(--text-primary);
-}
-
-.nav__link--login[aria-current="page"] {
-  color: var(--text-primary);
-}
-
 /* Página templates: conteúdo restrito só após login (sem depender só de sessionStorage) */
 body.templates-page #templates-app-wrap {
   display: none !important;
