@@ -2,18 +2,21 @@
  * Gate + design tokens (mesmos dados/uso: copiar, #, .md); UI = site institucional.
  */
 (function () {
+  if (window.__ARVEN_TEMPLATES_PAGE_INIT__) return;
+  window.__ARVEN_TEMPLATES_PAGE_INIT__ = true;
+
   var STORAGE_KEY = "arven_templates_session_v1";
   var HASH_HEX = "2d5a0ef2aeb36f5be57f0b3e30567a3ac858ea60d3ce6074a33f78883217ea11";
 
-  var gateWrap = document.getElementById("templates-gate-wrap");
-  var appWrap = document.getElementById("templates-app-wrap");
-  var form = document.getElementById("templates-gate-form");
-  var input = document.getElementById("templates-gate-password");
-  var errEl = document.getElementById("templates-gate-error");
-  var submitBtn = document.getElementById("templates-gate-submit");
-  var tokensRoot = document.getElementById("tokens-root");
-  var btnMd = document.getElementById("templates-download-md");
-  var tocEl = document.getElementById("templates-toc");
+  var gateWrap;
+  var appWrap;
+  var form;
+  var input;
+  var errEl;
+  var submitBtn;
+  var tokensRoot;
+  var btnMd;
+  var tocEl;
 
   function showError(msg) {
     if (errEl) {
@@ -202,74 +205,73 @@
   }
 
   function showApp() {
-    if (gateWrap) gateWrap.setAttribute("hidden", "");
+    if (gateWrap) {
+      gateWrap.setAttribute("hidden", "");
+      gateWrap.hidden = true;
+    }
     if (appWrap) {
+      appWrap.hidden = false;
       appWrap.removeAttribute("hidden");
       appWrap.setAttribute("aria-hidden", "false");
     }
     try {
-      sessionStorage.setItem(STORAGE_KEY, "1");
-    } catch (e) {}
-    renderTokensAndToc();
-    bindTokenActions();
-    var h = document.getElementById("tokens-page-title");
-    if (h) h.focus({ preventScroll: true });
+      try {
+        sessionStorage.setItem(STORAGE_KEY, "1");
+      } catch (e) {}
+      renderTokensAndToc();
+      bindTokenActions();
+      var h = document.getElementById("tokens-page-title");
+      if (h) h.focus({ preventScroll: true });
+    } catch (err) {
+      if (gateWrap) {
+        gateWrap.removeAttribute("hidden");
+        gateWrap.hidden = false;
+      }
+      if (appWrap) {
+        appWrap.setAttribute("hidden", "");
+        appWrap.hidden = true;
+        appWrap.setAttribute("aria-hidden", "true");
+      }
+      try {
+        sessionStorage.removeItem(STORAGE_KEY);
+      } catch (e2) {}
+      showError("Erro ao carregar os tokens. Recarregue a página.");
+    }
   }
 
   function tryRestore() {
     try {
       if (sessionStorage.getItem(STORAGE_KEY) === "1") {
-        renderTokensAndToc();
-        bindTokenActions();
-        if (gateWrap) gateWrap.setAttribute("hidden", "");
+        if (gateWrap) {
+          gateWrap.setAttribute("hidden", "");
+          gateWrap.hidden = true;
+        }
         if (appWrap) {
+          appWrap.hidden = false;
           appWrap.removeAttribute("hidden");
           appWrap.setAttribute("aria-hidden", "false");
         }
+        renderTokensAndToc();
+        bindTokenActions();
         return true;
       }
     } catch (e) {}
     return false;
   }
 
-  if (tryRestore()) {
-    /* já autenticado */
-  } else if (form && input) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      hideError();
-      var raw = (input.value || "").trim();
-      if (!raw) {
-        showError("Digite a senha.");
-        return;
-      }
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Verificando…";
-      }
-      sha256Hex(raw)
-        .then(function (hex) {
-          if (hex === HASH_HEX) {
-            input.value = "";
-            showApp();
-          } else {
-            showError("Senha incorreta.");
-          }
-        })
-        .catch(function () {
-          showError("Não foi possível validar neste ambiente. Use o site em HTTPS.");
-        })
-        .then(function () {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Entrar";
-          }
-        });
-    });
+  function resetSubmitBtn() {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Entrar";
+    }
   }
 
-  if (btnMd) {
+  function bindDownloadMd() {
+    if (!btnMd) return;
     btnMd.addEventListener("click", function () {
+      if (!window.ARVEN_TOKEN_SECTIONS) {
+        return;
+      }
       var md = buildMarkdown();
       var blob = new Blob([md], { type: "text/markdown;charset=utf-8" });
       var a = document.createElement("a");
@@ -281,5 +283,65 @@
       URL.revokeObjectURL(a.href);
       document.body.removeChild(a);
     });
+  }
+
+  function start() {
+    gateWrap = document.getElementById("templates-gate-wrap");
+    appWrap = document.getElementById("templates-app-wrap");
+    form = document.getElementById("templates-gate-form");
+    input = document.getElementById("templates-gate-password");
+    errEl = document.getElementById("templates-gate-error");
+    submitBtn = document.getElementById("templates-gate-submit");
+    tokensRoot = document.getElementById("tokens-root");
+    btnMd = document.getElementById("templates-download-md");
+    tocEl = document.getElementById("templates-toc");
+
+    if (tryRestore()) {
+      bindDownloadMd();
+      return;
+    }
+
+    if (form && input) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        hideError();
+        var raw = (input.value || "").trim();
+        if (!raw) {
+          showError("Digite a senha.");
+          return;
+        }
+        if (!window.crypto || !crypto.subtle) {
+          showError("Seu navegador precisa de HTTPS (site publicado) para validar a senha com segurança.");
+          return;
+        }
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Verificando…";
+        }
+        sha256Hex(raw)
+          .then(function (hex) {
+            if (hex === HASH_HEX) {
+              input.value = "";
+              showApp();
+            } else {
+              showError("Senha incorreta.");
+            }
+          })
+          .catch(function () {
+            showError("Não foi possível validar. Confirme que está em https:// (site na Vercel) e tente de novo.");
+          })
+          .then(function () {
+            resetSubmitBtn();
+          });
+      });
+    }
+
+    bindDownloadMd();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
   }
 })();
