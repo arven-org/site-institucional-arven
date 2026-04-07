@@ -1,9 +1,11 @@
 {
   "name": "site-institucional-arven",
   "private": true,
-  "description": "Site institucional estático (HTML/CSS/JS)",
+  "description": "Site institucional Arven — Astro",
   "scripts": {
-    "vendor:gsap": "node -e \"require('fs').mkdirSync('js/vendor',{recursive:true}); require('fs').copyFileSync(require.resolve('gsap/dist/gsap.min.js'), 'js/vendor/gsap.min.js')\""
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/vercel": "^10.0.4",
