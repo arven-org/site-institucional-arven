@@ -1,0 +1,34 @@
+---
+export const prerender = false;
+import Base from '../../layouts/Base.astro';
+import { getPostBySlug } from '../../lib/sanity.ts';
+
+const { slug } = Astro.params;
+const post = slug ? await getPostBySlug(slug) : null;
+
+if (!post) {
+  return Astro.redirect('/blog', 302);
+}
+---
+<Base
+  title={`${post.title} — Arven`}
+  description={post.excerpt ?? 'Leia este artigo no blog da Arven.'}
+  currentPage="blog"
+>
+  <article class="blog-post">
+    <header class="blog-post__header">
+      <time class="blog-post__date" datetime={post.publishedAt}>
+        {new Date(post.publishedAt).toLocaleDateString('pt-BR', {
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric'
+        })}
+      </time>
+      <h1 class="blog-post__title">{post.title}</h1>
+      {post.excerpt && <p class="blog-post__excerpt">{post.excerpt}</p>}
+    </header>
+    <div class="blog-post__body">
+      {(post as any).bodyText && <p>{(post as any).bodyText}</p>}
+    </div>
+  </article>
+</Base>
