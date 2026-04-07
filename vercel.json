@@ -1,4 +1,25 @@
 {
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/servicos.html", "destination": "/servicos", "permanent": true },
+    { "source": "/cases.html", "destination": "/cases", "permanent": true },
+    { "source": "/sobre.html", "destination": "/sobre", "permanent": true },
+    { "source": "/qualificacao.html", "destination": "/qualificacao", "permanent": true },
+    { "source": "/templates.html", "destination": "/templates", "permanent": true },
+    { "source": "/servicos/", "destination": "/servicos", "permanent": true },
+    { "source": "/cases/", "destination": "/cases", "permanent": true },
+    { "source": "/sobre/", "destination": "/sobre", "permanent": true },
+    { "source": "/qualificacao/", "destination": "/qualificacao", "permanent": true },
+    { "source": "/templates/", "destination": "/templates", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/servicos", "destination": "/servicos.html" },
+    { "source": "/cases", "destination": "/cases.html" },
+    { "source": "/sobre", "destination": "/sobre.html" },
+    { "source": "/qualificacao", "destination": "/qualificacao.html" },
+    { "source": "/templates", "destination": "/templates.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
