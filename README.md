@@ -7,34 +7,32 @@ Site estático (HTML, CSS, JS). Deploy recomendado: **Vercel** + domínio **arve
 ## Requisitos no teu Mac
 
 - [Git](https://git-scm.com/)
-- [Git LFS](https://git-lfs.com/) — **obrigatório** por causa do ficheiro `assets/video/vsl-arven.mp4` (~250 MB). Sem LFS o GitHub bloqueia o push.
 
-```bash
-brew install git-lfs
-git lfs install
-```
+O VSL (`assets/video/vsl-arven.mp4`) está **codificado para web** (H.264 + AAC, `faststart`), abaixo de **100 MB**, para caber no Git normal e no deploy **Vercel Hobby** sem Git LFS. A master HD fica contigo; o nome de exportação de referência é `VSL_SITE_ARVEN).mp4` no Desktop.
 
 ## Clonar / clone
 
 ```bash
 git clone https://github.com/arven-org/site-institucional-arven.git
 cd site-institucional-arven
-git lfs pull
 ```
 
 ## Primeiro push (referência)
 
 ```bash
-git lfs install
 git remote add origin https://github.com/arven-org/site-institucional-arven.git
 git branch -M main
 git push -u origin main
 ```
 
-Se o vídeo já tiver sido commitado sem LFS, corre antes:
+Para **regenerar** o ficheiro a partir do MP4 master (ajusta caminhos):
 
 ```bash
-git lfs migrate import --include="*.mp4"
+ffmpeg -y -i "/caminho/VSL_SITE_ARVEN).mp4" \
+  -c:v libx264 -preset medium -profile:v high -pix_fmt yuv420p \
+  -b:v 5200k -maxrate 5600k -bufsize 11200k \
+  -c:a aac -b:a 160k -ac 2 -movflags +faststart \
+  assets/video/vsl-arven.mp4
 ```
 
 ## Vercel

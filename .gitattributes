@@ -1,2 +1,2 @@
-# Vídeos grandes — GitHub exige Git LFS (>100 MB é bloqueado sem LFS)
-*.mp4 filter=lfs diff=lfs merge=lfs -text
+# Vídeos em `assets/video/` devem ficar abaixo de ~95 MB para GitHub + Vercel Hobby sem Git LFS.
+# (Ficheiros >100 MB no Git normal são rejeitados pelo GitHub; LFS na Vercel exige opção extra no dashboard.)
