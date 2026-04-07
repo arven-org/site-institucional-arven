@@ -1,5 +1,5 @@
 /**
- * Gate + render dos design tokens (espelho arvenoficial.com/templates).
+ * Gate + design tokens (mesmos dados/uso: copiar, #, .md); UI = site institucional.
  */
 (function () {
   var STORAGE_KEY = "arven_templates_session_v1";
@@ -13,6 +13,7 @@
   var submitBtn = document.getElementById("templates-gate-submit");
   var tokensRoot = document.getElementById("tokens-root");
   var btnMd = document.getElementById("templates-download-md");
+  var tocEl = document.getElementById("templates-toc");
 
   function showError(msg) {
     if (errEl) {
@@ -63,54 +64,81 @@
     return item.name + ": " + item.value + ";";
   }
 
+  function renderToc() {
+    if (!tocEl || !window.ARVEN_TOKEN_SECTIONS || tocEl.dataset.rendered) return;
+    var ul = document.createElement("ul");
+    ul.className = "templates-toc__list";
+    for (var s = 0; s < ARVEN_TOKEN_SECTIONS.length; s++) {
+      var sec = ARVEN_TOKEN_SECTIONS[s];
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = "#" + sec.id;
+      a.textContent = sec.title;
+      li.appendChild(a);
+      ul.appendChild(li);
+    }
+    tocEl.appendChild(ul);
+    tocEl.dataset.rendered = "1";
+  }
+
   function renderTokens() {
     if (!tokensRoot || !window.ARVEN_TOKEN_SECTIONS) return;
     var html = "";
     for (var s = 0; s < ARVEN_TOKEN_SECTIONS.length; s++) {
       var sec = ARVEN_TOKEN_SECTIONS[s];
-      html += '<section class="tok-sec" id="' + escapeHtml(sec.id) + '">';
-      html += "<h2>" + escapeHtml(sec.title) + "</h2>";
-      html += '<div class="tok-grid">';
+      html += '<section class="templates-tok-sec" id="' + escapeHtml(sec.id) + '">';
+      html += '<h2 class="templates-tok-sec__title">' + escapeHtml(sec.title) + "</h2>";
+      html += '<div class="templates-tok-grid">';
       for (var i = 0; i < sec.items.length; i++) {
         var item = sec.items[i];
         var bg = cssForSwatch(item);
         var tid = tokenId(item.name);
         var line = copyCss(item);
-        html += '<article class="tok-card" id="' + tid + '">';
+        html += '<article class="templates-tok-card" id="' + tid + '">';
         if (item.kind === "raw") {
           html +=
-            '<div class="tok-card__swatch tok-card__swatch--text" aria-hidden="true">—</div>';
+            '<div class="templates-tok-card__swatch templates-tok-card__swatch--text" aria-hidden="true">—</div>';
         } else if (item.kind === "special" && item.value === "transparent") {
           html +=
-            '<div class="tok-card__swatch tok-card__swatch--checker" aria-hidden="true"></div>';
+            '<div class="templates-tok-card__swatch templates-tok-card__swatch--checker" aria-hidden="true"></div>';
         } else if (bg) {
           html +=
-            '<div class="tok-card__swatch" style="background:' +
+            '<div class="templates-tok-card__swatch" style="background:' +
             escapeHtml(bg) +
             '" aria-hidden="true"></div>';
         } else {
-          html += '<div class="tok-card__swatch tok-card__swatch--text" aria-hidden="true">—</div>';
+          html +=
+            '<div class="templates-tok-card__swatch templates-tok-card__swatch--text" aria-hidden="true">—</div>';
         }
-        html += '<div class="tok-card__body">';
-        html += '<span class="tok-card__name">' + escapeHtml(item.name) + "</span>";
+        html += '<div class="templates-tok-card__body">';
+        html += '<span class="templates-tok-card__name">' + escapeHtml(item.name) + "</span>";
         html +=
-          '<span class="tok-card__val">' + escapeHtml(item.display || item.value) + "</span>";
+          '<span class="templates-tok-card__val">' +
+          escapeHtml(item.display || item.value) +
+          "</span>";
         html += "</div>";
-        html += '<div class="tok-card__actions">';
+        html += '<div class="templates-tok-card__actions">';
         html +=
-          '<button type="button" class="tok-card__btn tok-card__btn--copy" data-copy="' +
+          '<button type="button" class="templates-tok-act templates-tok-act--copy" data-copy="' +
           escAttr(line) +
-          '" title="Copiar var(...)">Copiar</button>';
+          '" title="Copiar var(...)"><span class="templates-tok-act__lbl">Copiar</span><span class="sr-only"> variável CSS</span></button>';
         html +=
-          '<button type="button" class="tok-card__btn tok-card__hash" data-anchor="' +
+          '<button type="button" class="templates-tok-act templates-tok-act--hash" data-anchor="' +
           tid +
-          '" title="#">#</button>';
+          '" title="Copiar link deste token">#</button>';
         html += "</div>";
         html += "</article>";
       }
       html += "</div></section>";
     }
     tokensRoot.innerHTML = html;
+  }
+
+  function renderTokensAndToc() {
+    if (!tokensRoot || !window.ARVEN_TOKEN_SECTIONS || tokensRoot.dataset.rendered) return;
+    renderTokens();
+    renderToc();
+    tokensRoot.dataset.rendered = "1";
   }
 
   function buildMarkdown() {
@@ -182,10 +210,7 @@
     try {
       sessionStorage.setItem(STORAGE_KEY, "1");
     } catch (e) {}
-    if (tokensRoot && window.ARVEN_TOKEN_SECTIONS && !tokensRoot.dataset.rendered) {
-      renderTokens();
-      tokensRoot.dataset.rendered = "1";
-    }
+    renderTokensAndToc();
     bindTokenActions();
     var h = document.getElementById("tokens-page-title");
     if (h) h.focus({ preventScroll: true });
@@ -194,10 +219,7 @@
   function tryRestore() {
     try {
       if (sessionStorage.getItem(STORAGE_KEY) === "1") {
-        if (tokensRoot && window.ARVEN_TOKEN_SECTIONS) {
-          renderTokens();
-          tokensRoot.dataset.rendered = "1";
-        }
+        renderTokensAndToc();
         bindTokenActions();
         if (gateWrap) gateWrap.setAttribute("hidden", "");
         if (appWrap) {

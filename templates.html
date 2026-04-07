@@ -3,31 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Design Tokens - Design System - Arven</title>
-  <meta name="description" content="Design tokens e variáveis do site Arven. Acesso restrito." />
+  <title>Design Tokens — Arven</title>
+  <meta name="description" content="Tokens de design da marca Arven. Acesso restrito a parceiros e equipa." />
   <meta name="robots" content="noindex, nofollow" />
-  <meta name="theme-color" content="#16161f" />
+  <meta name="theme-color" content="#0a0a0a" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="css/templates-arven.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
 </head>
-<body class="templates-ds">
+<body>
 
   <nav class="nav">
     <div class="nav__inner">
-      <a href="index.html" class="nav__logo templates-brand-mark">ARVEN</a>
+      <a href="index.html" class="nav__logo">Arven</a>
       <ul class="nav__links" id="nav-links">
         <li><a href="servicos.html">Serviços</a></li>
-        <li><a href="sobre.html">Quem Somos</a></li>
-        <li><a href="index.html#metodo">Impacto</a></li>
-        <li><a href="cases.html">Clientes</a></li>
-        <li><a href="cases.html">Cases de Sucesso</a></li>
-        <li><a href="blog/">Blog</a></li>
+        <li><a href="cases.html" class="nav__link--gradient">Resultados</a></li>
+        <li><a href="sobre.html">A Arven</a></li>
+        <li><a href="templates.html" class="nav__link--login" aria-current="page">Login</a></li>
+        <li><a href="qualificacao.html">Contato</a></li>
       </ul>
-      <a href="https://calendar.app.google/sySLt6Ry9kKkv5BQ6" class="nav__cta" target="_blank" rel="noopener noreferrer">Falar com um especialista</a>
+      <a href="https://calendar.app.google/sySLt6Ry9kKkv5BQ6" class="nav__cta" target="_blank" rel="noopener noreferrer">Agendar call</a>
       <button type="button" class="nav__toggle" aria-controls="nav-links" aria-expanded="false" aria-label="Abrir menu">
         <span class="nav__toggle-bar"></span>
         <span class="nav__toggle-bar"></span>
@@ -36,110 +34,105 @@
     </div>
   </nav>
 
-  <div id="templates-gate-wrap">
-    <div class="templates-gate-stage">
-      <div class="templates-gate-card">
-        <h1 id="templates-gate-title">Acesso restrito</h1>
-        <p class="templates-gate-lead">Digite a senha para ver os templates.</p>
-        <form id="templates-gate-form" novalidate>
-          <label class="sr-only" for="templates-gate-password">Senha</label>
-          <input
-            type="password"
-            id="templates-gate-password"
-            name="password"
-            autocomplete="current-password"
-            placeholder="Senha"
-            required
-          />
-          <p id="templates-gate-error" class="templates-gate-err" hidden role="alert"></p>
-          <button type="submit" class="templates-gate-btn" id="templates-gate-submit">Entrar</button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <div id="templates-app-wrap" hidden aria-hidden="true">
-    <div class="templates-shell">
-      <aside class="templates-sidebar" aria-label="Documentação">
-        <p class="templates-sidebar__label">Documentação</p>
-        <ul class="templates-sidebar__nav">
-          <li>
-            <a href="templates.html" aria-current="page">
-              <svg class="templates-sidebar__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-                <path d="M12 6v6l4 2"/>
-              </svg>
-              Design Tokens
-            </a>
-          </li>
-          <li>
-            <a href="blog/">
-              <svg class="templates-sidebar__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-              </svg>
-              Blog
-            </a>
-          </li>
-          <li>
-            <a href="https://www.arvenoficial.com" target="_blank" rel="noopener noreferrer">
-              <svg class="templates-sidebar__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="M2 8h20"/>
-              </svg>
-              Assinatura de E-mail
-            </a>
-          </li>
-        </ul>
-      </aside>
-
-      <div class="templates-main">
-        <header class="templates-main__head">
-          <h1 id="tokens-page-title" tabindex="-1">Design Tokens</h1>
-          <p>
-            Variáveis primitivas e semânticas. Valores lidos do site em tempo real — ao alterar uma cor no CSS, esta página reflete a mudança.
-          </p>
-          <button type="button" class="templates-btn-md" id="templates-download-md">
-            Baixar .md
-          </button>
-        </header>
-        <div id="tokens-root"></div>
-      </div>
+  <main>
+    <div id="templates-gate-wrap">
+      <section class="lead-form-shell lead-form-shell--full templates-gate-shell" aria-labelledby="templates-gate-title">
+        <div class="lead-form templates-gate-card">
+          <h1 id="templates-gate-title" class="templates-gate-heading">Acesso restrito</h1>
+          <p class="templates-gate-lead">Digite a senha para ver os templates.</p>
+          <form id="templates-gate-form" class="templates-gate-form" novalidate>
+            <label class="sr-only" for="templates-gate-password">Senha</label>
+            <input
+              class="lead-form__input"
+              type="password"
+              id="templates-gate-password"
+              name="password"
+              autocomplete="current-password"
+              placeholder="Senha"
+              required
+            />
+            <p id="templates-gate-error" class="lead-form__error templates-gate-error" hidden role="alert"></p>
+            <button type="submit" class="btn btn--primary templates-gate-submit" id="templates-gate-submit">Entrar</button>
+          </form>
+        </div>
+      </section>
     </div>
 
-    <footer class="templates-footer">
-      <div class="templates-footer__inner">
-        <div class="templates-footer__brand">Arven.</div>
-        <div class="templates-footer__cols">
-          <div class="templates-footer__col">
-            <h4>Empresa</h4>
-            <ul>
+    <div id="templates-app-wrap" hidden aria-hidden="true">
+      <section class="page-hero page-hero--compact">
+        <p class="page-hero__tag">Design system</p>
+        <h1 id="tokens-page-title" class="page-hero__headline" tabindex="-1">Design Tokens</h1>
+        <p class="page-hero__sub templates-tokens-intro">
+          Variáveis primitivas e semânticas do ecossistema Arven. Use copiar / # / Baixar .md como no fluxo de referência da equipa.
+        </p>
+        <div class="templates-toolbar">
+          <button type="button" class="btn btn--ghost" id="templates-download-md">Baixar .md</button>
+          <div class="templates-resources" aria-label="Recursos relacionados">
+            <span class="templates-resources__label">Documentação</span>
+            <a href="templates.html#tokens-page-title">Design Tokens</a>
+            <span class="templates-resources__sep" aria-hidden="true">·</span>
+            <a href="blog/">Blog</a>
+            <span class="templates-resources__sep" aria-hidden="true">·</span>
+            <a href="https://www.arvenoficial.com" target="_blank" rel="noopener noreferrer">Assinatura de E-mail</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="templates-tokens-wrap">
+        <nav id="templates-toc" class="templates-toc" aria-label="Nesta página"></nav>
+        <div id="tokens-root" class="templates-tokens-root"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="index.html" class="footer__logo">Arven</a>
+          <p class="footer__tagline">Assessoria de aquisição para negócios B2B.</p>
+        </div>
+        <div class="footer__cols">
+          <div class="footer__col">
+            <p class="footer__col-label" id="footer-nav-label">Navegação</p>
+            <ul class="footer__links" aria-labelledby="footer-nav-label">
               <li><a href="servicos.html">Serviços</a></li>
-              <li><a href="sobre.html">Quem Somos</a></li>
-              <li><a href="index.html#metodo">Impacto</a></li>
-              <li><a href="cases.html">Clientes</a></li>
-              <li><a href="cases.html">Cases de Sucesso</a></li>
+              <li><a href="cases.html">Resultados</a></li>
+              <li><a href="sobre.html">A Arven</a></li>
+              <li><a href="templates.html" aria-current="page">Login</a></li>
+              <li><a href="index.html#faq">FAQ</a></li>
+              <li><a href="qualificacao.html">Contato</a></li>
             </ul>
           </div>
-          <div class="templates-footer__col">
-            <h4>Recursos</h4>
-            <ul>
-              <li><a href="blog/">Blog</a></li>
+          <div class="footer__col">
+            <p class="footer__col-label" id="footer-contact-label">Contato</p>
+            <ul class="footer__links" aria-labelledby="footer-contact-label">
+              <li><a href="https://calendar.app.google/sySLt6Ry9kKkv5BQ6" target="_blank" rel="noopener noreferrer">Agendar call</a></li>
+              <li><a href="https://wa.me/5549999202126?text=Ol%C3%A1%21%20Vim%20pelo%20site%20institucional%20da%20Arven%20e%20gostaria%20de%20aten%C3%A7%C3%A3o." target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+              <li><a href="index.html#diagnostico">Diagnóstico gratuito</a></li>
             </ul>
           </div>
-          <div class="templates-footer__col">
-            <h4>Sobre</h4>
-            <ul>
-              <li><a href="index.html">Termos e Condições</a></li>
-              <li><a href="index.html">Política de Privacidade</a></li>
-              <li><a href="templates.html">Documentação</a></li>
+          <div class="footer__col">
+            <p class="footer__col-label" id="footer-social-label">Redes</p>
+            <ul class="footer__links" aria-labelledby="footer-social-label">
+              <li><a href="https://www.instagram.com/arvensolutions/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://www.linkedin.com/company/arvenaquisicao" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
             </ul>
           </div>
         </div>
       </div>
-      <p class="templates-footer__bottom">© 2026 Arven. Todos os direitos reservados.</p>
-    </footer>
-  </div>
+      <div class="footer__bottom">
+        <div class="footer__legal">
+          <p class="footer__legal-name">ARVEN CONSULTORIA TECNOLOGIA &amp; OUTSOURCING</p>
+          <p class="footer__legal-meta">
+            <span class="footer__cnpj">CNPJ 65.183.229/0001-54</span>
+            <span class="footer__legal-sep" aria-hidden="true">·</span>
+            <span class="footer__rights">&copy; 2026 Todos os direitos reservados</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script src="js/arven-tokens-data.js"></script>
   <script src="js/templates-page.js"></script>
