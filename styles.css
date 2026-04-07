@@ -1360,12 +1360,22 @@ main {
 }
 
 .lead-form {
+  position: relative;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--bg-surface);
   padding: 32px 40px 40px;
   width: 100%;
   max-width: none;
+}
+
+.lead-form__hp {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 /* .btn usa display:inline-flex e pode anular [hidden] em alguns navegadores */

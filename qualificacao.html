@@ -44,6 +44,10 @@
       <h2 id="lead-form-title" class="sr-only">Formulário de qualificação</h2>
 
       <form id="arven-lead-form" class="lead-form" novalidate>
+        <div class="lead-form__hp" aria-hidden="true">
+          <label for="lead-honeypot">Website</label>
+          <input type="text" id="lead-honeypot" name="_honeypot" tabindex="-1" autocomplete="off" />
+        </div>
         <div class="lead-form__meta">
           <div class="lead-form__progress" role="progressbar" aria-valuemin="1" aria-valuemax="9" aria-valuenow="1" aria-label="Progresso do formulário">
             <div class="lead-form__progress-fill"></div>

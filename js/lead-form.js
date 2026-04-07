@@ -135,6 +135,62 @@
     return d.innerHTML;
   }
 
+  function collectCampaign() {
+    var p = new URLSearchParams(window.location.search);
+    var keys = [
+      "utm_source",
+      "utm_medium",
+      "utm_campaign",
+      "utm_content",
+      "utm_term",
+      "utm_id",
+      "fbclid",
+      "gclid",
+      "msclkid",
+    ];
+    var o = {};
+    for (var i = 0; i < keys.length; i++) {
+      var k = keys[i];
+      var v = p.get(k);
+      if (v) o[k] = v;
+    }
+    return o;
+  }
+
+  function buildWebhookPayload() {
+    return {
+      _honeypot: getVal("_honeypot"),
+      source: "arven_site_qualificacao",
+      page: window.location.pathname + window.location.search,
+      referrer: document.referrer || "",
+      campaign: collectCampaign(),
+      lead: {
+        nome: getVal("nome"),
+        email: getVal("email"),
+        whatsapp: getVal("whatsapp"),
+        empresa: getVal("empresa"),
+        site: getVal("site") || null,
+        segmento: getVal("segmento"),
+        segmento_label: labelForSelect("segmento"),
+        faturamento: getVal("faturamento"),
+        faturamento_label: labelForSelect("faturamento"),
+        midia: getVal("midia"),
+        midia_label: labelForSelect("midia"),
+        midia_detalhe: getVal("midia_detalhe") || null,
+        desafio: getVal("desafio"),
+        expectativa: getVal("expectativa") || null,
+      },
+    };
+  }
+
+  function postLeadWebhook() {
+    return fetch("/api/lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(buildWebhookPayload()),
+    });
+  }
+
   function buildWhatsAppText() {
     var lines = [
       "*Novo lead — formulário site institucional Arven*",
@@ -188,12 +244,40 @@
       }
       var errEl = form.querySelector(".lead-form__error");
       if (errEl) errEl.hidden = true;
-      var text = buildWhatsAppText();
-      if (text.length > 1800) {
-        text = text.slice(0, 1770) + "\n… (mensagem truncada)";
-      }
-      var url = "https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(text);
-      window.open(url, "_blank", "noopener,noreferrer");
+
+      var prevLabel = btnSubmit.textContent;
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = "Enviando…";
+
+      postLeadWebhook()
+        .then(function (res) {
+          if (res.ok) return;
+          return res
+            .json()
+            .catch(function () {
+              return {};
+            })
+            .then(function (j) {
+              throw new Error((j && j.error) || "webhook_failed");
+            });
+        })
+        .catch(function () {
+          if (errEl) {
+            errEl.hidden = false;
+            errEl.textContent =
+              "Não foi possível registrar no sistema agora. O WhatsApp abrirá mesmo assim — o time recebe sua mensagem.";
+          }
+        })
+        .then(function () {
+          btnSubmit.disabled = false;
+          btnSubmit.textContent = prevLabel;
+          var text = buildWhatsAppText();
+          if (text.length > 1800) {
+            text = text.slice(0, 1770) + "\n… (mensagem truncada)";
+          }
+          var url = "https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(text);
+          window.open(url, "_blank", "noopener,noreferrer");
+        });
     });
   }
 
