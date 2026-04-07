@@ -1511,6 +1511,32 @@ main {
   margin-right: auto;
 }
 
+.lead-form--success-panel {
+  text-align: center;
+  padding: 48px 40px 52px;
+}
+
+.lead-form__success-title {
+  margin: 0 0 16px;
+  font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.4;
+  outline: none;
+}
+
+.lead-form__success-text {
+  margin: 0 auto 28px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 420px;
+}
+
+.lead-form__success-cta {
+  display: inline-flex;
+}
+
 .lead-form__review-intro {
   font-size: 14px;
   color: var(--text-secondary);

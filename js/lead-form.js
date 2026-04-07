@@ -1,12 +1,12 @@
 /**
- * Formulário multi-etapas: monta mensagem e abre WhatsApp.
- * Ajuste WA_PHONE se o número mudar.
+ * Formulário multi-etapas: envia lead via /api/lead (webhook) e exibe confirmação.
  */
 (function () {
-  var WA_PHONE = "5549999202126";
-
   var form = document.getElementById("arven-lead-form");
   if (!form) return;
+
+  var shell = form.closest(".lead-form-shell");
+  var successPanel = shell ? shell.querySelector("#lead-form-success") : document.getElementById("lead-form-success");
 
   var steps = form.querySelectorAll(".lead-form__step");
   var progress = form.querySelector(".lead-form__progress-fill");
@@ -18,6 +18,16 @@
 
   var idx = 0;
   var total = steps.length;
+
+  function showSuccessPanel() {
+    form.setAttribute("hidden", "");
+    form.setAttribute("aria-hidden", "true");
+    if (successPanel) {
+      successPanel.hidden = false;
+      var t = document.getElementById("lead-form-success-title");
+      if (t) t.focus({ preventScroll: true });
+    }
+  }
 
   function showStep(i) {
     idx = Math.max(0, Math.min(i, total - 1));
@@ -191,27 +201,6 @@
     });
   }
 
-  function buildWhatsAppText() {
-    var lines = [
-      "*Novo lead — formulário site institucional Arven*",
-      "",
-      "*Nome:* " + getVal("nome"),
-      "*E-mail:* " + getVal("email"),
-      "*WhatsApp:* " + getVal("whatsapp"),
-      "*Empresa:* " + getVal("empresa"),
-      "*Site:* " + (getVal("site") || "não informado"),
-      "*Segmento:* " + labelForSelect("segmento"),
-      "*Faturamento mensal (faixa):* " + labelForSelect("faturamento"),
-      "*Mídia paga hoje:* " + labelForSelect("midia"),
-      "*Detalhe / volume de mídia:* " + (getVal("midia_detalhe") || "—"),
-      "*Maior desafio hoje:* " + getVal("desafio"),
-      "*Expectativa com a Arven:* " + (getVal("expectativa") || "—"),
-      "",
-      "_Lead enviou pelo formulário no site._",
-    ];
-    return lines.join("\n");
-  }
-
   if (btnNext) {
     btnNext.addEventListener("click", function () {
       if (!validateStep(idx)) {
@@ -247,6 +236,7 @@
 
       var prevLabel = btnSubmit.textContent;
       btnSubmit.disabled = true;
+      if (btnPrev) btnPrev.disabled = true;
       btnSubmit.textContent = "Enviando…";
 
       postLeadWebhook()
@@ -261,22 +251,18 @@
               throw new Error((j && j.error) || "webhook_failed");
             });
         })
+        .then(function () {
+          showSuccessPanel();
+        })
         .catch(function () {
+          btnSubmit.disabled = false;
+          if (btnPrev) btnPrev.disabled = false;
+          btnSubmit.textContent = prevLabel;
           if (errEl) {
             errEl.hidden = false;
             errEl.textContent =
-              "Não foi possível registrar no sistema agora. O WhatsApp abrirá mesmo assim — o time recebe sua mensagem.";
+              "Não foi possível enviar agora. Verifique sua conexão e tente de novo.";
           }
-        })
-        .then(function () {
-          btnSubmit.disabled = false;
-          btnSubmit.textContent = prevLabel;
-          var text = buildWhatsAppText();
-          if (text.length > 1800) {
-            text = text.slice(0, 1770) + "\n… (mensagem truncada)";
-          }
-          var url = "https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(text);
-          window.open(url, "_blank", "noopener,noreferrer");
         });
     });
   }
@@ -285,6 +271,7 @@
     if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
       e.preventDefault();
       if (idx < total - 1 && btnNext && !btnNext.hidden) btnNext.click();
+      else if (idx === total - 1 && btnSubmit && !btnSubmit.hidden && !btnSubmit.disabled) btnSubmit.click();
     }
   });
 

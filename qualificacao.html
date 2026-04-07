@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Qualificação — Arven</title>
-  <meta name="description" content="Formulário para entendermos o momento do seu negócio. No final, você envia as respostas pelo WhatsApp para o time da Arven." />
+  <meta name="description" content="Formulário para entendermos o momento do seu negócio. Envie suas respostas e nossa equipe retorna em breve." />
   <meta name="theme-color" content="#0a0a0a" />
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
@@ -128,16 +128,31 @@
         </div>
 
         <div class="lead-form__step" hidden data-step="revisao">
-          <p class="lead-form__review-intro">Confira se está tudo certo. Ao enviar, o WhatsApp abrirá com a mensagem pronta — é só confirmar o envio no app.</p>
+          <p class="lead-form__review-intro">Confira se está tudo certo. Ao clicar em confirmar envio, suas respostas serão registradas com segurança.</p>
           <dl class="lead-form__review" data-lead-review></dl>
         </div>
 
         <div class="lead-form__actions">
           <button type="button" class="btn btn--ghost" data-lead-action="prev" hidden>Voltar</button>
           <button type="button" class="btn btn--primary" data-lead-action="next">Continuar</button>
-          <button type="button" class="btn btn--primary" data-lead-action="submit" hidden>Enviar pelo WhatsApp</button>
+          <button type="button" class="btn btn--primary" data-lead-action="submit" hidden>Confirmar envio</button>
         </div>
       </form>
+
+      <div
+        id="lead-form-success"
+        class="lead-form lead-form--success-panel"
+        hidden
+        role="status"
+        aria-live="polite"
+        aria-labelledby="lead-form-success-title"
+      >
+        <p id="lead-form-success-title" class="lead-form__success-title" tabindex="-1">
+          Sua resposta ao formulário foi enviada com sucesso!!
+        </p>
+        <p class="lead-form__success-text">Nossa equipe retornará em breve pelo e-mail ou WhatsApp informados.</p>
+        <a href="index.html" class="btn btn--primary lead-form__success-cta">Voltar ao início</a>
+      </div>
     </section>
 
   </main>
