@@ -1,0 +1,14 @@
+{
+  "name": "site-institucional-arven",
+  "private": true,
+  "description": "Site institucional estático (HTML/CSS/JS)",
+  "scripts": {
+    "vendor:gsap": "node -e \"require('fs').mkdirSync('js/vendor',{recursive:true}); require('fs').copyFileSync(require.resolve('gsap/dist/gsap.min.js'), 'js/vendor/gsap.min.js')\""
+  },
+  "dependencies": {
+    "@astrojs/vercel": "^10.0.4",
+    "@sanity/client": "^7.20.0",
+    "astro": "^6.1.4",
+    "gsap": "^3.14.2"
+  }
+}
