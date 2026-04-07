@@ -17,7 +17,9 @@ const { title, description, currentPage } = Astro.props;
   </head>
   <body>
     <Nav currentPage={currentPage} />
-    <slot />
+    <main>
+      <slot />
+    </main>
     <Footer />
   </body>
 </html>
