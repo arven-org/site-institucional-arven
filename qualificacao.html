@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qualificação — Arven</title>
+  <meta name="description" content="Formulário para entendermos o momento do seu negócio. No final, você envia as respostas pelo WhatsApp para o time da Arven." />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">Arven</a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="cases.html" class="nav__link--gradient">Resultados</a></li>
+        <li><a href="sobre.html">A Arven</a></li>
+        <li><a href="blog/">Blog</a></li>
+        <li><a href="qualificacao.html" aria-current="page">Contato</a></li>
+      </ul>
+      <a href="https://calendar.app.google/sySLt6Ry9kKkv5BQ6" class="nav__cta" target="_blank" rel="noopener noreferrer">Agendar call</a>
+      <button type="button" class="nav__toggle" aria-controls="nav-links" aria-expanded="false" aria-label="Abrir menu">
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="page-hero page-hero--compact page-hero--qualificacao">
+      <p class="page-hero__tag">Contato</p>
+      <h1 class="page-hero__headline">Preencha o formulário para entendermos o momento do seu negócio de forma personalizada.</h1>
+    </section>
+
+    <section class="lead-form-shell lead-form-shell--full" aria-labelledby="lead-form-title">
+      <h2 id="lead-form-title" class="sr-only">Formulário de qualificação</h2>
+
+      <form id="arven-lead-form" class="lead-form" novalidate>
+        <div class="lead-form__meta">
+          <div class="lead-form__progress" role="progressbar" aria-valuemin="1" aria-valuemax="9" aria-valuenow="1" aria-label="Progresso do formulário">
+            <div class="lead-form__progress-fill"></div>
+          </div>
+          <p class="lead-form__step-label" data-lead-step-label>Passo 1 de 9</p>
+        </div>
+
+        <p class="lead-form__error" hidden role="alert">Preencha os campos obrigatórios para continuar.</p>
+
+        <div class="lead-form__step lead-form__step--intro" data-step="intro">
+          <p class="sr-only">Início do formulário. Use Continuar para a primeira pergunta.</p>
+        </div>
+
+        <div class="lead-form__step" hidden data-step="nome">
+          <label class="lead-form__label" for="lead-nome">Como podemos te chamar?</label>
+          <input class="lead-form__input" id="lead-nome" name="nome" type="text" autocomplete="name" required placeholder="Nome completo" />
+        </div>
+
+        <div class="lead-form__step" hidden data-step="contato">
+          <label class="lead-form__label" for="lead-email">E-mail profissional</label>
+          <input class="lead-form__input" id="lead-email" name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com.br" />
+          <label class="lead-form__label lead-form__label--spaced" for="lead-wa">WhatsApp (com DDD)</label>
+          <input class="lead-form__input" id="lead-wa" name="whatsapp" type="tel" autocomplete="tel" required placeholder="(49) 99999-9999" inputmode="tel" />
+        </div>
+
+        <div class="lead-form__step" hidden data-step="empresa">
+          <label class="lead-form__label" for="lead-empresa">Nome da empresa ou projeto</label>
+          <input class="lead-form__input" id="lead-empresa" name="empresa" type="text" autocomplete="organization" required placeholder="Ex.: Arven, holding, produto…" />
+          <label class="lead-form__label lead-form__label--spaced" for="lead-site">Site ou Instagram (opcional)</label>
+          <input class="lead-form__input" id="lead-site" name="site" type="text" placeholder="https:// ou @perfil" />
+        </div>
+
+        <div class="lead-form__step" hidden data-step="segmento">
+          <label class="lead-form__label" for="lead-segmento">Qual descreve melhor seu negócio?</label>
+          <select class="lead-form__select" id="lead-segmento" name="segmento" required>
+            <option value="" disabled selected>Selecione…</option>
+            <option value="consultoria">Consultoria / assessoria B2B</option>
+            <option value="mentoria">Mentoria ou infoproduto B2B</option>
+            <option value="advocacia">Escritório / serviços jurídicos</option>
+            <option value="educacao">Educação corporativa ou ensino B2B</option>
+            <option value="saas">SaaS ou tech B2B</option>
+            <option value="servicos">Outros serviços B2B</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+
+        <div class="lead-form__step" hidden data-step="faturamento">
+          <label class="lead-form__label" for="lead-fat">Faturamento mensal médio (ordem de grandeza)</label>
+          <select class="lead-form__select" id="lead-fat" name="faturamento" required>
+            <option value="" disabled selected>Selecione…</option>
+            <option value="ate_100">Até R$ 100 mil</option>
+            <option value="100_500">R$ 100 mil a R$ 500 mil</option>
+            <option value="500_1m">R$ 500 mil a R$ 1 milhão</option>
+            <option value="1m_3m">R$ 1 milhão a R$ 3 milhões</option>
+            <option value="acima_3m">Acima de R$ 3 milhões</option>
+            <option value="prefiro_nao">Prefiro não informar agora</option>
+          </select>
+        </div>
+
+        <div class="lead-form__step" hidden data-step="midia">
+          <label class="lead-form__label" for="lead-midia">Hoje vocês investem em mídia paga?</label>
+          <select class="lead-form__select" id="lead-midia" name="midia" required>
+            <option value="" disabled selected>Selecione…</option>
+            <option value="sim_ativo">Sim, com orçamento ativo recorrente</option>
+            <option value="sim_esporadico">Sim, mas de forma esporádica</option>
+            <option value="nao">Ainda não investimos</option>
+            <option value="nao_sei">Não sei dizer / time terceirizado</option>
+          </select>
+          <label class="lead-form__label lead-form__label--spaced" for="lead-midia-detalhe">Valor médio mensal em mídia ou contexto (opcional)</label>
+          <textarea class="lead-form__textarea lead-form__textarea--short" id="lead-midia-detalhe" name="midia_detalhe" rows="2" placeholder="Ex.: ~R$ 30k/mês em Meta + Google"></textarea>
+        </div>
+
+        <div class="lead-form__step" hidden data-step="desafio">
+          <label class="lead-form__label" for="lead-desafio">Qual é o maior desafio da operação de aquisição hoje?</label>
+          <textarea class="lead-form__textarea" id="lead-desafio" name="desafio" rows="4" required placeholder="Ex.: CAC alto, lead ruim, marketing e vendas desalinhados…"></textarea>
+          <label class="lead-form__label lead-form__label--spaced" for="lead-expectativa">O que você espera da Arven neste momento? (opcional)</label>
+          <textarea class="lead-form__textarea lead-form__textarea--short" id="lead-expectativa" name="expectativa" rows="2" placeholder="Ex.: diagnóstico, operar mídia, funil inteiro…"></textarea>
+        </div>
+
+        <div class="lead-form__step" hidden data-step="revisao">
+          <p class="lead-form__review-intro">Confira se está tudo certo. Ao enviar, o WhatsApp abrirá com a mensagem pronta — é só confirmar o envio no app.</p>
+          <dl class="lead-form__review" data-lead-review></dl>
+        </div>
+
+        <div class="lead-form__actions">
+          <button type="button" class="btn btn--ghost" data-lead-action="prev" hidden>Voltar</button>
+          <button type="button" class="btn btn--primary" data-lead-action="next">Continuar</button>
+          <button type="button" class="btn btn--primary" data-lead-action="submit" hidden>Enviar pelo WhatsApp</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="index.html" class="footer__logo">Arven</a>
+          <p class="footer__tagline">Assessoria de aquisição para negócios B2B.</p>
+        </div>
+        <div class="footer__cols">
+          <div class="footer__col">
+            <p class="footer__col-label" id="footer-nav-label">Navegação</p>
+            <ul class="footer__links" aria-labelledby="footer-nav-label">
+              <li><a href="servicos.html">Serviços</a></li>
+              <li><a href="cases.html">Resultados</a></li>
+              <li><a href="sobre.html">A Arven</a></li>
+              <li><a href="blog/">Blog</a></li>
+              <li><a href="index.html#faq">FAQ</a></li>
+              <li><a href="qualificacao.html" aria-current="page">Contato</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-label" id="footer-contact-label">Contato</p>
+            <ul class="footer__links" aria-labelledby="footer-contact-label">
+              <li><a href="https://calendar.app.google/sySLt6Ry9kKkv5BQ6" target="_blank" rel="noopener noreferrer">Agendar call</a></li>
+              <li><a href="https://wa.me/5549999202126?text=Ol%C3%A1%21%20Vim%20pelo%20site%20institucional%20da%20Arven%20e%20gostaria%20de%20aten%C3%A7%C3%A3o." target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+              <li><a href="index.html#diagnostico">Diagnóstico gratuito</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <p class="footer__col-label" id="footer-social-label">Redes</p>
+            <ul class="footer__links" aria-labelledby="footer-social-label">
+              <li><a href="https://www.instagram.com/arvensolutions/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://www.linkedin.com/company/arvenaquisicao" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div class="footer__legal">
+          <p class="footer__legal-name">ARVEN CONSULTORIA TECNOLOGIA &amp; OUTSOURCING</p>
+          <p class="footer__legal-meta">
+            <span class="footer__cnpj">CNPJ 65.183.229/0001-54</span>
+            <span class="footer__legal-sep" aria-hidden="true">·</span>
+            <span class="footer__rights">&copy; 2026 Todos os direitos reservados</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/nav.js" defer></script>
+  <script src="js/lead-form.js" defer></script>
+</body>
+</html>
