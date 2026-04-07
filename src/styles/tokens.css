@@ -1,0 +1,35 @@
+/* ============================================================
+   ARVEN — Design Tokens
+   Fonte única de verdade do Design System.
+   ============================================================ */
+
+:root {
+  --bg:           #0a0a0a;
+  --bg-surface:   #111111;
+  --bg-raised:    #161616;
+  --border:       rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.15);
+
+  --text-primary:   #f0ede8;
+  --text-secondary: #8a8680;
+  --text-tertiary:  #4a4845;
+
+  --accent:       #e8e0d0;
+  --accent-dim:   rgba(232, 224, 208, 0.06);
+
+  --green:        #1a3a2a;
+  --green-text:   #4ade80;
+
+  --blue:         #0f1f3a;
+  --blue-text:    #60a5fa;
+
+  --font-sans: 'Geist', -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --max-w: 1320px;
+  --section-gap: 10px;
+}
