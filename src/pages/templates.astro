@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Design Tokens — Arven"
+  description="Tokens de design da marca Arven. Acesso restrito a parceiros e equipa."
+  currentPage="templates"
+>
+  <div id="templates-gate-wrap">
+    <section class="lead-form-shell lead-form-shell--full templates-gate-shell" aria-labelledby="templates-gate-title">
+      <div class="lead-form templates-gate-card">
+        <h1 id="templates-gate-title" class="templates-gate-heading">Acesso restrito</h1>
+        <p class="templates-gate-lead">Use seu e-mail <strong>@arvenoficial.com</strong> (Google Workspace da Arven) e a senha de acesso.</p>
+        <form id="templates-gate-form" class="templates-gate-form" novalidate>
+          <label class="lead-form__label" for="templates-gate-email">E-mail corporativo</label>
+          <input
+            class="lead-form__input"
+            type="email"
+            id="templates-gate-email"
+            name="email"
+            autocomplete="username"
+            inputmode="email"
+            required
+            placeholder="voce@arvenoficial.com"
+          />
+          <label class="lead-form__label lead-form__label--spaced" for="templates-gate-password">Senha</label>
+          <input
+            class="lead-form__input"
+            type="password"
+            id="templates-gate-password"
+            name="password"
+            autocomplete="current-password"
+            placeholder="Senha"
+            required
+          />
+          <p id="templates-gate-error" class="lead-form__error templates-gate-error" hidden role="alert"></p>
+          <button type="submit" class="btn btn--primary templates-gate-submit" id="templates-gate-submit">Entrar</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <div id="templates-app-wrap" class="templates-app-wrap" hidden aria-hidden="true">
+    <section class="page-hero page-hero--compact">
+      <p class="page-hero__tag">Design system</p>
+      <h1 id="tokens-page-title" class="page-hero__headline" tabindex="-1">Design Tokens</h1>
+      <p class="page-hero__sub templates-tokens-intro">
+        Variáveis primitivas e semânticas do ecossistema Arven. Use copiar / # / Baixar .md como no fluxo de referência da equipa.
+      </p>
+      <div class="templates-toolbar">
+        <button type="button" class="btn btn--ghost" id="templates-download-md">Baixar .md</button>
+        <div class="templates-resources" aria-label="Recursos relacionados">
+          <span class="templates-resources__label">Documentação</span>
+          <a href="/templates#tokens-page-title">Design Tokens</a>
+          <span class="templates-resources__sep" aria-hidden="true">·</span>
+          <a href="blog/">Blog</a>
+          <span class="templates-resources__sep" aria-hidden="true">·</span>
+          <a href="https://www.arvenoficial.com" target="_blank" rel="noopener noreferrer">Assinatura de E-mail</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="templates-tokens-wrap">
+      <nav id="templates-toc" class="templates-toc" aria-label="Nesta página"></nav>
+      <div id="tokens-root" class="templates-tokens-root"></div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  import '../scripts/templates-page.ts';
+</script>
