@@ -1,5 +1,7 @@
 # Site institucional Arven
 
+Repositório: **[github.com/arven-org/site-institucional-arven](https://github.com/arven-org/site-institucional-arven)**
+
 Site estático (HTML, CSS, JS). Deploy recomendado: **Vercel** + domínio **arvenoficial.com**.
 
 ## Requisitos no teu Mac
@@ -12,20 +14,19 @@ brew install git-lfs
 git lfs install
 ```
 
-## Subir para o GitHub
-
-Na pasta deste projeto (`ARVEN/site`):
+## Clonar / clone
 
 ```bash
-cd /caminho/para/ARVEN/site
+git clone https://github.com/arven-org/site-institucional-arven.git
+cd site-institucional-arven
+git lfs pull
+```
 
+## Primeiro push (referência)
+
+```bash
 git lfs install
-git init
-git add .
-git commit -m "chore: site Arven — deploy Vercel + Lighthouse"
-
-# Cria um repositório vazio no GitHub (ex.: arven-site), depois:
-git remote add origin https://github.com/SEU-USUARIO/SEU-REPO.git
+git remote add origin https://github.com/arven-org/site-institucional-arven.git
 git branch -M main
 git push -u origin main
 ```
@@ -38,7 +39,9 @@ git lfs migrate import --include="*.mp4"
 
 ## Vercel
 
-1. [vercel.com](https://vercel.com) → **Add New** → **Project** → importar o repositório.
+Se o projeto na Vercel ainda apontar para outro repo GitHub, em **Settings → Git** reconecta a **[site-institucional-arven](https://github.com/arven-org/site-institucional-arven)** (ou importa de novo este repositório).
+
+1. [vercel.com](https://vercel.com) → **Add New** → **Project** → importar **site-institucional-arven**.
 2. **Framework Preset:** Other (site estático).
 3. **Root Directory:** `.` (raiz do repositório = esta pasta).
 4. **Build Command:** vazio.
