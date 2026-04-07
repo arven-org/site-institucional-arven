@@ -39,9 +39,20 @@
       <section class="lead-form-shell lead-form-shell--full templates-gate-shell" aria-labelledby="templates-gate-title">
         <div class="lead-form templates-gate-card">
           <h1 id="templates-gate-title" class="templates-gate-heading">Acesso restrito</h1>
-          <p class="templates-gate-lead">Digite a senha para ver os templates.</p>
+          <p class="templates-gate-lead">Use seu e-mail <strong>@arvenoficial.com</strong> (Google Workspace da Arven) e a senha de acesso.</p>
           <form id="templates-gate-form" class="templates-gate-form" novalidate>
-            <label class="sr-only" for="templates-gate-password">Senha</label>
+            <label class="lead-form__label" for="templates-gate-email">E-mail corporativo</label>
+            <input
+              class="lead-form__input"
+              type="email"
+              id="templates-gate-email"
+              name="email"
+              autocomplete="username"
+              inputmode="email"
+              required
+              placeholder="voce@arvenoficial.com"
+            />
+            <label class="lead-form__label lead-form__label--spaced" for="templates-gate-password">Senha</label>
             <input
               class="lead-form__input"
               type="password"

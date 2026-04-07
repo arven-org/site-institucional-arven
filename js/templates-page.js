@@ -10,6 +10,7 @@
   var gateWrap;
   var appWrap;
   var form;
+  var emailInput;
   var input;
   var errEl;
   var submitBtn;
@@ -39,6 +40,24 @@
   }
 
   var tokenActionsBound = false;
+
+  var ALLOWED_EMAIL_DOMAIN = "arvenoficial.com";
+
+  function normalizeArvenEmail(raw) {
+    var e = String(raw || "")
+      .trim()
+      .replace(/\s+/g, "");
+    if (!e) return null;
+    e = e.toLowerCase();
+    var at = e.lastIndexOf("@");
+    if (at < 1) return null;
+    var local = e.slice(0, at);
+    var domain = e.slice(at + 1);
+    if (!local || local.indexOf("@") !== -1) return null;
+    if (domain !== ALLOWED_EMAIL_DOMAIN) return null;
+    if (!/^[^\s@]+$/.test(local)) return null;
+    return local + "@" + domain;
+  }
 
   function sha256Hex(str) {
     if (!window.crypto || !crypto.subtle) return Promise.reject(new Error("no_crypto"));
@@ -264,6 +283,7 @@
     gateWrap = document.getElementById("templates-gate-wrap");
     appWrap = document.getElementById("templates-app-wrap");
     form = document.getElementById("templates-gate-form");
+    emailInput = document.getElementById("templates-gate-email");
     input = document.getElementById("templates-gate-password");
     errEl = document.getElementById("templates-gate-error");
     submitBtn = document.getElementById("templates-gate-submit");
@@ -275,10 +295,15 @@
       sessionStorage.removeItem("arven_templates_session_v1");
     } catch (e) {}
 
-    if (form && input) {
+    if (form && emailInput && input) {
       form.addEventListener("submit", function (e) {
         e.preventDefault();
         hideError();
+        var email = normalizeArvenEmail(emailInput.value);
+        if (!email) {
+          showError("Use um e-mail no domínio @" + ALLOWED_EMAIL_DOMAIN + " (conta Google da Arven).");
+          return;
+        }
         var raw = (input.value || "").trim();
         if (!raw) {
           showError("Digite a senha.");
@@ -295,10 +320,11 @@
         sha256Hex(raw)
           .then(function (hex) {
             if (hex === HASH_HEX) {
+              emailInput.value = "";
               input.value = "";
               showApp();
             } else {
-              showError("Senha incorreta.");
+              showError("E-mail ou senha incorretos.");
             }
           })
           .catch(function () {
