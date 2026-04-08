@@ -171,6 +171,20 @@ function isTouchLikeDevice(): boolean {
     updateTime();
     updateProgress();
     updateBuffer();
+
+    /* Force first-frame decode so the browser shows the HLG-rendered
+       frame instead of the static poster JPEG (which lacks tone mapping). */
+    if (video.poster) {
+      video.preload = "auto";
+      video.currentTime = 0.001;
+    }
+  });
+
+  video.addEventListener("seeked", function dropPoster() {
+    if (video.poster && video.readyState >= 2) {
+      video.removeAttribute("poster");
+      video.removeEventListener("seeked", dropPoster);
+    }
   });
 
   video.addEventListener("loadstart", function () {
