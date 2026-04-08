@@ -12,6 +12,7 @@
   var elProgress = root.querySelector("[data-vsl-progress]") as HTMLElement | null;
   var elBuffer = root.querySelector("[data-vsl-buffer]") as HTMLElement | null;
   var viewport = root.querySelector(".statement-video__viewport");
+  var overlay = root.querySelector("[data-vsl-overlay]") as HTMLElement | null;
 
   var maxWatched = 0;
   var correcting = false;
@@ -78,6 +79,12 @@
     btnPlay.classList.toggle("is-playing", playing);
   }
 
+  function syncOverlay() {
+    if (!overlay) return;
+    var playing = !video!.paused && !video!.ended;
+    overlay.classList.toggle("is-hidden", playing);
+  }
+
   video.addEventListener("timeupdate", function () {
     if (correcting || video!.seeking) return;
     var t = video!.currentTime;
@@ -112,10 +119,11 @@
     setBuffering(false);
   });
 
-  video.addEventListener("play", syncPlayButton);
-  video.addEventListener("pause", syncPlayButton);
+  video.addEventListener("play", function () { syncPlayButton(); syncOverlay(); });
+  video.addEventListener("pause", function () { syncPlayButton(); syncOverlay(); });
   video.addEventListener("ended", function () {
     syncPlayButton();
+    syncOverlay();
     updateTime();
     updateProgress();
   });
@@ -130,6 +138,12 @@
     });
   }
 
+  if (overlay) {
+    overlay.addEventListener("click", function () {
+      video!.play().catch(function () {});
+    });
+  }
+
   video.addEventListener("keydown", function (e) {
     if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
       e.preventDefault();
@@ -139,6 +153,7 @@
   video.setAttribute("tabindex", "-1");
 
   syncPlayButton();
+  syncOverlay();
   updateTime();
   updateProgress();
 })();

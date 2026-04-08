@@ -221,13 +221,18 @@ try {
                 <source src="/assets/video/vsl-arven.mp4" type="video/mp4" />
               </video>
               <div class="statement-video__buffering" aria-hidden="true"></div>
+              <div class="vsl-overlay" data-vsl-overlay aria-hidden="true">
+                <div class="vsl-overlay__ring">
+                  <div class="vsl-overlay__btn">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="statement-video__chrome">
               <div class="statement-video__tracks">
-                <div class="statement-video__buffer-track" title="Carregado">
+                <div class="statement-video__track">
                   <div class="statement-video__buffer-fill" data-vsl-buffer></div>
-                </div>
-                <div class="statement-video__progress-track" title="Progresso">
                   <div class="statement-video__progress-fill" data-vsl-progress></div>
                 </div>
               </div>
