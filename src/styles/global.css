@@ -717,17 +717,42 @@ main {
   color: var(--ml-muted);
 }
 
-/* Botão escuro na dobra clara (evita .btn--primary com cores do tema escuro) */
+/* Light-background button variants */
+.btn--light-primary,
 .btn--method-light {
   background: #0a0a0a;
   color: #f5f3ef;
   border-color: #0a0a0a;
 }
 
+.btn--light-primary:hover,
 .btn--method-light:hover {
   background: #262624;
   border-color: #262624;
   color: #fafaf8;
+}
+
+.btn--light-secondary {
+  background: transparent;
+  color: #0a0a0a;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn--light-secondary:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.35);
+  color: #0a0a0a;
+}
+
+.btn--light-ghost {
+  background: transparent;
+  color: rgba(0, 0, 0, 0.55);
+  border-color: transparent;
+}
+
+.btn--light-ghost:hover {
+  color: #0a0a0a;
+  background: rgba(0, 0, 0, 0.04);
 }
 
 /* ============================================================
