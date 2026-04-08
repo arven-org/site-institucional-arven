@@ -89,6 +89,19 @@ a { color: inherit; text-decoration: none; }
 .page-hero__headline { animation: fadeUp 0.5s ease 0.05s both; }
 .page-hero__sub      { animation: fadeUp 0.5s ease 0.1s both; }
 
+/* Scroll reveal — initial hidden state (GSAP controls y via JS) */
+[data-reveal],
+[data-reveal-stagger] > [data-reveal-item] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal-stagger] > [data-reveal-item] {
+    opacity: 1 !important;
+  }
+}
+
 /* ============================================================
    NAVEGAÇÃO
    ============================================================ */
