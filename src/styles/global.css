@@ -889,10 +889,16 @@ main {
 
 .statement-video__title {
   margin: 0 0 14px;
-  font-size: 21px;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.statement-video__title--dim {
+  color: var(--text-tertiary);
   font-weight: 500;
-  line-height: 1.38;
-  letter-spacing: -0.35px;
   color: var(--text-primary);
   max-width: 26em;
 }
@@ -1208,7 +1214,7 @@ main {
   }
 
   .statement-video__title {
-    font-size: 16px;
+    font-size: 20px;
     margin-bottom: 8px;
   }
 
