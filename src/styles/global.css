@@ -967,9 +967,29 @@ main {
 }
 
 .statement-video__chrome {
-  padding: 10px 12px 12px;
-  background: var(--bg-raised);
-  border-top: 1px solid var(--border);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px 12px 12px;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  border-top: none;
+}
+
+.statement-video__frame:hover .statement-video__chrome {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  /* touch devices: always visible */
+  .statement-video__chrome {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
 .statement-video__tracks {
