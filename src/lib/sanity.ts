@@ -51,7 +51,7 @@ export async function getAllPosts(): Promise<SanityPost[]> {
 
 export async function getRecentPosts(limit = 3): Promise<SanityPost[]> {
   return sanity.fetch(
-    `*[_type == "post"] | order(publishedAt desc) [0...$limit] {
+    `*[_type == "post"] | order(publishedAt desc) [0..$limit] {
       _id,
       title,
       slug,
@@ -59,7 +59,7 @@ export async function getRecentPosts(limit = 3): Promise<SanityPost[]> {
       excerpt,
       image { alt, "url": asset->url }
     }`,
-    { limit: limit - 1 } // GROQ [0...$limit] is inclusive, so limit-1 gives exactly `limit` items
+    { limit: limit - 1 } // GROQ [0..$limit] is inclusive; limit-1 gives exactly `limit` items
   );
 }
 

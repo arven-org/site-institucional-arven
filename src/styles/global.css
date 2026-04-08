@@ -2831,7 +2831,7 @@ body.templates-page.templates-page--unlocked #templates-app-wrap {
 .blog-post {
   max-width: 800px;
   margin: 0 auto;
-  padding: 40px 0 80px;
+  padding: 40px 24px 80px;
 }
 
 .blog-post__breadcrumb {
@@ -3045,7 +3045,7 @@ body.templates-page.templates-page--unlocked #templates-app-wrap {
 
 @media (max-width: 600px) {
   .blog-post {
-    padding: 24px 0 48px;
+    padding: 24px 16px 48px;
   }
 
   .blog-post__nav {
