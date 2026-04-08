@@ -35,7 +35,7 @@ import Base from '../layouts/Base.astro';
     <div class="cases-list">
 
       <!-- QuartaVia -->
-      <section class="case-detail" id="case-quartavia">
+      <section class="case-detail" id="case-quartavia" data-reveal>
         <div class="case-detail__header">
           <div class="case-detail__heading">
             <img class="case-detail__logo" src="/assets/clients/quartavia-logo.svg" alt="QuartaVia" width="200" height="42" loading="lazy" decoding="async" />
@@ -92,7 +92,7 @@ import Base from '../layouts/Base.astro';
       </section>
 
       <!-- EAG -->
-      <section class="case-detail" id="case-eag">
+      <section class="case-detail" id="case-eag" data-reveal>
         <div class="case-detail__header">
           <div class="case-detail__client-row">
             <span class="case-detail__client">EAG Educação — Marcelo Germano</span>
@@ -146,7 +146,7 @@ import Base from '../layouts/Base.astro';
       </section>
 
       <!-- CSC -->
-      <section class="case-detail" id="case-csc">
+      <section class="case-detail" id="case-csc" data-reveal>
         <div class="case-detail__header">
           <div class="case-detail__client-row">
             <span class="case-detail__client">CSC Advogados — Daniel Cheida</span>
@@ -200,7 +200,7 @@ import Base from '../layouts/Base.astro';
       </section>
 
       <!-- APAE Brasil -->
-      <section class="case-detail" id="case-apae">
+      <section class="case-detail" id="case-apae" data-reveal>
         <div class="case-detail__header">
           <div class="case-detail__client-row">
             <span class="case-detail__client">APAE Brasil</span>
@@ -252,7 +252,7 @@ import Base from '../layouts/Base.astro';
       </section>
 
       <!-- Diego Faustino -->
-      <section class="case-detail" id="case-diego-faustino">
+      <section class="case-detail" id="case-diego-faustino" data-reveal>
         <div class="case-detail__header">
           <div class="case-detail__client-row">
             <span class="case-detail__client">Diego Faustino</span>
@@ -315,7 +315,7 @@ import Base from '../layouts/Base.astro';
     </div>
 
     <!-- CTA FINAL -->
-    <section class="cta-final">
+    <section class="cta-final" data-reveal>
       <div class="cta-final__inner">
         <h2 class="cta-final__headline">Quer resultados como esses<br />na sua operação?</h2>
         <p class="cta-final__sub">
@@ -329,23 +329,27 @@ import Base from '../layouts/Base.astro';
 </Base>
 
 <script>
+  import '../scripts/scroll-reveal.ts';
+</script>
+
+<script>
   import { init } from '../scripts/icon-cloud.ts';
 
   const canvas = document.getElementById('icon-cloud-canvas') as HTMLCanvasElement | null;
   if (canvas) {
     const urls = [
-      "https://cdn.jsdelivr.net/npm/simple-icons@14/icons/meta.svg",
-      "https://cdn.jsdelivr.net/npm/simple-icons@14/icons/hubspot.svg",
-      "https://cdn.jsdelivr.net/npm/simple-icons@14/icons/googledrive.svg",
-      "https://cdn.jsdelivr.net/npm/simple-icons@14/icons/whatsapp.svg",
-      "https://cdn.jsdelivr.net/npm/simple-icons@14/icons/googlegemini.svg",
-      "https://cdn.jsdelivr.net/npm/simple-icons@14/icons/anthropic.svg",
-      "https://cdn.jsdelivr.net/npm/simple-icons@14/icons/openai.svg",
-      "https://cdn.simpleicons.org/cursor/ffffff",
+      "/assets/icons/meta.svg",
+      "/assets/icons/hubspot.svg",
+      "/assets/icons/googledrive.svg",
+      "/assets/icons/whatsapp.svg",
+      "/assets/icons/googlegemini.svg",
+      "/assets/icons/anthropic.svg",
+      "/assets/icons/openai.svg",
+      "/assets/icons/cursor.svg",
       "/assets/icon-cloud/kommo.svg",
       "/assets/icon-cloud/pipedrive.svg",
-      "https://cdn.jsdelivr.net/npm/simple-icons@14/icons/google.svg",
-      "https://cdn.jsdelivr.net/npm/simple-icons@14/icons/x.svg"
+      "/assets/icons/google.svg",
+      "/assets/icons/x.svg"
     ];
     init(canvas, urls);
   }
