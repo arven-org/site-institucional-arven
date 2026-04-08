@@ -16,6 +16,9 @@
     const suffix = el.dataset.tickerSuffix ?? '';
     if (isNaN(target)) return;
 
+    // Reset to 0 for animation (SSR renders the real value for crawlers)
+    el.textContent = '0';
+
     if (reduced) {
       el.textContent = fmt(target, decimals) + suffix;
       return;
