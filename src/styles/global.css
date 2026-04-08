@@ -419,22 +419,32 @@ main {
 .hero-funnel__step:nth-child(1) {
   --funnel-w: 100%;
   animation-delay: 1.12s;
+  background: rgba(59, 130, 246, 0.05);
+  border-color: rgba(96, 165, 250, 0.12);
 }
 .hero-funnel__step:nth-child(2) {
   --funnel-w: 94%;
   animation-delay: 1.24s;
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(96, 165, 250, 0.17);
 }
 .hero-funnel__step:nth-child(3) {
   --funnel-w: 88%;
   animation-delay: 1.36s;
+  background: rgba(59, 130, 246, 0.11);
+  border-color: rgba(96, 165, 250, 0.22);
 }
 .hero-funnel__step:nth-child(4) {
   --funnel-w: 82%;
   animation-delay: 1.48s;
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(96, 165, 250, 0.28);
 }
 .hero-funnel__step:nth-child(5) {
   --funnel-w: 76%;
   animation-delay: 1.6s;
+  background: rgba(59, 130, 246, 0.20);
+  border-color: rgba(96, 165, 250, 0.38);
 }
 
 .hero-funnel__icon {
