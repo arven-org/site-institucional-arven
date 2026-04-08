@@ -660,11 +660,11 @@ main {
 }
 
 .method--light .step {
-  background: #ffffff;
+  background: #edf0ff;
 }
 
 .method--light .step:hover {
-  background: #f5f6ff;
+  background: #e4e8ff;
 }
 
 .method--light .step__num {
