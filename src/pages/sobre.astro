@@ -19,7 +19,7 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <!-- COMO NASCEU A ARVEN -->
-    <section class="origin">
+    <section class="origin" data-reveal>
       <div class="origin__head">
         <h2 class="origin__headline">Como nasceu a Arven</h2>
       </div>
@@ -47,7 +47,7 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <!-- NÚMEROS -->
-    <section class="numbers">
+    <section class="numbers" data-reveal>
       <div class="numbers__grid">
         <div class="numbers__item">
           <span class="numbers__value">R$10M</span>
@@ -65,7 +65,7 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <!-- CTA FINAL -->
-    <section class="cta-final">
+    <section class="cta-final" data-reveal>
       <div class="cta-final__inner">
         <h2 class="cta-final__headline">Pronto para ter uma operação<br />de aquisição de alto nível?</h2>
         <p class="cta-final__sub">
@@ -77,3 +77,7 @@ import Base from '../layouts/Base.astro';
     </section>
 
 </Base>
+
+<script>
+  import '../scripts/scroll-reveal.ts';
+</script>

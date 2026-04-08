@@ -10,7 +10,7 @@ import Base from '../layouts/Base.astro';
     <section class="lead-form-shell lead-form-shell--full" aria-labelledby="lead-form-title">
       <div class="lead-form-layout">
 
-      <aside class="lead-form-aside" aria-hidden="true">
+      <aside class="lead-form-aside" aria-hidden="true" data-reveal>
         <svg class="lead-form-bars" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g><rect x="4"   y="200" width="14" height="72"  rx="3" fill="rgba(255,255,255,0.06)"/></g>
           <g><rect x="24"  y="170" width="14" height="102" rx="3" fill="rgba(255,255,255,0.08)"/></g>
@@ -32,7 +32,7 @@ import Base from '../layouts/Base.astro';
         <p class="lead-form-aside__caption">Dados que impulsionam decisões</p>
       </aside>
 
-      <form id="arven-lead-form" class="lead-form" novalidate>
+      <form id="arven-lead-form" class="lead-form" novalidate data-reveal data-reveal-delay="0.1">
         <div class="lead-form__hp" aria-hidden="true">
           <label for="lead-honeypot">Website</label>
           <input type="text" id="lead-honeypot" name="_honeypot" tabindex="-1" autocomplete="off" />
@@ -149,6 +149,10 @@ import Base from '../layouts/Base.astro';
     </section>
 
 </Base>
+
+<script>
+  import '../scripts/scroll-reveal.ts';
+</script>
 
 <script>
   import '../scripts/lead-form.ts';

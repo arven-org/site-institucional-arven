@@ -59,10 +59,10 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <!-- SERVIÇOS -->
-    <section class="services__grid">
+    <section class="services__grid" data-reveal-stagger="0.12">
 
       <!-- Gestão de Mídia e Performance -->
-      <div class="service-card">
+      <div class="service-card" data-reveal-item>
         <p class="service-card__tag">Gestão de Mídia e Performance</p>
         <h2 class="service-card__headline">Cada real investido em mídia rastreado até o contrato.</h2>
         <p class="service-card__audience">Para empresas B2B que investem em mídia paga, mas não conseguem conectar investimento a receita real.</p>
@@ -84,7 +84,7 @@ import Base from '../layouts/Base.astro';
       </div>
 
       <!-- Automação e Qualificação com IA -->
-      <div class="service-card">
+      <div class="service-card" data-reveal-item>
         <p class="service-card__tag">Automação e Qualificação com IA</p>
         <h2 class="service-card__headline">Leads qualificados 24 horas. Seu time entra quando o lead está pronto.</h2>
         <p class="service-card__audience">Para operações que geram volume de leads, mas perdem conversão na qualificação manual e no tempo de resposta.</p>
@@ -106,7 +106,7 @@ import Base from '../layouts/Base.astro';
       </div>
 
       <!-- Estrutura Comercial -->
-      <div class="service-card">
+      <div class="service-card" data-reveal-item>
         <p class="service-card__tag">Estrutura Comercial</p>
         <h2 class="service-card__headline">Do funil ao fechamento. Um processo comercial construído para escalar.</h2>
         <p class="service-card__audience">Para times comerciais que fecham negócios, mas sem processo. Crescem, mas não escalam.</p>
@@ -130,7 +130,7 @@ import Base from '../layouts/Base.astro';
     </section>
 
     <!-- CTA FINAL -->
-    <section class="cta-final">
+    <section class="cta-final" data-reveal>
       <div class="cta-final__inner">
         <h2 class="cta-final__headline">Não sabe por onde começar?</h2>
         <p class="cta-final__sub">
@@ -142,3 +142,7 @@ import Base from '../layouts/Base.astro';
     </section>
 
 </Base>
+
+<script>
+  import '../scripts/scroll-reveal.ts';
+</script>
