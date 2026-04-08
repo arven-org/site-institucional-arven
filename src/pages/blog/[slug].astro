@@ -28,13 +28,13 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('pt-BR', {
 >
   <article class="blog-post">
 
-    <nav class="blog-post__breadcrumb" aria-label="Navegação">
+    <nav class="blog-post__breadcrumb" aria-label="Navegação" data-reveal>
       <a href="/blog">Blog</a>
       <span aria-hidden="true">/</span>
       <span>{post.title}</span>
     </nav>
 
-    <header class="blog-post__header">
+    <header class="blog-post__header" data-reveal data-reveal-delay="0.08">
       <time class="blog-post__date" datetime={post.publishedAt}>{formattedDate}</time>
       <h1 class="blog-post__title">{post.title}</h1>
       {post.excerpt && <p class="blog-post__excerpt">{post.excerpt}</p>}
@@ -42,7 +42,7 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('pt-BR', {
     </header>
 
     {post.image?.url && (
-      <figure class="blog-post__cover">
+      <figure class="blog-post__cover" data-reveal data-reveal-delay="0.16">
         <img
           src={`${post.image.url}?w=1200&fm=webp`}
           alt={post.image.alt ?? post.title}
@@ -54,10 +54,10 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('pt-BR', {
       </figure>
     )}
 
-    <div class="blog-post__body" set:html={bodyHtml} />
+    <div class="blog-post__body" set:html={bodyHtml} data-reveal data-reveal-delay="0.22" />
 
     {(prev || next) && (
-      <footer class="blog-post__nav">
+      <footer class="blog-post__nav" data-reveal>
         {prev && (
           <a href={`/blog/${prev.slug.current}`} class="blog-post__nav-item blog-post__nav-item--prev">
             <span class="blog-post__nav-label">Anterior</span>
@@ -75,3 +75,7 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('pt-BR', {
 
   </article>
 </Base>
+
+<script>
+  import '../../scripts/scroll-reveal.ts';
+</script>
