@@ -4,6 +4,7 @@
    Os tokens (CSS custom properties) ficam em tokens.css.
    ============================================================ */
 
+@import './fonts.css';
 @import './tokens.css';
 
 /* RESET */
