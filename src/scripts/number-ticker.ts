@@ -13,10 +13,11 @@
   function animate(el: HTMLElement) {
     const target = parseFloat(el.dataset.ticker ?? '0');
     const decimals = parseInt(el.dataset.tickerDecimals ?? '0', 10);
+    const suffix = el.dataset.tickerSuffix ?? '';
     if (isNaN(target)) return;
 
     if (reduced) {
-      el.textContent = fmt(target, decimals);
+      el.textContent = fmt(target, decimals) + suffix;
       return;
     }
 
@@ -36,7 +37,7 @@
       current += velocity * dt;
 
       const done = Math.abs(target - current) < 0.02 && Math.abs(velocity) < 0.02;
-      el.textContent = fmt(done ? target : current, decimals);
+      el.textContent = fmt(done ? target : current, decimals) + suffix;
       if (!done) requestAnimationFrame(tick);
     }
 
