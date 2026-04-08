@@ -36,7 +36,7 @@
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const el = entry.target as HTMLElement;
-          const delay = parseFloat(el.dataset.revealDelay ?? '0');
+          const delay = parseFloat(el.dataset.revealDelay || '0');
           gsap.to(el, { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out', delay });
           revealObserver.unobserve(el);
         });
@@ -51,7 +51,7 @@
       const items = Array.from(container.querySelectorAll<HTMLElement>('[data-reveal-item]'));
       if (!items.length) return;
 
-      const staggerDelay = parseFloat(container.dataset.revealStagger ?? '0.08');
+      const staggerDelay = parseFloat(container.dataset.revealStagger || '0.08');
       gsap.set(items, { opacity: 0, y: 24 });
 
       const staggerObserver = new IntersectionObserver(
