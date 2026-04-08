@@ -1486,7 +1486,7 @@ main {
 /* Signal tower SVG */
 .signal-svg {
   width: 100%;
-  max-width: 260px;
+  max-width: 380px;
   height: auto;
   overflow: visible;
 }
@@ -1515,7 +1515,7 @@ main {
 
 .signal-antenna {
   fill: rgba(255, 255, 255, 0.4);
-  animation: signalBlink 1.5s ease-in-out infinite;
+  animation: signalBlink 4s ease-in-out infinite;
 }
 
 @keyframes signalBlink {
@@ -1527,13 +1527,13 @@ main {
 .signal-ring {
   fill: none;
   stroke: rgba(255, 255, 255, 0.18);
-  animation: signalPulse 2.6s ease-out infinite;
+  animation: signalPulse 8s ease-out infinite;
 }
 
 .signal-ring--1 { animation-delay: 0s; }
-.signal-ring--2 { animation-delay: 0.65s; }
-.signal-ring--3 { animation-delay: 1.3s; }
-.signal-ring--4 { animation-delay: 1.95s; }
+.signal-ring--2 { animation-delay: 2s; }
+.signal-ring--3 { animation-delay: 4s; }
+.signal-ring--4 { animation-delay: 6s; }
 
 @keyframes signalPulse {
   0%   { r: 4;   opacity: 0.85; stroke-width: 1.8; }
@@ -1543,23 +1543,15 @@ main {
 
 /* Speed up rings when form is focused */
 .lead-form-aside.active .signal-ring {
-  animation-duration: 1.5s;
+  animation-duration: 4s;
   stroke: rgba(255, 255, 255, 0.28);
 }
 
 .lead-form-aside.active .signal-antenna {
-  animation-duration: 0.5s;
+  animation-duration: 1.5s;
   fill: rgba(255, 255, 255, 0.7);
 }
 
-.lead-form-aside__caption {
-  margin-top: 24px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-tertiary);
-  letter-spacing: 0.04em;
-  text-align: center;
-}
 
 @media (max-width: 900px) {
   .lead-form-layout {
