@@ -1197,12 +1197,27 @@ main {
    CTA FINAL
    ============================================================ */
 .cta-final {
-  border: 1px solid var(--border);
+  position: relative;
+  border: 1px solid transparent;
   border-radius: var(--radius-lg);
-  background: var(--bg-surface);
+  background:
+    linear-gradient(var(--bg-surface) 0 0) padding-box,
+    linear-gradient(var(--border) 0 0) border-box;
+  overflow: hidden;
+}
+
+.magic-card__spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  border-radius: inherit;
+  z-index: 0;
 }
 
 .cta-final__inner {
+  position: relative;
+  z-index: 1;
   padding: 64px 40px;
   text-align: center;
   display: flex;
