@@ -11,18 +11,50 @@ import Base from '../layouts/Base.astro';
       <div class="lead-form-layout">
 
       <aside class="lead-form-aside" id="signal-aside" aria-hidden="true" data-reveal>
-        <svg class="signal-svg" viewBox="0 0 200 200">
-          <g class="signal-tower">
-            <line x1="100" y1="140" x2="100" y2="60" />
-            <line x1="80" y1="140" x2="100" y2="60" />
-            <line x1="120" y1="140" x2="100" y2="60" />
-            <circle cx="100" cy="55" r="2" class="signal-antenna" />
-          </g>
-          <g class="signal-rings">
-            <circle cx="100" cy="60" r="20" class="signal-ring signal-ring--1" />
-            <circle cx="100" cy="60" r="35" class="signal-ring signal-ring--2" />
-            <circle cx="100" cy="60" r="50" class="signal-ring signal-ring--3" />
-          </g>
+        <svg class="signal-svg" viewBox="0 0 280 330" width="280" height="330" overflow="visible">
+          <!-- Ground grid -->
+          <line class="sg-grid" x1="35" y1="312" x2="140" y2="325"/>
+          <line class="sg-grid" x1="62" y1="302" x2="140" y2="315"/>
+          <line class="sg-grid" x1="89" y1="292" x2="140" y2="305"/>
+          <line class="sg-grid" x1="245" y1="312" x2="140" y2="325"/>
+          <line class="sg-grid" x1="218" y1="302" x2="140" y2="315"/>
+          <line class="sg-grid" x1="191" y1="292" x2="140" y2="305"/>
+          <line class="sg-grid" x1="35" y1="312" x2="245" y2="312"/>
+          <line class="sg-grid" x1="62" y1="302" x2="218" y2="302"/>
+          <line class="sg-grid" x1="89" y1="292" x2="191" y2="292"/>
+          <!-- Base platform -->
+          <polygon class="sg-main" points="140,282 170,269 140,256 110,269"/>
+          <!-- Main legs -->
+          <line class="sg-main" x1="112" y1="267" x2="126" y2="127"/>
+          <line class="sg-main" x1="168" y1="267" x2="154" y2="127"/>
+          <!-- Horizontal rungs -->
+          <line class="sg-main" x1="126" y1="127" x2="154" y2="127"/>
+          <line class="sg-main" x1="124" y1="157" x2="156" y2="157"/>
+          <line class="sg-main" x1="121" y1="192" x2="159" y2="192"/>
+          <line class="sg-main" x1="117" y1="227" x2="163" y2="227"/>
+          <line class="sg-main" x1="114" y1="255" x2="166" y2="255"/>
+          <!-- Cross bracing -->
+          <line class="sg-brace" x1="126" y1="127" x2="156" y2="157"/>
+          <line class="sg-brace" x1="154" y1="127" x2="124" y2="157"/>
+          <line class="sg-brace" x1="124" y1="157" x2="159" y2="192"/>
+          <line class="sg-brace" x1="156" y1="157" x2="121" y2="192"/>
+          <line class="sg-brace" x1="121" y1="192" x2="163" y2="227"/>
+          <line class="sg-brace" x1="159" y1="192" x2="117" y2="227"/>
+          <line class="sg-brace" x1="117" y1="227" x2="166" y2="255"/>
+          <line class="sg-brace" x1="163" y1="227" x2="114" y2="255"/>
+          <!-- Top platform -->
+          <polygon class="sg-main" points="140,122 153,116 140,110 127,116"/>
+          <!-- Antenna mast -->
+          <line class="sg-main" x1="140" y1="110" x2="140" y2="36"/>
+          <line class="sg-main" x1="132" y1="90" x2="148" y2="90"/>
+          <line class="sg-main" x1="135" y1="68" x2="145" y2="68"/>
+          <!-- Signal rings -->
+          <circle class="signal-ring signal-ring--1" cx="140" cy="36" r="4"/>
+          <circle class="signal-ring signal-ring--2" cx="140" cy="36" r="4"/>
+          <circle class="signal-ring signal-ring--3" cx="140" cy="36" r="4"/>
+          <circle class="signal-ring signal-ring--4" cx="140" cy="36" r="4"/>
+          <!-- Antenna blinking dot -->
+          <circle class="signal-antenna" cx="140" cy="33" r="3"/>
         </svg>
         <p class="lead-form-aside__caption">Sinal ativo — preencha o formulário</p>
       </aside>
