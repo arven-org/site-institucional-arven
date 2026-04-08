@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import SchemaService from '../components/SchemaService.astro';
+import SchemaBreadcrumb from '../components/SchemaBreadcrumb.astro';
 ---
 <Base
   title="Serviços — Arven"
@@ -140,6 +142,27 @@ import Base from '../layouts/Base.astro';
         <a href="/qualificacao" class="btn btn--primary">Solicitar diagnóstico</a>
       </div>
     </section>
+
+    <Fragment slot="head">
+      <SchemaService services={[
+        {
+          name: "Gestão de Mídia e Performance",
+          description: "Campanhas em todas as fontes de tráfego, otimizadas por receita gerada. Rastreamento end-to-end do clique ao contrato assinado. Reports semanais com visão completa: investimento, leads, reuniões agendadas e contratos fechados."
+        },
+        {
+          name: "Automação e Qualificação com IA",
+          description: "Qualificação automatizada de leads 24/7 com IA. Mapeamento de critérios de lead pronto para o comercial. Leads entregues com contexto completo, histórico de interação e score de prontidão."
+        },
+        {
+          name: "Estrutura Comercial",
+          description: "Diagnóstico e implementação do processo comercial com CRM, playbooks e dashboards de gestão. Acompanhamento contínuo com rituais de gestão, coaching de pipeline e otimização de conversão."
+        }
+      ]} />
+      <SchemaBreadcrumb items={[
+        { name: "Arven", url: "https://www.arvenoficial.com/" },
+        { name: "Serviços", url: "https://www.arvenoficial.com/servicos" }
+      ]} />
+    </Fragment>
 
 </Base>
 

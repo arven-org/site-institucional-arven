@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import SchemaBreadcrumb from '../components/SchemaBreadcrumb.astro';
 ---
 <Base
   title="Sobre — Arven"
@@ -75,6 +76,13 @@ import Base from '../layouts/Base.astro';
         <a href="/qualificacao" class="btn btn--primary">Solicitar diagnóstico</a>
       </div>
     </section>
+
+    <Fragment slot="head">
+      <SchemaBreadcrumb items={[
+        { name: "Arven", url: "https://www.arvenoficial.com/" },
+        { name: "Sobre", url: "https://www.arvenoficial.com/sobre" }
+      ]} />
+    </Fragment>
 
 </Base>
 

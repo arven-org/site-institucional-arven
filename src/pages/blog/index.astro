@@ -1,6 +1,7 @@
 ---
 export const prerender = false;
 import Base from '../../layouts/Base.astro';
+import SchemaBreadcrumb from '../../components/SchemaBreadcrumb.astro';
 import { getAllPosts } from '../../lib/sanity.ts';
 
 const posts = await getAllPosts();
@@ -102,6 +103,13 @@ const rest = posts.slice(2);
       )}
     </section>
   )}
+
+  <Fragment slot="head">
+    <SchemaBreadcrumb items={[
+      { name: "Arven", url: "https://www.arvenoficial.com/" },
+      { name: "Blog", url: "https://www.arvenoficial.com/blog" }
+    ]} />
+  </Fragment>
 </Base>
 
 <script>

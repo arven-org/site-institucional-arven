@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  author?: string;
+  image?: string;
+}
+const { title, description, url, datePublished, author, image } = Astro.props;
+
+const schema: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "url": url,
+  "datePublished": datePublished,
+  "publisher": {
+    "@type": "Organization",
+    "name": "Arven",
+    "url": "https://www.arvenoficial.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.arvenoficial.com/assets/logo.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": url
+  }
+};
+
+if (author) {
+  schema.author = { "@type": "Person", "name": author };
+} else {
+  schema.author = { "@type": "Organization", "name": "Arven" };
+}
+
+if (image) {
+  schema.image = image;
+}
+---
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

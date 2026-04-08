@@ -1,6 +1,8 @@
 ---
 export const prerender = false;
 import Base from '../../layouts/Base.astro';
+import SchemaBlogPosting from '../../components/SchemaBlogPosting.astro';
+import SchemaBreadcrumb from '../../components/SchemaBreadcrumb.astro';
 import { getPostBySlug, getAdjacentPosts } from '../../lib/sanity.ts';
 import { toHTML } from '@portabletext/to-html';
 
@@ -25,6 +27,8 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('pt-BR', {
   title={`${post.title} — Arven`}
   description={post.excerpt ?? 'Leia este artigo no blog da Arven.'}
   currentPage="blog"
+  ogType="article"
+  ogImage={post.image?.url ? `${post.image.url}?w=1200&fm=webp` : undefined}
 >
   <article class="blog-post">
 
@@ -74,6 +78,22 @@ const formattedDate = new Date(post.publishedAt).toLocaleDateString('pt-BR', {
     )}
 
   </article>
+
+  <Fragment slot="head">
+    <SchemaBlogPosting
+      title={post.title}
+      description={post.excerpt ?? 'Leia este artigo no blog da Arven.'}
+      url={`https://www.arvenoficial.com/blog/${post.slug.current}`}
+      datePublished={post.publishedAt}
+      author={post.author}
+      image={post.image?.url ? `${post.image.url}?w=1200&fm=webp` : undefined}
+    />
+    <SchemaBreadcrumb items={[
+      { name: "Arven", url: "https://www.arvenoficial.com/" },
+      { name: "Blog", url: "https://www.arvenoficial.com/blog" },
+      { name: post.title, url: `https://www.arvenoficial.com/blog/${post.slug.current}` }
+    ]} />
+  </Fragment>
 </Base>
 
 <script>

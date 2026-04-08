@@ -1,0 +1,30 @@
+---
+interface ServiceDef {
+  name: string;
+  description: string;
+}
+interface Props {
+  services: ServiceDef[];
+}
+const { services } = Astro.props;
+
+const schemas = services.map(svc => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": svc.name,
+  "description": svc.description,
+  "provider": {
+    "@type": "Organization",
+    "name": "Arven",
+    "url": "https://www.arvenoficial.com"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Brazil"
+  },
+  "url": "https://www.arvenoficial.com/servicos"
+}));
+---
+{schemas.map(schema => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}
