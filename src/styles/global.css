@@ -1263,13 +1263,6 @@ main {
   background: #0a0a0a;
 }
 
-/* Camada de vídeo estável no WebKit iOS (evita frame preto / travadinhas) */
-@supports (-webkit-touch-callout: none) {
-  .statement-video__media {
-    -webkit-transform: translateZ(0);
-  }
-}
-
 .statement-video__frame iframe {
   display: block;
   width: 100%;
