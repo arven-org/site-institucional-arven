@@ -11,6 +11,8 @@
   var steps = form.querySelectorAll<HTMLElement>(".lead-form__step");
   var progress = form.querySelector<HTMLElement>(".lead-form__progress-fill");
   var stepLabel = form.querySelector<HTMLElement>("[data-lead-step-label]");
+  var circleEl = form.querySelector<SVGCircleElement>("[data-lead-circle]");
+  var circleCircumference = 2 * Math.PI * 20; // r=20
   var btnPrev = form.querySelector<HTMLButtonElement>('[data-lead-action="prev"]');
   var btnNext = form.querySelector<HTMLButtonElement>('[data-lead-action="next"]');
   var btnSubmit = form.querySelector<HTMLButtonElement>('[data-lead-action="submit"]');
@@ -42,7 +44,11 @@
       progress.parentElement!.setAttribute("aria-valuemax", String(total));
     }
     if (stepLabel) {
-      stepLabel.textContent = "Passo " + (idx + 1) + " de " + total;
+      stepLabel.textContent = (idx + 1) + "/" + total;
+    }
+    if (circleEl) {
+      var fraction = (idx + 1) / total;
+      circleEl.style.strokeDashoffset = String(circleCircumference * (1 - fraction));
     }
     if (btnPrev) {
       if (idx === 0) btnPrev.setAttribute("hidden", "");

@@ -1598,20 +1598,67 @@ main {
   display: none !important;
 }
 
+.lead-form__progress-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.lead-form__circle-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+}
+
+.lead-form__circle {
+  transform: rotate(-90deg);
+  display: block;
+}
+
+.lead-form__circle-bg {
+  fill: none;
+  stroke: var(--bg-raised);
+  stroke-width: 3;
+}
+
+.lead-form__circle-fill {
+  fill: none;
+  stroke: url(#circleGrad);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 125.66;
+  stroke-dashoffset: 109.95;
+  transition: stroke-dashoffset 0.4s ease;
+}
+
+.lead-form__circle-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
 .lead-form__progress {
+  flex: 1;
   height: 3px;
   border-radius: 2px;
   background: var(--bg-raised);
   overflow: hidden;
-  margin-bottom: 24px;
 }
 
 .lead-form__progress-fill {
   height: 100%;
   width: 12.5%;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.32);
-  transition: width 0.25s ease;
+  background: linear-gradient(90deg, #ffaa40, #9c40ff);
+  transition: width 0.4s ease;
 }
 
 .lead-form__form-header {
@@ -1621,17 +1668,6 @@ main {
 .lead-form__page-headline {
   max-width: min(56rem, 100%);
   margin-bottom: 0;
-}
-
-.lead-form__meta {
-  margin-bottom: 20px;
-}
-
-.lead-form__step-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-tertiary);
-  letter-spacing: 0.04em;
 }
 
 .lead-form__error {

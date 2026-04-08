@@ -64,17 +64,28 @@ import Base from '../layouts/Base.astro';
           <input type="text" id="lead-honeypot" name="_honeypot" tabindex="-1" autocomplete="off" />
         </div>
 
-        <div class="lead-form__progress" role="progressbar" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1" aria-label="Progresso do formulário">
-          <div class="lead-form__progress-fill"></div>
+        <div class="lead-form__progress-row">
+          <div class="lead-form__circle-wrap">
+            <svg class="lead-form__circle" viewBox="0 0 48 48" width="48" height="48">
+              <defs>
+                <linearGradient id="circleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffaa40"/>
+                  <stop offset="100%" stop-color="#9c40ff"/>
+                </linearGradient>
+              </defs>
+              <circle class="lead-form__circle-bg" cx="24" cy="24" r="20"/>
+              <circle class="lead-form__circle-fill" cx="24" cy="24" r="20" data-lead-circle/>
+            </svg>
+            <span class="lead-form__circle-text" data-lead-step-label>1/8</span>
+          </div>
+          <div class="lead-form__progress" role="progressbar" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1" aria-label="Progresso do formulário">
+            <div class="lead-form__progress-fill"></div>
+          </div>
         </div>
 
         <div class="lead-form__form-header">
           <p class="page-hero__tag">Contato</p>
           <h1 id="lead-form-title" class="page-hero__headline lead-form__page-headline">Preencha o formulário para entendermos o momento do seu negócio de forma personalizada.</h1>
-        </div>
-
-        <div class="lead-form__meta">
-          <p class="lead-form__step-label" data-lead-step-label>Passo 1 de 8</p>
         </div>
 
         <p class="lead-form__error" hidden role="alert">Preencha os campos obrigatórios para continuar.</p>
