@@ -637,14 +637,14 @@ main {
   --ml-muted: #4a4845;
   --ml-subtle: #6b6863;
 
-  background: var(--ml-surface);
+  background: linear-gradient(135deg, #ffffff 0%, #e8eeff 55%, #dce6ff 100%);
   border-color: var(--ml-border-outer);
   box-shadow: 0 28px 56px -28px rgba(0, 0, 0, 0.45);
 }
 
 .method--light .method__head {
   border-bottom-color: var(--ml-border);
-  background: var(--ml-bg);
+  background: transparent;
 }
 
 .method--light .method__headline {
