@@ -7,6 +7,30 @@
   var video = document.querySelector("[data-vsl-player]") as HTMLVideoElement | null;
   if (!root || !video) return;
 
+  // Mobile vs desktop source — troca antes que qualquer load aconteça.
+  // O atributo `media` em <source> não é confiável no Safari iOS, então
+  // fazemos a escolha aqui via matchMedia. Mesmo critério para o poster.
+  var source = video.querySelector("source");
+  var srcDesktop = video.getAttribute("data-vsl-src-desktop");
+  var srcMobile = video.getAttribute("data-vsl-src-mobile");
+  var posterDesktop = video.getAttribute("data-vsl-poster-desktop");
+  var posterMobile = video.getAttribute("data-vsl-poster-mobile");
+  var pickMobile = window.matchMedia("(max-width: 900px)").matches;
+  if (source && srcDesktop && srcMobile) {
+    var pickedSrc = pickMobile ? srcMobile : srcDesktop;
+    if (source.getAttribute("src") !== pickedSrc) {
+      source.setAttribute("src", pickedSrc);
+      // load() só dispara fetch real se preload != "none", então é seguro.
+      try { video.load(); } catch (e) { /* noop */ }
+    }
+  }
+  if (posterDesktop && posterMobile) {
+    var pickedPoster = pickMobile ? posterMobile : posterDesktop;
+    if (video.getAttribute("poster") !== pickedPoster) {
+      video.setAttribute("poster", pickedPoster);
+    }
+  }
+
   var btnPlay = root.querySelector("[data-vsl-play]");
   var elTime = root.querySelector("[data-vsl-time]");
   var elProgress = root.querySelector("[data-vsl-progress]") as HTMLElement | null;
