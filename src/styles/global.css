@@ -3056,6 +3056,7 @@ main {
     margin-top: 0;
   }
   .method__steps { grid-template-columns: 1fr; }
+  .method__headline br { display: none; }
   .step { padding: 22px 22px; }
   .step__title { font-size: 14px; }
   .step__desc { font-size: 13px; }
