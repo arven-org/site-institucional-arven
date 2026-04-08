@@ -266,13 +266,19 @@ a { color: inherit; text-decoration: none; }
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
   border-radius: var(--radius-sm);
   padding: 10px 20px;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition: background 0.4s, border-color 0.4s, color 0.4s;
   cursor: pointer;
   border: 1px solid transparent;
+  text-decoration: none;
 }
 
 .btn--primary {
@@ -282,13 +288,14 @@ a { color: inherit; text-decoration: none; }
 }
 
 .btn--primary:hover {
-  background: #d4cfc8;
-  border-color: #d4cfc8;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
 }
 
 .btn--ghost {
   color: var(--text-secondary);
   border-color: var(--border);
+  background: transparent;
 }
 
 .btn--ghost:hover {
