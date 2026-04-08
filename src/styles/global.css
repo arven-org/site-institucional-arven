@@ -1877,6 +1877,13 @@ main {
   max-width: 560px;
 }
 
+.page-hero--naked {
+  border: none;
+  background: none;
+  padding: 0 0 8px;
+  border-radius: 0;
+}
+
 .page-hero--compact {
   padding: 40px 40px 36px;
 }

@@ -12,14 +12,14 @@ const rest = posts.slice(2);
   description="A Arven desenha e opera funis de aquisição para empresas B2B. Do primeiro clique ao lead qualificado, pronto para o seu time fechar."
   currentPage="blog"
 >
-  <section class="page-hero">
+  <header class="page-hero page-hero--naked">
     <p class="page-hero__tag">Blog</p>
     <h1 class="page-hero__headline">Aquisição, qualificação e<br />processo comercial B2B.</h1>
     <p class="page-hero__sub">
       O que aprendemos operando funis de aquisição para dezenas de empresas.
       Sem teoria. Só o que funciona.
     </p>
-  </section>
+  </header>
 
   {posts.length === 0 && (
     <section class="blog-empty">
