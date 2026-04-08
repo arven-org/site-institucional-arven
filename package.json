@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@astrojs/vercel": "^10.0.4",
+    "@portabletext/html": "^1.0.1",
     "@sanity/client": "^7.20.0",
     "astro": "^6.1.4",
     "gsap": "^3.14.2"
