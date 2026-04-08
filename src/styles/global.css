@@ -1078,14 +1078,14 @@ main {
   border-top: none;
 }
 
-.statement-video__frame:hover .vsl-overlay.is-hidden ~ .statement-video__chrome {
+.statement-video__frame:hover .statement-video__chrome {
   opacity: 1;
   pointer-events: auto;
 }
 
 @media (hover: none) {
-  /* touch devices: visible only during playback */
-  .vsl-overlay.is-hidden ~ .statement-video__chrome {
+  /* touch devices: always visible */
+  .statement-video__chrome {
     opacity: 1;
     pointer-events: auto;
   }
