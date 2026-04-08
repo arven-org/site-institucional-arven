@@ -1483,10 +1483,46 @@ main {
   border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
 }
 
-.lead-form-bars {
-  width: 100%;
-  max-width: 260px;
-  height: auto;
+/* Signal tower SVG */
+.signal-svg {
+  width: 200px;
+  height: 200px;
+  stroke: var(--text-primary);
+  stroke-width: 1.2;
+  fill: none;
+}
+
+.signal-antenna {
+  fill: var(--text-primary);
+  animation: signalBlink 1.2s infinite;
+}
+
+@keyframes signalBlink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+.signal-ring {
+  opacity: 0;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: signalPulse 3s infinite;
+}
+
+.signal-ring--2 { animation-delay: 0.5s; }
+.signal-ring--3 { animation-delay: 1s; }
+
+@keyframes signalPulse {
+  0%  { stroke-dashoffset: 200; opacity: 0.8; transform: scale(0.8); }
+  70% { stroke-dashoffset: 0;   opacity: 0.2; transform: scale(1.2); }
+  100% { opacity: 0; transform: scale(1.4); }
+}
+
+.signal-ring { transform-origin: 100px 60px; }
+
+/* Speed up rings when form is focused */
+.lead-form-aside.active .signal-ring {
+  animation-duration: 1s;
 }
 
 .lead-form-aside__caption {
@@ -1497,45 +1533,6 @@ main {
   letter-spacing: 0.04em;
   text-align: center;
 }
-
-/* Bar pulse animation */
-@keyframes barPulse {
-  0%, 100% { transform: scaleY(1);    filter: brightness(1); }
-  50%      { transform: scaleY(1.12); filter: brightness(1.8); }
-}
-
-.lead-form-bars g rect {
-  transform-box: fill-box;
-  transform-origin: bottom center;
-  animation: barPulse 1.6s ease-in-out infinite;
-  animation-play-state: paused;
-}
-
-.lead-form-aside:hover .lead-form-bars g rect {
-  animation-play-state: running;
-}
-
-.lead-form-aside:hover .lead-form-bars g rect {
-  fill: rgba(255, 255, 255, 0.14);
-  filter: drop-shadow(0 0 4px rgba(232, 224, 208, 0.15));
-}
-
-.lead-form-bars g:nth-child(1)  rect { animation-delay: 0.00s; }
-.lead-form-bars g:nth-child(2)  rect { animation-delay: 0.07s; }
-.lead-form-bars g:nth-child(3)  rect { animation-delay: 0.14s; }
-.lead-form-bars g:nth-child(4)  rect { animation-delay: 0.21s; }
-.lead-form-bars g:nth-child(5)  rect { animation-delay: 0.28s; }
-.lead-form-bars g:nth-child(6)  rect { animation-delay: 0.35s; }
-.lead-form-bars g:nth-child(7)  rect { animation-delay: 0.42s; }
-.lead-form-bars g:nth-child(8)  rect { animation-delay: 0.49s; }
-.lead-form-bars g:nth-child(9)  rect { animation-delay: 0.56s; }
-.lead-form-bars g:nth-child(10) rect { animation-delay: 0.63s; }
-.lead-form-bars g:nth-child(11) rect { animation-delay: 0.70s; }
-.lead-form-bars g:nth-child(12) rect { animation-delay: 0.77s; }
-.lead-form-bars g:nth-child(13) rect { animation-delay: 0.84s; }
-.lead-form-bars g:nth-child(14) rect { animation-delay: 0.91s; }
-.lead-form-bars g:nth-child(15) rect { animation-delay: 0.98s; }
-.lead-form-bars g:nth-child(16) rect { animation-delay: 1.05s; }
 
 @media (max-width: 900px) {
   .lead-form-layout {

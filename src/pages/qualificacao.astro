@@ -10,26 +10,21 @@ import Base from '../layouts/Base.astro';
     <section class="lead-form-shell lead-form-shell--full" aria-labelledby="lead-form-title">
       <div class="lead-form-layout">
 
-      <aside class="lead-form-aside" aria-hidden="true" data-reveal>
-        <svg class="lead-form-bars" viewBox="0 0 320 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g><rect x="4"   y="200" width="14" height="72"  rx="3" fill="rgba(255,255,255,0.06)"/></g>
-          <g><rect x="24"  y="170" width="14" height="102" rx="3" fill="rgba(255,255,255,0.08)"/></g>
-          <g><rect x="44"  y="190" width="14" height="82"  rx="3" fill="rgba(255,255,255,0.06)"/></g>
-          <g><rect x="64"  y="140" width="14" height="132" rx="3" fill="rgba(255,255,255,0.10)"/></g>
-          <g><rect x="84"  y="155" width="14" height="117" rx="3" fill="rgba(255,255,255,0.08)"/></g>
-          <g><rect x="104" y="120" width="14" height="152" rx="3" fill="rgba(255,255,255,0.10)"/></g>
-          <g><rect x="124" y="145" width="14" height="127" rx="3" fill="rgba(255,255,255,0.08)"/></g>
-          <g><rect x="144" y="100" width="14" height="172" rx="3" fill="rgba(255,255,255,0.12)"/></g>
-          <g><rect x="164" y="130" width="14" height="142" rx="3" fill="rgba(255,255,255,0.08)"/></g>
-          <g><rect x="184" y="80"  width="14" height="192" rx="3" fill="rgba(255,255,255,0.12)"/></g>
-          <g><rect x="204" y="110" width="14" height="162" rx="3" fill="rgba(255,255,255,0.10)"/></g>
-          <g><rect x="224" y="60"  width="14" height="212" rx="3" fill="rgba(255,255,255,0.14)"/></g>
-          <g><rect x="244" y="90"  width="14" height="182" rx="3" fill="rgba(255,255,255,0.10)"/></g>
-          <g><rect x="264" y="40"  width="14" height="232" rx="3" fill="rgba(255,255,255,0.16)"/></g>
-          <g><rect x="284" y="70"  width="14" height="202" rx="3" fill="rgba(255,255,255,0.12)"/></g>
-          <g><rect x="304" y="20"  width="14" height="252" rx="3" fill="rgba(255,255,255,0.18)"/></g>
+      <aside class="lead-form-aside" id="signal-aside" aria-hidden="true" data-reveal>
+        <svg class="signal-svg" viewBox="0 0 200 200">
+          <g class="signal-tower">
+            <line x1="100" y1="140" x2="100" y2="60" />
+            <line x1="80" y1="140" x2="100" y2="60" />
+            <line x1="120" y1="140" x2="100" y2="60" />
+            <circle cx="100" cy="55" r="2" class="signal-antenna" />
+          </g>
+          <g class="signal-rings">
+            <circle cx="100" cy="60" r="20" class="signal-ring signal-ring--1" />
+            <circle cx="100" cy="60" r="35" class="signal-ring signal-ring--2" />
+            <circle cx="100" cy="60" r="50" class="signal-ring signal-ring--3" />
+          </g>
         </svg>
-        <p class="lead-form-aside__caption">Dados que impulsionam decisões</p>
+        <p class="lead-form-aside__caption">Sinal ativo — preencha o formulário</p>
       </aside>
 
       <form id="arven-lead-form" class="lead-form" novalidate data-reveal data-reveal-delay="0.1">
@@ -156,4 +151,13 @@ import Base from '../layouts/Base.astro';
 
 <script>
   import '../scripts/lead-form.ts';
+</script>
+
+<script>
+  const form = document.getElementById('arven-lead-form');
+  const aside = document.getElementById('signal-aside');
+  if (form && aside) {
+    form.addEventListener('focusin', function () { aside.classList.add('active'); });
+    form.addEventListener('focusout', function () { aside.classList.remove('active'); });
+  }
 </script>
