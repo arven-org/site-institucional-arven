@@ -1058,9 +1058,9 @@ main {
   width: 88px;
   height: 88px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1075,8 +1075,8 @@ main {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.25), rgba(255,255,255,0.12));
-  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  background: linear-gradient(to bottom, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
   display: flex;
   align-items: center;
   justify-content: center;
