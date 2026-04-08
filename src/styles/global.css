@@ -800,9 +800,7 @@ main {
 
 /* Horizontal connector bar */
 .framework__connector {
-  height: 1px;
-  background: var(--border-hover);
-  margin: 0 40px;
+  display: none;
 }
 
 .framework__pillars {
