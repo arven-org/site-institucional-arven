@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import SchemaFAQ from '../components/SchemaFAQ.astro';
 import { getRecentPosts } from '../lib/sanity.ts';
 
 let recentPosts: Awaited<ReturnType<typeof getRecentPosts>> = [];
@@ -358,6 +359,35 @@ try {
         <a href="/qualificacao" class="btn btn--primary">Solicitar diagnóstico</a>
       </div>
     </section>
+
+    <Fragment slot="head">
+      <SchemaFAQ faqs={[
+        {
+          question: "O que é assessoria de aquisição?",
+          answer: "É a operação que une estratégia, mídia paga, funil, CRM e dados para gerar demanda qualificada e entregar leads prontos para o seu time comercial fechar. Do primeiro clique ao agendamento, com uma visão única da operação."
+        },
+        {
+          question: "Para quem a Arven faz sentido?",
+          answer: "Negócios B2B e de ticket médio alto: consultoria, educação, serviços profissionais, SaaS e empresas que dependem de reuniões ou propostas para vender. Se a aquisição é o gargalo do crescimento, costumamos ser um bom encaixe."
+        },
+        {
+          question: "Como funciona o diagnóstico gratuito?",
+          answer: "Você entra em contato, alinhamos contexto e analisamos sua operação atual: público, funil, canais e números. Você sai com clareza sobre onde está o gargalo e o que faria sentido atacar primeiro, sem compromisso de contratar."
+        },
+        {
+          question: "Vocês cuidam só de anúncios ou do funil inteiro?",
+          answer: "Do funil inteiro: campanhas, páginas, automações, integração com CRM, qualificação e ritmo com o comercial quando o projeto pede. Não somos só gestão de tráfego isolada. Desenhamos e operamos a máquina de demanda como um sistema."
+        },
+        {
+          question: "E se eu já tiver time de marketing ou agência?",
+          answer: "Podemos assumir a operação ponta a ponta ou complementar onde falta profundidade (dados, funil, integração com vendas). O diagnóstico mostra o que já está maduro e onde a Arven entrega mais alavancagem."
+        },
+        {
+          question: "Como funciona investimento e contrato?",
+          answer: "O modelo e o valor dependem do escopo da operação e do estágio do negócio. Isso só dá para cravar depois do diagnóstico. Em geral trabalhamos com retainer de assessoria; mídia é budget à parte, transparente e sob sua conta."
+        }
+      ]} />
+    </Fragment>
 
 </Base>
 
