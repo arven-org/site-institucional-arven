@@ -8,7 +8,7 @@ Site estático (HTML, CSS, JS). Deploy recomendado: **Vercel** + domínio **arve
 
 - [Git](https://git-scm.com/)
 
-O VSL (`assets/video/vsl-arven.mp4`) está **codificado para web** (H.264 + AAC, `faststart`), abaixo de **100 MB**, para caber no Git normal e no deploy **Vercel Hobby** sem Git LFS. A master HD fica contigo; o nome de exportação de referência é `VSL_SITE_ARVEN).mp4` no Desktop.
+Os VSL em **`public/assets/video/`** estão **codificados para web** (H.264 + AAC, `faststart`), cada um abaixo de **100 MB**: `vsl-arven.mp4` (desktop, 1920×1080; master `VSL_SITE_ARVEN).mp4`) e `vsl-arven-mobile.mp4` (vertical 1080×1920; master `vsl_site_arven_mobile.mp4`). Servem em `index.astro` via `<source media="(max-width: 767px)">` + fallback desktop.
 
 ## Clonar / clone
 
@@ -32,7 +32,7 @@ ffmpeg -y -i "/caminho/VSL_SITE_ARVEN).mp4" \
   -c:v libx264 -preset medium -profile:v high -pix_fmt yuv420p \
   -b:v 5200k -maxrate 5600k -bufsize 11200k \
   -c:a aac -b:a 160k -ac 2 -movflags +faststart \
-  assets/video/vsl-arven.mp4
+  public/assets/video/vsl-arven.mp4
 ```
 
 ## Vercel
