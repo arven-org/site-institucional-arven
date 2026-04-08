@@ -195,7 +195,6 @@ function isTouchLikeDevice(): boolean {
   });
 
   video.addEventListener("play", function () {
-    root.classList.add("vsl-started");
     syncPlayButton();
     syncOverlay();
   });
