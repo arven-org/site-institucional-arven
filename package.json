@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
+    "tinify": "^1.8.2",
     "typescript": "^5.9.3"
   }
 }
