@@ -40,7 +40,7 @@ import { gsap } from 'gsap';
         if (!entries[i].isIntersecting) continue;
         var el = entries[i].target;
         var delay = parseFloat((el as HTMLElement).dataset.revealDelay || '0');
-        gsap.to(el, { opacity: 1, y: 0, duration: 0.75, ease: 'power2.out', delay: delay });
+        gsap.to(el, { opacity: 1, y: 0, duration: 0.95, ease: 'power2.out', delay: delay });
         revealObserver.unobserve(el);
       }
     },
@@ -54,7 +54,7 @@ import { gsap } from 'gsap';
     var items = container.querySelectorAll('[data-reveal-item]');
     if (!items.length) return;
 
-    var staggerVal = parseFloat((container as HTMLElement).dataset.revealStagger || '0.12');
+    var staggerVal = parseFloat((container as HTMLElement).dataset.revealStagger || '0.18');
     gsap.set(items, { opacity: 0, y: 28 });
 
     var staggerObserver = new IntersectionObserver(
@@ -64,7 +64,7 @@ import { gsap } from 'gsap';
           gsap.to(items, {
             opacity: 1,
             y: 0,
-            duration: 0.75,
+            duration: 0.95,
             ease: 'power2.out',
             stagger: staggerVal,
           });
