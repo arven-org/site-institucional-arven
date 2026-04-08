@@ -2,7 +2,7 @@
  * Smooth accordion for <details> FAQ items.
  * Measures real content height and animates open/close with JS.
  */
-const DURATION = 300;
+const DURATION = 700;
 const EASING = 'ease';
 
 document.querySelectorAll<HTMLDetailsElement>('.faq__item').forEach((item) => {
