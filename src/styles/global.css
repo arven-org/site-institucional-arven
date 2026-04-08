@@ -1259,6 +1259,15 @@ main {
   height: 100%;
   object-fit: contain;
   vertical-align: top;
+  pointer-events: auto;
+  background: #0a0a0a;
+}
+
+/* Camada de vídeo estável no WebKit iOS (evita frame preto / travadinhas) */
+@supports (-webkit-touch-callout: none) {
+  .statement-video__media {
+    -webkit-transform: translateZ(0);
+  }
 }
 
 .statement-video__frame iframe {

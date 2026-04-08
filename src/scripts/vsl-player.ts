@@ -1,80 +1,114 @@
 /**
- * VSL: controles próprios — tempo, progresso visual (sem seek), buffer/carregamento,
- * sem avançar além do que já foi assistido.
+ * VSL: controles próprios — tempo, progresso visual (sem seek), buffer/carregamento.
+ * Em touch (Safari iOS): não usar clamp em seeking/seeked — o WebKit dispara seeks
+ * espúrios e currentTime = maxWatched trava a reprodução.
  */
+function isTouchLikeDevice(): boolean {
+  if (typeof window === "undefined" || typeof window.matchMedia === "undefined") return false;
+  if (window.matchMedia("(pointer: coarse)").matches) return true;
+  return typeof navigator !== "undefined" && navigator.maxTouchPoints > 0;
+}
+
 (function () {
-  var root = document.querySelector("[data-vsl-root]");
-  var video = document.querySelector("[data-vsl-player]") as HTMLVideoElement | null;
+  const root = document.querySelector("[data-vsl-root]");
+  const video = document.querySelector("[data-vsl-player]") as HTMLVideoElement | null;
   if (!root || !video) return;
 
-  // Mobile vs desktop source — troca antes que qualquer load aconteça.
-  // O atributo `media` em <source> não é confiável no Safari iOS, então
-  // fazemos a escolha aqui via matchMedia. Mesmo critério para o poster.
-  var source = video.querySelector("source");
-  var srcDesktop = video.getAttribute("data-vsl-src-desktop");
-  var srcMobile = video.getAttribute("data-vsl-src-mobile");
-  var posterDesktop = video.getAttribute("data-vsl-poster-desktop");
-  var posterMobile = video.getAttribute("data-vsl-poster-mobile");
-  var pickMobile = window.matchMedia("(max-width: 900px)").matches;
+  const source = video.querySelector("source");
+  const srcDesktop = video.getAttribute("data-vsl-src-desktop");
+  const srcMobile = video.getAttribute("data-vsl-src-mobile");
+  const posterDesktop = video.getAttribute("data-vsl-poster-desktop");
+  const posterMobile = video.getAttribute("data-vsl-poster-mobile");
+  const mqVsl = window.matchMedia("(max-width: 900px)");
+  const touchLike = isTouchLikeDevice();
+
+  const btnPlay = root.querySelector("[data-vsl-play]");
+  const elTime = root.querySelector("[data-vsl-time]");
+  const elProgress = root.querySelector("[data-vsl-progress]") as HTMLElement | null;
+  const elBuffer = root.querySelector("[data-vsl-buffer]") as HTMLElement | null;
+  const viewport = root.querySelector(".statement-video__viewport");
+  const overlay = root.querySelector("[data-vsl-overlay]") as HTMLElement | null;
+
+  let maxWatched = 0;
+  let correcting = false;
+  let lastAppliedSrc: string | null = null;
+
+  /** WebKit mobile: dois rAF antes de load() evita race com troca de src. */
+  function scheduleLoad() {
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        try {
+          video.load();
+        } catch {
+          /* noop */
+        }
+      });
+    });
+  }
+
+  function applySourceForViewport(): void {
+    if (!source || !srcDesktop || !srcMobile) return;
+    const pickMobile = mqVsl.matches;
+    const pickedSrc = pickMobile ? srcMobile : srcDesktop;
+    if (pickedSrc === lastAppliedSrc) return;
+    lastAppliedSrc = pickedSrc;
+    maxWatched = 0;
+    source.setAttribute("src", pickedSrc);
+    if (posterDesktop && posterMobile) {
+      const p = pickMobile ? posterMobile : posterDesktop;
+      video.setAttribute("poster", p);
+    }
+    scheduleLoad();
+  }
+
   if (source && srcDesktop && srcMobile) {
-    var pickedSrc = pickMobile ? srcMobile : srcDesktop;
-    if (source.getAttribute("src") !== pickedSrc) {
-      source.setAttribute("src", pickedSrc);
-      // load() só dispara fetch real se preload != "none", então é seguro.
-      try { video.load(); } catch (e) { /* noop */ }
-    }
-  }
-  if (posterDesktop && posterMobile) {
-    var pickedPoster = pickMobile ? posterMobile : posterDesktop;
-    if (video.getAttribute("poster") !== pickedPoster) {
-      video.setAttribute("poster", pickedPoster);
-    }
+    lastAppliedSrc = source.getAttribute("src");
+    applySourceForViewport();
+  } else if (posterDesktop && posterMobile) {
+    const pickMobile = mqVsl.matches;
+    video.setAttribute("poster", pickMobile ? posterMobile : posterDesktop);
   }
 
-  var btnPlay = root.querySelector("[data-vsl-play]");
-  var elTime = root.querySelector("[data-vsl-time]");
-  var elProgress = root.querySelector("[data-vsl-progress]") as HTMLElement | null;
-  var elBuffer = root.querySelector("[data-vsl-buffer]") as HTMLElement | null;
-  var viewport = root.querySelector(".statement-video__viewport");
-  var overlay = root.querySelector("[data-vsl-overlay]") as HTMLElement | null;
-
-  var maxWatched = 0;
-  var correcting = false;
+  if (typeof mqVsl.addEventListener === "function") {
+    mqVsl.addEventListener("change", applySourceForViewport);
+  } else if (typeof (mqVsl as MediaQueryList).addListener === "function") {
+    (mqVsl as MediaQueryList).addListener(applySourceForViewport);
+  }
 
   function fmt(sec: number): string {
     if (!isFinite(sec) || sec < 0) return "0:00";
-    var m = Math.floor(sec / 60);
-    var s = Math.floor(sec % 60);
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60);
     return m + ":" + (s < 10 ? "0" : "") + s;
   }
 
   function updateTime() {
     if (!elTime) return;
-    var d = video!.duration;
-    elTime.textContent = fmt(video!.currentTime) + " / " + fmt(d);
+    const d = video.duration;
+    elTime.textContent = fmt(video.currentTime) + " / " + fmt(d);
   }
 
   function updateProgress() {
     if (!elProgress) return;
-    var d = video!.duration;
-    var pct = isFinite(d) && d > 0 ? (video!.currentTime / d) * 100 : 0;
+    const d = video.duration;
+    const pct = isFinite(d) && d > 0 ? (video.currentTime / d) * 100 : 0;
     elProgress.style.width = Math.min(100, Math.max(0, pct)) + "%";
   }
 
   function updateBuffer() {
     if (!elBuffer) return;
-    var d = video!.duration;
+    const d = video.duration;
     if (!isFinite(d) || d <= 0) {
       elBuffer.style.width = "0%";
       return;
     }
     try {
-      var buf = video!.buffered;
+      const buf = video.buffered;
       if (buf && buf.length) {
-        var end = buf.end(buf.length - 1);
+        const end = buf.end(buf.length - 1);
         elBuffer.style.width = Math.min(100, (end / d) * 100) + "%";
       }
-    } catch (e) {
+    } catch {
       elBuffer.style.width = "0%";
     }
   }
@@ -85,43 +119,52 @@
   }
 
   function clampForward() {
-    if (correcting) return;
-    var t = video!.currentTime;
-    if (t > maxWatched + 0.15) {
+    if (touchLike || correcting) return;
+    const t = video.currentTime;
+    const slack = 0.4;
+    if (t > maxWatched + slack) {
       correcting = true;
-      video!.currentTime = maxWatched;
-      requestAnimationFrame(function () {
+      video.currentTime = maxWatched;
+      window.requestAnimationFrame(function () {
         correcting = false;
       });
     }
   }
 
+  function requestPlay() {
+    const p = video.play();
+    if (p !== undefined) p.catch(function () {});
+  }
+
   function syncPlayButton() {
     if (!btnPlay) return;
-    var playing = !video!.paused && !video!.ended;
+    const playing = !video.paused && !video.ended;
     btnPlay.setAttribute("aria-label", playing ? "Pausar" : "Reproduzir");
     btnPlay.classList.toggle("is-playing", playing);
   }
 
   function syncOverlay() {
     if (!overlay) return;
-    var playing = !video!.paused && !video!.ended;
+    const playing = !video.paused && !video.ended;
     overlay.classList.toggle("is-hidden", playing);
   }
 
   video.addEventListener("timeupdate", function () {
-    if (correcting || video!.seeking) return;
-    var t = video!.currentTime;
+    if (correcting || video.seeking) return;
+    const t = video.currentTime;
     if (t > maxWatched) maxWatched = t;
     updateTime();
     updateProgress();
   });
 
-  video.addEventListener("seeking", clampForward);
-  video.addEventListener("seeked", clampForward);
+  if (!touchLike) {
+    video.addEventListener("seeking", clampForward);
+    video.addEventListener("seeked", clampForward);
+  }
 
   video.addEventListener("progress", updateBuffer);
   video.addEventListener("loadedmetadata", function () {
+    maxWatched = 0;
     updateTime();
     updateProgress();
     updateBuffer();
@@ -133,6 +176,9 @@
   video.addEventListener("waiting", function () {
     setBuffering(true);
   });
+  video.addEventListener("stalled", function () {
+    if (!video.paused) setBuffering(true);
+  });
   video.addEventListener("playing", function () {
     setBuffering(false);
   });
@@ -142,9 +188,20 @@
   video.addEventListener("canplaythrough", function () {
     setBuffering(false);
   });
+  video.addEventListener("error", function () {
+    setBuffering(false);
+    syncPlayButton();
+    syncOverlay();
+  });
 
-  video.addEventListener("play", function () { syncPlayButton(); syncOverlay(); });
-  video.addEventListener("pause", function () { syncPlayButton(); syncOverlay(); });
+  video.addEventListener("play", function () {
+    syncPlayButton();
+    syncOverlay();
+  });
+  video.addEventListener("pause", function () {
+    syncPlayButton();
+    syncOverlay();
+  });
   video.addEventListener("ended", function () {
     syncPlayButton();
     syncOverlay();
@@ -154,18 +211,21 @@
 
   if (btnPlay) {
     btnPlay.addEventListener("click", function () {
-      if (video!.paused || video!.ended) {
-        video!.play().catch(function () {});
-      } else {
-        video!.pause();
-      }
+      if (video.paused || video.ended) requestPlay();
+      else video.pause();
     });
   }
 
   if (overlay) {
-    overlay.addEventListener("click", function () {
-      video!.play().catch(function () {});
-    });
+    overlay.addEventListener("click", requestPlay);
+    overlay.addEventListener(
+      "touchend",
+      function (e) {
+        e.preventDefault();
+        requestPlay();
+      },
+      { passive: false }
+    );
   }
 
   video.addEventListener("keydown", function (e) {
