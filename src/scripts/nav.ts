@@ -1,62 +1,123 @@
 /**
- * Menu mobile: drawer, clique fora fecha, foco básico, scroll lock.
- * Markup: .nav, .nav__toggle, .nav__links (#nav-links)
+ * Menu mobile: drawer, overlay, scroll lock, foco e teclado (WCAG-friendly).
+ * Markup: .nav, .nav__backdrop (#nav-backdrop), #nav-links, .nav__toggle
  */
 (function () {
-  var nav = document.querySelector(".nav");
+  const nav = document.querySelector(".nav");
   if (!nav) return;
-  var toggle = nav.querySelector(".nav__toggle");
-  var links = nav.querySelector(".nav__links");
+  const toggle = nav.querySelector(".nav__toggle") as HTMLButtonElement | null;
+  const links = nav.querySelector("#nav-links") as HTMLElement | null;
+  const backdrop = nav.querySelector("#nav-backdrop") as HTMLElement | null;
   if (!toggle || !links) return;
 
-  var mq = window.matchMedia("(max-width: 900px)");
-  var isOpen = false;
-  var labelOpen = toggle.getAttribute("aria-label") || "Abrir menu";
+  const mq = window.matchMedia("(max-width: 900px)");
+  let isOpen = false;
+  const labelOpen = toggle.getAttribute("aria-label") || "Abrir menu";
 
-  function firstFocusable() {
-    return links!.querySelector('a[href], button:not([disabled])');
+  function getMenuLinks(): HTMLElement[] {
+    return Array.from(links.querySelectorAll<HTMLElement>("a[href]"));
+  }
+
+  /** Em mobile com menu fechado, links não entram na ordem de tabulação. */
+  function syncLayerAccessibility() {
+    const mobile = mq.matches;
+    const anchors = getMenuLinks();
+    if (!mobile) {
+      links.removeAttribute("aria-hidden");
+      anchors.forEach((a) => a.removeAttribute("tabindex"));
+      if (backdrop) backdrop.setAttribute("aria-hidden", "true");
+      return;
+    }
+    if (!isOpen) {
+      links.setAttribute("aria-hidden", "true");
+      anchors.forEach((a) => a.setAttribute("tabindex", "-1"));
+      if (backdrop) backdrop.setAttribute("aria-hidden", "true");
+    } else {
+      links.setAttribute("aria-hidden", "false");
+      anchors.forEach((a) => a.removeAttribute("tabindex"));
+      if (backdrop) backdrop.setAttribute("aria-hidden", "false");
+    }
   }
 
   function setOpen(open: boolean) {
     isOpen = open;
-    nav!.classList.toggle("nav--open", open);
-    toggle!.setAttribute("aria-expanded", open ? "true" : "false");
-    toggle!.setAttribute("aria-label", open ? "Fechar menu" : labelOpen);
-    document.documentElement.style.overflow = open ? "hidden" : "";
+    nav.classList.toggle("nav--open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    toggle.setAttribute("aria-label", open ? "Fechar menu" : labelOpen);
+    document.documentElement.style.overflow = open && mq.matches ? "hidden" : "";
+    syncLayerAccessibility();
 
     if (open && mq.matches) {
-      window.requestAnimationFrame(function () {
-        var el = firstFocusable();
-        if (el) (el as HTMLElement).focus();
+      window.requestAnimationFrame(() => {
+        getMenuLinks()[0]?.focus();
       });
     } else if (!open) {
-      (toggle as HTMLElement).focus();
+      toggle.focus();
     }
   }
 
-  toggle.addEventListener("click", function (e) {
+  toggle.addEventListener("click", (e) => {
     e.stopPropagation();
     setOpen(!isOpen);
   });
 
-  links!.addEventListener("click", function (e) {
-    var target = e.target as HTMLElement;
-    if (target && target.tagName === "A") setOpen(false);
+  backdrop?.addEventListener("click", () => {
+    if (isOpen) setOpen(false);
   });
 
-  document.addEventListener("click", function (e) {
-    if (!isOpen) return;
-    if (nav!.contains(e.target as Node)) return;
+  links.addEventListener("click", (e) => {
+    const a = (e.target as HTMLElement).closest("a");
+    if (a) setOpen(false);
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!isOpen || !mq.matches) return;
+    if (nav.contains(e.target as Node)) return;
     setOpen(false);
   });
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && isOpen) setOpen(false);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isOpen && mq.matches) {
+      e.preventDefault();
+      setOpen(false);
+    }
   });
 
-  function handleMq() {
+  /** Tab / Shift+Tab entre ítens do menu e o botão hamburger. */
+  toggle.addEventListener("keydown", (e) => {
+    if (!isOpen || !mq.matches || e.key !== "Tab") return;
+    const items = getMenuLinks();
+    if (items.length === 0) return;
+    if (e.shiftKey) {
+      e.preventDefault();
+      items[items.length - 1].focus();
+    } else {
+      e.preventDefault();
+      items[0].focus();
+    }
+  });
+
+  links.addEventListener("keydown", (e) => {
+    if (!isOpen || !mq.matches || e.key !== "Tab") return;
+    const items = getMenuLinks();
+    if (items.length === 0) return;
+    const i = items.indexOf(document.activeElement as HTMLElement);
+    if (i < 0) return;
+    if (!e.shiftKey && i === items.length - 1) {
+      e.preventDefault();
+      toggle.focus();
+    }
+    if (e.shiftKey && i === 0) {
+      e.preventDefault();
+      toggle.focus();
+    }
+  });
+
+  function handleMqChange() {
     if (!mq.matches && isOpen) setOpen(false);
+    syncLayerAccessibility();
+    if (!mq.matches) document.documentElement.style.overflow = "";
   }
-  if (mq.addEventListener) mq.addEventListener("change", handleMq);
-  else if (mq.addListener) mq.addListener(handleMq);
+  mq.addEventListener("change", handleMqChange);
+  syncLayerAccessibility();
 })();

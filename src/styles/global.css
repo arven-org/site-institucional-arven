@@ -216,10 +216,16 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* Hamburger (escondido em desktop) */
+.nav__backdrop {
+  display: none;
+}
+
 .nav__toggle {
   display: none;
-  width: 40px;
-  height: 40px;
+  min-width: 44px;
+  min-height: 44px;
+  width: 44px;
+  height: 44px;
   margin-left: 6px;
   padding: 0;
   background: transparent;
@@ -231,6 +237,7 @@ a { color: inherit; text-decoration: none; }
   flex-direction: column;
   gap: 5px;
   transition: border-color 0.15s, background 0.15s;
+  touch-action: manipulation;
 }
 
 .nav__toggle:hover {
@@ -2845,17 +2852,61 @@ main {
   .case-detail__metrics { padding: 24px; }
   .case-detail__context { padding: 24px; }
 
-  /* Mobile nav: drawer */
+  /* Mobile nav: drawer + overlay (alinhado ao safe-area / notch) */
+  .nav {
+    padding-top: env(safe-area-inset-top);
+    --nav-offset: calc(56px + env(safe-area-inset-top));
+  }
+
+  .nav__inner {
+    position: relative;
+    z-index: 2;
+  }
+
+  .nav__backdrop {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: var(--nav-offset);
+    bottom: 0;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav--open .nav__backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
   .nav__toggle { display: inline-flex; }
-  .nav__cta { padding: 7px 12px; font-size: 12px; }
+  .nav__cta {
+    padding: 10px 14px;
+    font-size: 12px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+  }
 
   .nav__links {
     position: fixed;
-    inset: 56px 0 0 0;
+    left: 0;
+    right: 0;
+    top: var(--nav-offset);
+    bottom: 0;
     flex-direction: column;
     gap: 0;
-    padding: 18px 24px 32px;
+    padding: 18px max(24px, env(safe-area-inset-right)) max(32px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
     background: rgba(10, 10, 10, 0.97);
+    z-index: 2;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-top: 1px solid var(--border);
@@ -2880,10 +2931,19 @@ main {
   }
 
   .nav__links a {
-    display: block;
-    padding: 18px 4px;
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 12px 4px;
     font-size: 16px;
     color: var(--text-primary);
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .nav__links a:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--border-hover);
+    border-radius: var(--radius-sm);
   }
 
   .nav__links a[aria-current="page"] {
@@ -2915,6 +2975,7 @@ main {
 
   @media (prefers-reduced-motion: reduce) {
     .nav__links { transition: none; }
+    .nav__backdrop { transition: none; }
     .nav__links a.nav__link--gradient,
     .nav__links a.nav__link--gradient[aria-current="page"] {
       animation: none;

@@ -4,7 +4,8 @@ interface Props {
 }
 const { currentPage } = Astro.props;
 ---
-<nav class="nav">
+<nav class="nav" aria-label="Principal">
+  <div id="nav-backdrop" class="nav__backdrop" aria-hidden="true"></div>
   <div class="nav__inner">
     <a href="/" class="nav__logo">Arven</a>
     <ul class="nav__links" id="nav-links">
@@ -15,10 +16,17 @@ const { currentPage } = Astro.props;
       <li><a href="/qualificacao" aria-current={currentPage === 'qualificacao' ? 'page' : undefined}>Contato</a></li>
     </ul>
     <a href="/qualificacao" class="nav__cta">Agendar call</a>
-    <button type="button" class="nav__toggle" aria-controls="nav-links" aria-expanded="false" aria-label="Abrir menu">
-      <span class="nav__toggle-bar"></span>
-      <span class="nav__toggle-bar"></span>
-      <span class="nav__toggle-bar"></span>
+    <button
+      type="button"
+      class="nav__toggle"
+      aria-controls="nav-links"
+      aria-expanded="false"
+      aria-haspopup="true"
+      aria-label="Abrir menu"
+    >
+      <span class="nav__toggle-bar" aria-hidden="true"></span>
+      <span class="nav__toggle-bar" aria-hidden="true"></span>
+      <span class="nav__toggle-bar" aria-hidden="true"></span>
     </button>
   </div>
 </nav>
