@@ -1,0 +1,70 @@
+---
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Arven",
+  "legalName": "ARVEN CONSULTORIA TECNOLOGIA & OUTSOURCING",
+  "url": "https://www.arvenoficial.com",
+  "logo": "https://www.arvenoficial.com/assets/logo.svg",
+  "description": "Assessoria de aquisição B2B. Estruturamos a operação que conecta investimento em mídia a contrato fechado para empresas B2B no Brasil.",
+  "foundingDate": "2024",
+  "taxID": "65.183.229/0001-54",
+  "areaServed": {
+    "@type": "Country",
+    "name": "Brazil"
+  },
+  "knowsLanguage": "pt-BR",
+  "sameAs": [
+    "https://www.instagram.com/arvensolutions/",
+    "https://www.linkedin.com/company/arvenaquisicao"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "sales",
+    "url": "https://www.arvenoficial.com/qualificacao",
+    "availableLanguage": "Portuguese"
+  },
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Gestão de Mídia e Performance",
+        "description": "Campanhas em todas as fontes de tráfego, otimizadas por receita gerada. Rastreamento end-to-end do clique ao contrato."
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Automação e Qualificação com IA",
+        "description": "Qualificação automatizada de leads 24/7 com IA. Leads entregues ao comercial com contexto completo e score de prontidão."
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Estrutura Comercial",
+        "description": "Processo comercial com CRM, playbooks, dashboards de gestão e coaching de pipeline."
+      }
+    }
+  ]
+};
+
+const siteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Arven",
+  "url": "https://www.arvenoficial.com",
+  "description": "Assessoria de aquisição B2B. Estruturamos a operação que conecta investimento em mídia a contrato fechado.",
+  "inLanguage": "pt-BR",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Arven",
+    "url": "https://www.arvenoficial.com"
+  }
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(siteSchema)} />

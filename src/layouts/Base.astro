@@ -1,5 +1,6 @@
 ---
 import Head from '../components/Head.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -17,6 +18,7 @@ const currentPath = Astro.url.pathname;
 <html lang="pt-BR">
   <head>
     <Head title={title} description={description} currentPath={currentPath} ogImage={ogImage} ogType={ogType} />
+    <SchemaOrg />
     <slot name="head" />
   </head>
   <body>
