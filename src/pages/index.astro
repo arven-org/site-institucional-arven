@@ -1,5 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+import { getRecentPosts } from '../lib/sanity.ts';
+
+let recentPosts: Awaited<ReturnType<typeof getRecentPosts>> = [];
+try {
+  recentPosts = await getRecentPosts(3);
+} catch {
+  // Sanity unavailable — section won't render
+}
 ---
 <Base
   title="Arven — Assessoria de Aquisição"
@@ -287,6 +295,51 @@ import Base from '../layouts/Base.astro';
         </div>
       </div>
     </section>
+
+    {recentPosts.length > 0 && (
+      <section class="blog-preview">
+        <div class="blog-preview__head">
+          <div>
+            <p class="blog-preview__tag">Blog</p>
+            <h2 class="blog-preview__headline">Do que aprendemos<br />operando funis de aquisição</h2>
+          </div>
+          <a href="/blog" class="btn btn--ghost">Ver todos os artigos</a>
+        </div>
+        <div class="blog-preview__grid">
+          {recentPosts.map((post) => (
+            <a href={`/blog/${post.slug.current}`} class="blog-preview__card">
+              <div class="blog-preview__img-wrap">
+                {post.image?.url ? (
+                  <img
+                    src={`${post.image.url}?w=600&fm=webp`}
+                    alt={post.image.alt ?? post.title}
+                    width="600"
+                    height="338"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <div style="width:100%;height:100%;background:var(--bg-raised);" />
+                )}
+              </div>
+              <div class="blog-preview__info">
+                <time class="blog-preview__date" datetime={post.publishedAt}>
+                  {new Date(post.publishedAt).toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric',
+                  })}
+                </time>
+                <h3 class="blog-preview__title">{post.title}</h3>
+                {post.excerpt && (
+                  <p class="blog-preview__excerpt">{post.excerpt}</p>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
 
     <!-- CTA FINAL -->
     <section class="cta-final" id="diagnostico">
