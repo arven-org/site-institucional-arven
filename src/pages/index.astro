@@ -215,8 +215,10 @@ try {
               <video
                 class="statement-video__media"
                 data-vsl-player
-                data-vsl-src-desktop="/assets/video/vsl-arven.mp4"
-                data-vsl-src-mobile="/assets/video/vsl-arven-mobile.mp4"
+                data-vsl-src-desktop="/assets/video/vsl-arven-hlg.mp4"
+                data-vsl-src-mobile="/assets/video/vsl-arven-mobile-hlg.mp4"
+                data-vsl-src-desktop-fallback="/assets/video/vsl-arven.mp4"
+                data-vsl-src-mobile-fallback="/assets/video/vsl-arven-mobile.mp4"
                 data-vsl-poster-desktop="/assets/video/vsl-arven-poster.jpg"
                 data-vsl-poster-mobile="/assets/video/vsl-arven-mobile-poster.jpg"
                 poster="/assets/video/vsl-arven-poster.jpg"
@@ -226,7 +228,7 @@ try {
                 disablepictureinpicture
                 x-webkit-airplay="allow"
               >
-                <source src="/assets/video/vsl-arven.mp4" type="video/mp4" />
+                <source src="/assets/video/vsl-arven-hlg.mp4" type="video/mp4" />
               </video>
               <div class="statement-video__buffering" aria-hidden="true"></div>
               <div class="vsl-overlay" data-vsl-overlay aria-hidden="true">

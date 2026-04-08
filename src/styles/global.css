@@ -1261,8 +1261,6 @@ main {
   vertical-align: top;
   pointer-events: auto;
   background: #0a0a0a;
-  /* Compensate for lost HDR tone-mapping after HLG→bt709 conversion */
-  filter: saturate(1.35) contrast(1.08);
 }
 
 .statement-video__frame iframe {

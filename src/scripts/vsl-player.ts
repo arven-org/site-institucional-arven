@@ -15,8 +15,11 @@ function isTouchLikeDevice(): boolean {
   if (!root || !video) return;
 
   const source = video.querySelector("source");
-  const srcDesktop = video.getAttribute("data-vsl-src-desktop");
-  const srcMobile = video.getAttribute("data-vsl-src-mobile");
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const srcDesktop = video.getAttribute(isSafari ? "data-vsl-src-desktop-fallback" : "data-vsl-src-desktop")
+    || video.getAttribute("data-vsl-src-desktop");
+  const srcMobile = video.getAttribute(isSafari ? "data-vsl-src-mobile-fallback" : "data-vsl-src-mobile")
+    || video.getAttribute("data-vsl-src-mobile");
   const posterDesktop = video.getAttribute("data-vsl-poster-desktop");
   const posterMobile = video.getAttribute("data-vsl-poster-mobile");
   const mqVsl = window.matchMedia("(max-width: 900px)");
