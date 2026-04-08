@@ -87,15 +87,15 @@ import Base from '../layouts/Base.astro';
     <section class="numbers">
       <div class="numbers__grid">
         <div class="numbers__item">
-          <span class="numbers__value">R$10M</span>
+          <span class="numbers__value"><span>R$</span><span data-ticker="10">0</span><span>M</span></span>
           <span class="numbers__label">geridos mensalmente em mídia paga</span>
         </div>
         <div class="numbers__item">
-          <span class="numbers__value">50+</span>
+          <span class="numbers__value"><span data-ticker="50">0</span><span>+</span></span>
           <span class="numbers__label">operações de aquisição ativas</span>
         </div>
         <div class="numbers__item">
-          <span class="numbers__value">R$40M+</span>
+          <span class="numbers__value"><span>R$</span><span data-ticker="40">0</span><span>M+</span></span>
           <span class="numbers__label">em mídia gerenciada ao longo da carreira</span>
         </div>
       </div>
@@ -359,4 +359,8 @@ import Base from '../layouts/Base.astro';
 
 <script>
   import '../scripts/vsl-player.ts';
+</script>
+
+<script>
+  import '../scripts/number-ticker.ts';
 </script>
