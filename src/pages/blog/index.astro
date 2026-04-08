@@ -4,6 +4,8 @@ import Base from '../../layouts/Base.astro';
 import { getAllPosts } from '../../lib/sanity.ts';
 
 const posts = await getAllPosts();
+const featured = posts.slice(0, 2);
+const rest = posts.slice(2);
 ---
 <Base
   title="Blog — Arven"
@@ -28,27 +30,76 @@ const posts = await getAllPosts();
       </p>
     </section>
   )}
+
   {posts.length > 0 && (
-    <section class="blog-list">
-      <div class="blog-list__grid">
-        {posts.map((post) => (
-          <article class="blog-card">
-            <a href={`/blog/${post.slug.current}`} class="blog-card__link">
-              <time class="blog-card__date" datetime={post.publishedAt}>
+    <section class="blog-index">
+      {/* Featured — 2 large cards */}
+      <div class="blog-featured">
+        {featured.map((post) => (
+          <a href={`/blog/${post.slug.current}`} class="blog-featured__card">
+            <div class="blog-featured__img-wrap">
+              {post.image?.url ? (
+                <img
+                  src={`${post.image.url}?w=800&fm=webp`}
+                  alt={post.image.alt ?? post.title}
+                  width="800"
+                  height="450"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <div class="blog-featured__placeholder" aria-hidden="true" />
+              )}
+            </div>
+            <div class="blog-featured__body">
+              <time class="blog-card__meta" datetime={post.publishedAt}>
                 {new Date(post.publishedAt).toLocaleDateString('pt-BR', {
-                  day: '2-digit',
-                  month: 'long',
-                  year: 'numeric'
+                  day: '2-digit', month: 'short', year: 'numeric'
                 })}
               </time>
-              <h2 class="blog-card__title">{post.title}</h2>
+              <h2 class="blog-featured__title">{post.title}</h2>
               {post.excerpt && (
-                <p class="blog-card__excerpt">{post.excerpt}</p>
+                <p class="blog-featured__excerpt">{post.excerpt}</p>
               )}
-            </a>
-          </article>
+            </div>
+          </a>
         ))}
       </div>
+
+      {/* Rest — smaller 3-col grid with dividers */}
+      {rest.length > 0 && (
+        <div class="blog-rest">
+          {rest.map((post) => (
+            <a href={`/blog/${post.slug.current}`} class="blog-rest__card">
+              <div class="blog-rest__img-wrap">
+                {post.image?.url ? (
+                  <img
+                    src={`${post.image.url}?w=500&fm=webp`}
+                    alt={post.image.alt ?? post.title}
+                    width="500"
+                    height="280"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <div class="blog-rest__placeholder" aria-hidden="true" />
+                )}
+              </div>
+              <div class="blog-rest__body">
+                <time class="blog-card__meta" datetime={post.publishedAt}>
+                  {new Date(post.publishedAt).toLocaleDateString('pt-BR', {
+                    day: '2-digit', month: 'short', year: 'numeric'
+                  })}
+                </time>
+                <h2 class="blog-rest__title">{post.title}</h2>
+                {post.excerpt && (
+                  <p class="blog-rest__excerpt">{post.excerpt}</p>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
     </section>
   )}
 </Base>
