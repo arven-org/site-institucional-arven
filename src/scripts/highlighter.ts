@@ -1,7 +1,7 @@
 import { annotate } from 'rough-notation';
 import type { RoughAnnotationType } from 'rough-notation/lib/model';
 
-const BORDER_COLOR = 'rgba(255,255,255,0.15)';
+const BORDER_COLOR = 'rgba(255,255,255,0.25)';
 
 document.querySelectorAll<HTMLElement>('[data-highlight]').forEach((el) => {
   const action = (el.dataset.highlight || 'underline') as RoughAnnotationType;
