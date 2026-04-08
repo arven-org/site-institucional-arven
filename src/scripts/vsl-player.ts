@@ -173,12 +173,6 @@ function isTouchLikeDevice(): boolean {
     updateBuffer();
   });
 
-  /* Drop poster once the first frame is decoded so the browser shows
-     the actual HLG-rendered frame instead of a static JPEG. */
-  video.addEventListener("loadeddata", function () {
-    video.removeAttribute("poster");
-  }, { once: true });
-
   video.addEventListener("loadstart", function () {
     setBuffering(true);
   });
