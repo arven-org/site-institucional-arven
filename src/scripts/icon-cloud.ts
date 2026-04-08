@@ -183,7 +183,7 @@ export function init(canvas: HTMLCanvasElement, imageUrls: string[]): void {
     const dx = mousePos.x - centerX;
     const dy = mousePos.y - centerY;
     const dist = Math.hypot(dx, dy);
-    const speed = (0.003 + (dist / maxD) * 0.01) * motionFactor;
+    const speed = (0.0004 + (dist / maxD) * 0.0015) * motionFactor;
 
     if (targetRotation) {
       const elapsed = performance.now() - targetRotation.startTime;
