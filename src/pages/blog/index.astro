@@ -34,9 +34,9 @@ const rest = posts.slice(2);
   {posts.length > 0 && (
     <section class="blog-index">
       {/* Featured — 2 large cards */}
-      <div class="blog-featured">
+      <div class="blog-featured" data-reveal-stagger="0.1">
         {featured.map((post) => (
-          <a href={`/blog/${post.slug.current}`} class="blog-featured__card">
+          <a href={`/blog/${post.slug.current}`} class="blog-featured__card" data-reveal-item>
             <div class="blog-featured__img-wrap">
               {post.image?.url ? (
                 <img
@@ -68,9 +68,9 @@ const rest = posts.slice(2);
 
       {/* Rest — smaller 3-col grid with dividers */}
       {rest.length > 0 && (
-        <div class="blog-rest">
+        <div class="blog-rest" data-reveal-stagger="0.07">
           {rest.map((post) => (
-            <a href={`/blog/${post.slug.current}`} class="blog-rest__card">
+            <a href={`/blog/${post.slug.current}`} class="blog-rest__card" data-reveal-item>
               <div class="blog-rest__img-wrap">
                 {post.image?.url ? (
                   <img
@@ -103,3 +103,7 @@ const rest = posts.slice(2);
     </section>
   )}
 </Base>
+
+<script>
+  import '../../scripts/scroll-reveal.ts';
+</script>
