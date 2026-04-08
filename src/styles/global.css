@@ -2327,9 +2327,34 @@ main {
   font-weight: 500;
   padding: 3px 10px;
   border-radius: 20px;
+  letter-spacing: 0.02em;
   background: var(--green);
   color: var(--green-text);
-  letter-spacing: 0.02em;
+}
+
+.case-detail__tag[data-tag="webinar"] {
+  background: rgba(147, 51, 234, 0.12);
+  color: #c084fc;
+}
+
+.case-detail__tag[data-tag="diagnostico"] {
+  background: rgba(59, 130, 246, 0.12);
+  color: #93bbfd;
+}
+
+.case-detail__tag[data-tag="evento"] {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+}
+
+.case-detail__tag[data-tag="filantropia"] {
+  background: rgba(236, 72, 153, 0.12);
+  color: #f472b6;
+}
+
+.case-detail__tag[data-tag="trafego"] {
+  background: rgba(16, 185, 129, 0.12);
+  color: #6ee7b7;
 }
 
 .case-detail__context--with-photo {
