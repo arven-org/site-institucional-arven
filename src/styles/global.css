@@ -288,8 +288,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .btn--primary:hover {
-  background: var(--accent-hover);
-  border-color: var(--accent-hover);
+  background: #d4cfc8;
+  border-color: #d4cfc8;
 }
 
 .btn--ghost {
