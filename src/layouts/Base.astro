@@ -8,12 +8,16 @@ interface Props {
   title: string;
   description: string;
   currentPage?: 'index' | 'servicos' | 'cases' | 'sobre' | 'qualificacao' | 'templates' | 'blog';
+  ogImage?: string;
+  ogType?: 'website' | 'article';
 }
-const { title, description, currentPage } = Astro.props;
+const { title, description, currentPage, ogImage, ogType } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
 <html lang="pt-BR">
   <head>
-    <Head title={title} description={description} />
+    <Head title={title} description={description} currentPath={currentPath} ogImage={ogImage} ogType={ogType} />
+    <slot name="head" />
   </head>
   <body>
     <Nav currentPage={currentPage} />
