@@ -64,6 +64,18 @@ import Base from '../layouts/Base.astro';
             A Arven desenha e opera funis de aquisição usando dados e tecnologia.
             Do primeiro clique ao lead qualificado, pronto para o seu time fechar.
           </p>
+          <div class="hero__social-proof">
+            <div class="avatar-circles" aria-hidden="true">
+              <img class="avatar-circles__img" src="/assets/cases/diego-faustino.png"   alt="" width="40" height="40" decoding="async" />
+              <img class="avatar-circles__img" src="/assets/cases/germano-eag.jpg"       alt="" width="40" height="40" decoding="async" />
+              <img class="avatar-circles__img" src="/assets/cases/daniel-csc.jpg"        alt="" width="40" height="40" decoding="async" />
+              <img class="avatar-circles__img" src="/assets/cases/adrian-quartavia.jpg"  alt="" width="40" height="40" decoding="async" />
+              <img class="avatar-circles__img" src="/assets/cases/apae-brasil.jpg"       alt="" width="40" height="40" decoding="async" />
+              <span class="avatar-circles__more">+50</span>
+            </div>
+            <p class="hero__social-label">empresas que já escalaram com a Arven</p>
+          </div>
+
           <div class="hero__cta-row">
             <a href="/qualificacao" class="btn btn--primary">Solicitar diagnóstico</a>
             <a href="/qualificacao" class="btn btn--ghost">Ver cases de resultado</a>
@@ -290,6 +302,61 @@ import Base from '../layouts/Base.astro';
     </section>
 
 </Base>
+
+<style>
+  .hero__social-proof {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.55s ease 1.22s both;
+  }
+
+  .avatar-circles {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .avatar-circles__img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    margin-left: -10px;
+  }
+
+  .avatar-circles__img:first-child {
+    margin-left: 0;
+  }
+
+  .avatar-circles__more {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    background: var(--bg-raised);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    margin-left: -10px;
+    flex-shrink: 0;
+  }
+
+  .hero__social-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    max-width: 180px;
+  }
+</style>
 
 <script>
   import '../scripts/vsl-player.ts';
