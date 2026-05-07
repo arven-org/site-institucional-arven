@@ -103,7 +103,7 @@ export async function POST({ request }: APIContext): Promise<Response> {
 
   const scoreRaw = body.score;
   if (typeof scoreRaw !== 'number' || !Number.isInteger(scoreRaw) || scoreRaw < 0 || scoreRaw > 10) {
-    return jsonResponse(400, { error: 'invalid_score', message: 'score deve ser inteiro 0–10' }, request);
+    return jsonResponse(400, { error: 'invalid_score', message: 'score deve ser inteiro de 0 a 10' }, request);
   }
 
   const npsSegment = segmentFromScore(scoreRaw);
@@ -159,7 +159,7 @@ export async function POST({ request }: APIContext): Promise<Response> {
       ? body.submitted_at
       : new Date().toISOString();
 
-  /** Payload canônico — especificação v1.0 */
+  /** Payload canônico (spec v1.0) */
   const formPayload = {
     score: scoreRaw,
     nps_segment: npsSegment,

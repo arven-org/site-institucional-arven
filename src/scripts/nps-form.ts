@@ -1,5 +1,5 @@
 /**
- * NPS — especificação Arven v1.0
+ * NPS (spec Arven v1.0)
  * Fluxo linear: P1 → P2 → … → P7 → Confirmação → POST /api/nps
  */
 (function () {
@@ -67,7 +67,7 @@
 
   var score: number | null = null;
   var segment: Segment | null = null;
-  /** Razões P2 — mantidas ao re-renderizar se mesmo segmento */
+  /** Razões P2 (mantidas ao re-renderizar no mesmo segmento) */
   var reasonsSelected: string[] = [];
   var lastRenderedSegment: Segment | null = null;
 
@@ -232,12 +232,12 @@
     var rows: [string, string][] = [
       ['Nota NPS', String(score)],
       ['Segmento', segForPayload],
-      ['Razões (P2)', gatherReasons().join('; ') || '—'],
-      ['Comentário aberto (P3)', getVal('nps-opentext') || '—'],
-      ['Serviços (P4)', gatherServices().join('; ') || '—'],
-      ['Melhoria (P5)', getVal('nps-improve') || '—'],
-      ['Contrato / plano (P6)', labelChurn(churn) || '—'],
-      ['Oportunidade (P7)', getVal('nps-upsell') || '—'],
+      ['Razões (P2)', gatherReasons().join('; ') || 'Não informado'],
+      ['Comentário aberto (P3)', getVal('nps-opentext') || 'Não informado'],
+      ['Serviços (P4)', gatherServices().join('; ') || 'Não informado'],
+      ['Melhoria (P5)', getVal('nps-improve') || 'Não informado'],
+      ['Contrato / plano (P6)', labelChurn(churn) || 'Não informado'],
+      ['Oportunidade (P7)', getVal('nps-upsell') || 'Não informado'],
     ];
     reviewRoot.innerHTML = rows
       .map(function (row) {
@@ -267,9 +267,9 @@
   function labelChurn(val: string | null): string {
     if (!val) return '';
     var map: Record<string, string> = {
-      expand: 'Muito satisfeito — planejo continuar e expandir',
-      renew: 'Satisfeito — pretendo renovar normalmente',
-      undecided: 'Indeciso — depende dos próximos resultados',
+      expand: 'Muito satisfeito: planejo continuar e expandir',
+      renew: 'Satisfeito: pretendo renovar normalmente',
+      undecided: 'Indeciso: depende dos próximos resultados',
       reduce: 'Pensando em reduzir escopo ou pausar',
       churn: 'Provável que não renove',
     };
@@ -325,7 +325,7 @@
     return true;
   }
 
-  /* P1 — seleção de nota (não auto-avança; usuário clica Continuar) */
+  /* P1: seleção de nota (Continuar manual, sem auto-avanço) */
   notaBtns.forEach(function (btn) {
     btn.addEventListener('click', function () {
       var n = parseInt(btn.getAttribute('data-nota') ?? '', 10);

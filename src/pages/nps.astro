@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import SchemaBreadcrumb from '../components/SchemaBreadcrumb.astro';
 ---
 <Base
-  title="Avaliação NPS — Arven"
+  title="Avaliação NPS da Arven"
   description="Ajude-nos a entender sua experiência. Leva poucos minutos."
   currentPage="nps"
 >
@@ -118,7 +118,7 @@ import SchemaBreadcrumb from '../components/SchemaBreadcrumb.astro';
           </div>
         </div>
 
-        <!-- P2 — preenchido via script (tags por segmento) -->
+        <!-- P2: preenchido via script (tags por segmento) -->
         <div class="lead-form__step" hidden data-step="p2">
           <p class="lead-form__label" id="nps-p2-question"></p>
           <p class="lead-form__hint" id="nps-p2-hint">Selecione de 1 a 3 opções.</p>
@@ -163,7 +163,7 @@ import SchemaBreadcrumb from '../components/SchemaBreadcrumb.astro';
             id="nps-improve"
             name="improve"
             rows="4"
-            placeholder="Seja direto — sua resposta vai direto para quem decide…"
+            placeholder="Seja direto: sua resposta vai direto para quem decide."
           ></textarea>
         </div>
 
@@ -171,9 +171,9 @@ import SchemaBreadcrumb from '../components/SchemaBreadcrumb.astro';
         <div class="lead-form__step" hidden data-step="p6">
           <p class="lead-form__label">Como você se sente em relação ao seu contrato ou plano atual com a Arven?</p>
           <div class="nps-radio-stack" role="radiogroup" aria-label="Risco de churn">
-            <label class="nps-radio-row"><input type="radio" name="nps-churn" value="expand" /> Muito satisfeito — planejo continuar e expandir</label>
-            <label class="nps-radio-row"><input type="radio" name="nps-churn" value="renew" /> Satisfeito — pretendo renovar normalmente</label>
-            <label class="nps-radio-row"><input type="radio" name="nps-churn" value="undecided" /> Indeciso — depende dos próximos resultados</label>
+            <label class="nps-radio-row"><input type="radio" name="nps-churn" value="expand" /> Muito satisfeito: planejo continuar e expandir</label>
+            <label class="nps-radio-row"><input type="radio" name="nps-churn" value="renew" /> Satisfeito: pretendo renovar normalmente</label>
+            <label class="nps-radio-row"><input type="radio" name="nps-churn" value="undecided" /> Indeciso: depende dos próximos resultados</label>
             <label class="nps-radio-row"><input type="radio" name="nps-churn" value="reduce" /> Pensando em reduzir escopo ou pausar</label>
             <label class="nps-radio-row"><input type="radio" name="nps-churn" value="churn" /> Provável que não renove</label>
           </div>
