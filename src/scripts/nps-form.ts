@@ -199,8 +199,14 @@
       else btnNext.removeAttribute('hidden');
     }
     if (btnSubmit) {
-      if (isReview) btnSubmit.removeAttribute('hidden');
-      else btnSubmit.setAttribute('hidden', '');
+      var showSubmit = isReview && isFormComplete();
+      if (showSubmit) {
+        btnSubmit.removeAttribute('hidden');
+        btnSubmit.setAttribute('aria-hidden', 'false');
+      } else {
+        btnSubmit.setAttribute('hidden', '');
+        btnSubmit.setAttribute('aria-hidden', 'true');
+      }
     }
 
     if (key === 'p2') renderP2();
@@ -208,11 +214,15 @@
 
     updateNextEnabled();
 
-    var panel = steps[idx];
-    var focusable = panel.querySelector<HTMLElement>(
-      'input:not([type="hidden"]), textarea, button.nps-nota-btn, .nps-tag-checkbox'
-    );
-    if (focusable) focusable.focus({ preventScroll: true });
+    if (key === 'revisao' && isFormComplete() && btnSubmit && !btnSubmit.hasAttribute('hidden')) {
+      btnSubmit.focus({ preventScroll: true });
+    } else {
+      var panel = steps[idx];
+      var focusable = panel.querySelector<HTMLElement>(
+        'input:not([type="hidden"]), textarea, button.nps-nota-btn, .nps-tag-checkbox'
+      );
+      if (focusable) focusable.focus({ preventScroll: true });
+    }
   }
 
   function renderReview(): void {
@@ -272,6 +282,16 @@
       p2Root.querySelectorAll<HTMLInputElement>('.nps-tag-checkbox:checked'),
       function (c: HTMLInputElement) { return c.value; }
     );
+  }
+
+  /** Todas as respostas obrigatórias preenchidas (para exibir «Confirmar envio» só na revisão). */
+  function isFormComplete(): boolean {
+    if (score === null) return false;
+    var r = gatherReasons();
+    if (r.length < 1 || r.length > 3) return false;
+    if (gatherServices().length < 1) return false;
+    if (!getChurnValue()) return false;
+    return true;
   }
 
   var segForPayload: Segment = 'detrator';

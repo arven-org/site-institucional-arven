@@ -1662,7 +1662,8 @@ main {
 }
 
 /* .btn usa display:inline-flex e pode anular [hidden] em alguns navegadores */
-.lead-form__actions [data-lead-action][hidden] {
+.lead-form__actions [data-lead-action][hidden],
+.lead-form__actions [data-nps-action][hidden] {
   display: none !important;
 }
 
