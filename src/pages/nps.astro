@@ -1,0 +1,254 @@
+---
+import Base from '../layouts/Base.astro';
+import SchemaBreadcrumb from '../components/SchemaBreadcrumb.astro';
+---
+<Base
+  title="Avaliação NPS — Arven"
+  description="Ajude-nos a entender sua experiência. Leva poucos minutos."
+  currentPage="nps"
+>
+
+  <section class="lead-form-shell lead-form-shell--full" aria-labelledby="nps-form-title">
+    <div class="lead-form-layout">
+
+      <aside class="lead-form-aside" id="nps-signal-aside" aria-hidden="true" data-reveal>
+        <svg class="signal-svg" viewBox="0 0 280 330" width="280" height="330" overflow="visible">
+          <line class="sg-grid" x1="35" y1="312" x2="140" y2="325"/>
+          <line class="sg-grid" x1="62" y1="302" x2="140" y2="315"/>
+          <line class="sg-grid" x1="89" y1="292" x2="140" y2="305"/>
+          <line class="sg-grid" x1="245" y1="312" x2="140" y2="325"/>
+          <line class="sg-grid" x1="218" y1="302" x2="140" y2="315"/>
+          <line class="sg-grid" x1="191" y1="292" x2="140" y2="305"/>
+          <line class="sg-grid" x1="35" y1="312" x2="245" y2="312"/>
+          <line class="sg-grid" x1="62" y1="302" x2="218" y2="302"/>
+          <line class="sg-grid" x1="89" y1="292" x2="191" y2="292"/>
+          <polygon class="sg-main" points="140,282 170,269 140,256 110,269"/>
+          <line class="sg-main" x1="112" y1="267" x2="126" y2="127"/>
+          <line class="sg-main" x1="168" y1="267" x2="154" y2="127"/>
+          <line class="sg-main" x1="126" y1="127" x2="154" y2="127"/>
+          <line class="sg-main" x1="124" y1="157" x2="156" y2="157"/>
+          <line class="sg-main" x1="121" y1="192" x2="159" y2="192"/>
+          <line class="sg-main" x1="117" y1="227" x2="163" y2="227"/>
+          <line class="sg-main" x1="114" y1="255" x2="166" y2="255"/>
+          <line class="sg-brace" x1="126" y1="127" x2="156" y2="157"/>
+          <line class="sg-brace" x1="154" y1="127" x2="124" y2="157"/>
+          <line class="sg-brace" x1="124" y1="157" x2="159" y2="192"/>
+          <line class="sg-brace" x1="156" y1="157" x2="121" y2="192"/>
+          <line class="sg-brace" x1="121" y1="192" x2="163" y2="227"/>
+          <line class="sg-brace" x1="159" y1="192" x2="117" y2="227"/>
+          <line class="sg-brace" x1="117" y1="227" x2="166" y2="255"/>
+          <line class="sg-brace" x1="163" y1="227" x2="114" y2="255"/>
+          <polygon class="sg-main" points="140,122 153,116 140,110 127,116"/>
+          <line class="sg-main" x1="140" y1="110" x2="140" y2="36"/>
+          <line class="sg-main" x1="132" y1="90" x2="148" y2="90"/>
+          <line class="sg-main" x1="135" y1="68" x2="145" y2="68"/>
+          <circle class="signal-ring signal-ring--1" cx="140" cy="36" r="4"/>
+          <circle class="signal-ring signal-ring--2" cx="140" cy="36" r="4"/>
+          <circle class="signal-ring signal-ring--3" cx="140" cy="36" r="4"/>
+          <circle class="signal-ring signal-ring--4" cx="140" cy="36" r="4"/>
+          <circle class="signal-antenna" cx="140" cy="33" r="3"/>
+        </svg>
+      </aside>
+
+      <form
+        id="arven-nps-form"
+        class="lead-form"
+        novalidate
+        data-reveal
+        data-reveal-delay="0.1"
+      >
+        <div class="lead-form__hp" aria-hidden="true">
+          <label for="nps-honeypot">Website</label>
+          <input type="text" id="nps-honeypot" name="_honeypot" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="lead-form__progress-row">
+          <div class="lead-form__circle-wrap">
+            <svg class="lead-form__circle" viewBox="0 0 48 48" width="48" height="48">
+              <defs>
+                <linearGradient id="circleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffaa40"/>
+                  <stop offset="100%" stop-color="#9c40ff"/>
+                </linearGradient>
+              </defs>
+              <circle class="lead-form__circle-bg" cx="24" cy="24" r="20"/>
+              <circle class="lead-form__circle-fill" cx="24" cy="24" r="20" data-nps-circle/>
+            </svg>
+            <span class="lead-form__circle-text" data-nps-step-label>1/8</span>
+          </div>
+          <div
+            class="lead-form__progress"
+            role="progressbar"
+            aria-valuemin="1"
+            aria-valuemax="8"
+            aria-valuenow="1"
+            aria-label="Progresso da avaliação"
+          >
+            <div class="lead-form__progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="lead-form__form-header">
+          <p class="page-hero__tag">Avaliação NPS</p>
+          <h1 id="nps-form-title" class="page-hero__headline lead-form__page-headline">
+            Sua opinião molda como a Arven atende você e outros empresários.
+          </h1>
+        </div>
+
+        <p class="lead-form__error" hidden role="alert"></p>
+
+        <!-- P1 -->
+        <div class="lead-form__step" hidden data-step="p1">
+          <p class="lead-form__label">
+            Em uma escala de 0 a 10, qual a probabilidade de você recomendar a Arven para outro empresário ou sócio?
+          </p>
+          <div class="nps-nota-grid" role="group" aria-label="Nota de 0 a 10">
+            {Array.from({ length: 11 }, (_, i) => (
+              <button
+                type="button"
+                class="nps-nota-btn"
+                data-nota={i}
+                aria-label={`Nota ${i}`}
+              >{i}</button>
+            ))}
+          </div>
+          <div class="nps-nota-extremos">
+            <span>Muito improvável</span>
+            <span>Muito provável</span>
+          </div>
+        </div>
+
+        <!-- P2 — preenchido via script (tags por segmento) -->
+        <div class="lead-form__step" hidden data-step="p2">
+          <p class="lead-form__label" id="nps-p2-question"></p>
+          <p class="lead-form__hint" id="nps-p2-hint">Selecione de 1 a 3 opções.</p>
+          <div id="nps-p2-tags" class="nps-tag-grid" role="group" aria-label="Razões"></div>
+        </div>
+
+        <!-- P3 -->
+        <div class="lead-form__step" hidden data-step="p3">
+          <label class="lead-form__label" for="nps-opentext">
+            Pode nos contar mais sobre isso? O que especificamente fez você dar essa nota?
+          </label>
+          <textarea
+            class="lead-form__textarea"
+            id="nps-opentext"
+            name="opentext"
+            rows="5"
+            placeholder="Escreva com suas próprias palavras…"
+          ></textarea>
+        </div>
+
+        <!-- P4 -->
+        <div class="lead-form__step" hidden data-step="p4">
+          <p class="lead-form__label">Quais serviços ou entregas da Arven você mais usa hoje?</p>
+          <p class="lead-form__hint">Selecione todos que se aplicam.</p>
+          <div class="nps-services-grid" role="group" aria-label="Serviços">
+            <label class="nps-check-row"><input type="checkbox" name="nps-service" value="Tráfego pago (Meta/Google)" /> Tráfego pago (Meta/Google)</label>
+            <label class="nps-check-row"><input type="checkbox" name="nps-service" value="Funis e automação" /> Funis e automação</label>
+            <label class="nps-check-row"><input type="checkbox" name="nps-service" value="Estratégia e planejamento" /> Estratégia e planejamento</label>
+            <label class="nps-check-row"><input type="checkbox" name="nps-service" value="Gestão de conteúdo" /> Gestão de conteúdo</label>
+            <label class="nps-check-row"><input type="checkbox" name="nps-service" value="CRM e integração" /> CRM e integração</label>
+            <label class="nps-check-row"><input type="checkbox" name="nps-service" value="Consultoria comercial" /> Consultoria comercial</label>
+          </div>
+        </div>
+
+        <!-- P5 -->
+        <div class="lead-form__step" hidden data-step="p5">
+          <label class="lead-form__label" for="nps-improve">
+            Se a Arven pudesse melhorar uma coisa para o seu negócio, o que seria?
+          </label>
+          <textarea
+            class="lead-form__textarea lead-form__textarea--short"
+            id="nps-improve"
+            name="improve"
+            rows="4"
+            placeholder="Seja direto — sua resposta vai direto para quem decide…"
+          ></textarea>
+        </div>
+
+        <!-- P6 -->
+        <div class="lead-form__step" hidden data-step="p6">
+          <p class="lead-form__label">Como você se sente em relação ao seu contrato ou plano atual com a Arven?</p>
+          <div class="nps-radio-stack" role="radiogroup" aria-label="Risco de churn">
+            <label class="nps-radio-row"><input type="radio" name="nps-churn" value="expand" /> Muito satisfeito — planejo continuar e expandir</label>
+            <label class="nps-radio-row"><input type="radio" name="nps-churn" value="renew" /> Satisfeito — pretendo renovar normalmente</label>
+            <label class="nps-radio-row"><input type="radio" name="nps-churn" value="undecided" /> Indeciso — depende dos próximos resultados</label>
+            <label class="nps-radio-row"><input type="radio" name="nps-churn" value="reduce" /> Pensando em reduzir escopo ou pausar</label>
+            <label class="nps-radio-row"><input type="radio" name="nps-churn" value="churn" /> Provável que não renove</label>
+          </div>
+        </div>
+
+        <!-- P7 -->
+        <div class="lead-form__step" hidden data-step="p7">
+          <p class="lead-form__label">Há algum resultado ou oportunidade que você ainda não explorou com a Arven, mas gostaria?</p>
+          <p class="lead-form__hint">Pode ser algo novo, um canal diferente, uma área do negócio. Quanto mais específico, melhor.</p>
+          <textarea
+            class="lead-form__textarea"
+            id="nps-upsell"
+            name="upsell"
+            rows="4"
+            placeholder="Ex.: nunca testamos Google Ads, mas gostaria de entender se faz sentido…"
+          ></textarea>
+        </div>
+
+        <!-- Confirmação -->
+        <div class="lead-form__step" hidden data-step="revisao">
+          <p class="lead-form__review-intro">
+            Confira suas respostas. Ao confirmar, seus dados serão enviados com segurança.
+          </p>
+          <dl class="lead-form__review" data-nps-review></dl>
+        </div>
+
+        <div class="lead-form__actions">
+          <button type="button" class="btn btn--ghost" data-nps-action="prev" hidden>Voltar</button>
+          <button type="button" class="btn btn--primary" data-nps-action="next">Continuar</button>
+          <button type="button" class="btn btn--primary" data-nps-action="submit" hidden>Confirmar envio</button>
+        </div>
+      </form>
+
+      <div
+        id="nps-form-success"
+        class="lead-form lead-form--success-panel"
+        hidden
+        role="status"
+        aria-live="polite"
+        aria-labelledby="nps-success-title"
+      >
+        <p id="nps-success-title" class="lead-form__success-title" tabindex="-1">
+          Obrigado pela sua avaliação!
+        </p>
+        <p class="lead-form__success-text">
+          Suas respostas foram registradas. Elas nos ajudam a evoluir o trabalho e o relacionamento com você.
+        </p>
+        <a href="/" class="btn btn--primary lead-form__success-cta">Voltar ao início</a>
+      </div>
+
+    </div>
+  </section>
+
+  <Fragment slot="head">
+    <SchemaBreadcrumb items={[
+      { name: "Arven", url: "https://www.arvenoficial.com/" },
+      { name: "Avaliação NPS", url: "https://www.arvenoficial.com/nps" }
+    ]} />
+  </Fragment>
+
+</Base>
+
+<script>
+  import '../scripts/scroll-reveal.ts';
+</script>
+
+<script>
+  import '../scripts/nps-form.ts';
+</script>
+
+<script>
+  const form = document.getElementById('arven-nps-form');
+  const aside = document.getElementById('nps-signal-aside');
+  if (form && aside) {
+    form.addEventListener('focusin', () => aside.classList.add('active'));
+    form.addEventListener('focusout', () => aside.classList.remove('active'));
+  }
+</script>
