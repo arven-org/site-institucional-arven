@@ -36,3 +36,7 @@ const imageUrl = ogImage ?? `${siteUrl}/assets/logo.svg`;
 <meta name="theme-color" content="#0a0a0a" />
 <link rel="icon" href="/assets/logo.svg" type="image/svg+xml" />
 <link rel="preload" href="/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+<!-- Atribuicao: captura first/last touch antes do form. Persiste em
+     sessionStorage por padrao; migra pra localStorage apos consent. -->
+<script src="/attribution.js" is:inline></script>

@@ -152,6 +152,12 @@
   }
 
   function collectCampaign() {
+    // Prefere o helper de atribuicao (first + last touch persistido).
+    // Fallback: le UTMs/click IDs apenas da URL atual.
+    var arven = (window as any).ArvenAttribution;
+    if (arven && typeof arven.toPayload === "function") {
+      return arven.toPayload();
+    }
     var p = new URLSearchParams(window.location.search);
     var keys = [
       "utm_source",
