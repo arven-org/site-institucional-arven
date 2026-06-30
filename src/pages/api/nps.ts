@@ -159,6 +159,9 @@ export async function POST({ request }: APIContext): Promise<Response> {
       ? body.submitted_at
       : new Date().toISOString();
 
+  const token =
+    typeof body.token === 'string' && body.token.trim() !== '' ? body.token.trim() : null;
+
   /** Payload canônico (spec v1.0) */
   const formPayload = {
     score: scoreRaw,
@@ -182,6 +185,7 @@ export async function POST({ request }: APIContext): Promise<Response> {
     referrer: typeof body.referrer === 'string' ? body.referrer : null,
     ref: typeof body.ref === 'string' ? body.ref : null,
     utm_source: typeof body.utm_source === 'string' ? body.utm_source : null,
+    token, // ← NPS por cliente (null no fluxo anônimo)
   };
 
   const secret = import.meta.env.NPS_WEBHOOK_SECRET;

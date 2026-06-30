@@ -6,6 +6,9 @@
   var form = document.getElementById('arven-nps-form') as HTMLFormElement | null;
   if (!form) return;
 
+  /** Token de NPS por cliente (presente só quando o link veio de /nps?t=...). */
+  var npsToken = new URLSearchParams(window.location.search).get('t');
+
   type Segment = 'promotor' | 'neutro' | 'detrator';
 
   var P2_QUESTION: Record<Segment, string> = {
@@ -393,7 +396,6 @@
       btnSubmit.textContent = 'Enviando…';
 
       var urlParams = new URLSearchParams(window.location.search);
-      var urlParams = new URLSearchParams(window.location.search);
       var payload = {
         score: score,
         nps_segment: segForPayload,
@@ -410,6 +412,7 @@
         referrer: document.referrer || null,
         ref: urlParams.get('ref'),
         utm_source: urlParams.get('utm_source'),
+        token: npsToken,
       };
 
       fetch('/api/nps', {
@@ -451,6 +454,41 @@
       } else if (btnNext && !btnNext.hidden && !btnNext.disabled) btnNext.click();
     }
   });
+
+  /** Se o link veio com ?t=<token>, valida no app interno: saúda o cliente ou
+   *  mostra "link inválido/expirado". Sem token, o fluxo anônimo segue igual. */
+  function validateTokenUX(): void {
+    var t = npsToken;
+    if (!t) return;
+    var env = (import.meta as any).env || {};
+    var base = env.PUBLIC_INTERNAL_API_URL as string | undefined;
+    if (!base) return;
+    fetch(base.replace(/\/$/, '') + '/api/nps/validate?t=' + encodeURIComponent(t))
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        var invalid = document.getElementById('nps-token-invalid');
+        var greeting = document.querySelector('[data-nps-greeting]') as HTMLElement | null;
+        if (res && res.valid) {
+          if (greeting && res.customerName) {
+            greeting.textContent =
+              'Olá, ' + res.customerName + ' — avaliação referente a ' + (res.mesLabel || 'este mês') + '.';
+            greeting.hidden = false;
+          }
+        } else if (invalid) {
+          form!.setAttribute('hidden', '');
+          var reasonMap: Record<string, string> = {
+            expired: 'Este link de avaliação expirou.',
+            answered: 'Esta avaliação já foi respondida. Obrigado!',
+            not_found: 'Link de avaliação inválido.',
+          };
+          var msgEl = invalid.querySelector('[data-nps-invalid-msg]') as HTMLElement | null;
+          if (msgEl) msgEl.textContent = reasonMap[(res && res.reason) || 'not_found'] || reasonMap.not_found;
+          invalid.hidden = false;
+        }
+      })
+      .catch(function () { /* validação não bloqueia o fluxo normal/anônimo */ });
+  }
+  validateTokenUX();
 
   showStep(0);
 })();

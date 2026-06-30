@@ -95,6 +95,8 @@ import SchemaBreadcrumb from '../components/SchemaBreadcrumb.astro';
           </h1>
         </div>
 
+        <p class="lead-form__greeting" data-nps-greeting hidden></p>
+
         <p class="lead-form__error" hidden role="alert"></p>
 
         <!-- P1 -->
@@ -206,6 +208,17 @@ import SchemaBreadcrumb from '../components/SchemaBreadcrumb.astro';
           <button type="button" class="btn btn--primary" data-nps-action="submit" hidden>Confirmar envio</button>
         </div>
       </form>
+
+      <div
+        id="nps-token-invalid"
+        class="lead-form lead-form--success-panel"
+        hidden
+        role="status"
+        aria-live="polite"
+      >
+        <p class="lead-form__success-title" data-nps-invalid-msg>Link de avaliação inválido.</p>
+        <a href="/" class="btn btn--primary lead-form__success-cta">Voltar ao início</a>
+      </div>
 
       <div
         id="nps-form-success"
