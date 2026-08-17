@@ -1,6 +1,7 @@
 import "server-only";
 
 import { cache } from "react";
+import { isSupabaseConfigured } from "@/lib/env";
 import { getServerSupabase } from "@/lib/supabase/server";
 
 export interface SessionUser {
@@ -13,6 +14,8 @@ export interface SessionUser {
  * de forma que multiplos callers no mesmo render compartilham uma so query.
  */
 export const getSessionUser = cache(async (): Promise<SessionUser | null> => {
+  if (!isSupabaseConfigured()) return null;
+
   const supabase = await getServerSupabase();
   const {
     data: { user },

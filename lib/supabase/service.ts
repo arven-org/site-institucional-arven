@@ -21,6 +21,11 @@ import type { Database } from "@/lib/supabase/types";
  */
 export function getServiceSupabase() {
   const env = getServerEnv();
+  if (!env.NEXT_PUBLIC_SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
+    throw new Error(
+      "Supabase service-role nao configurado: defina NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY.",
+    );
+  }
   return createClient<Database>(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, {
     auth: {
       autoRefreshToken: false,

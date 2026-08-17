@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { isSupabaseConfigured } from "@/lib/env";
 import { getSessionUser } from "@/lib/auth/session";
 import { LoginForm } from "./login-form";
 
@@ -8,6 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default async function LoginPage() {
+  // Plataforma desativada enquanto o Supabase nao estiver configurado no ambiente.
+  if (!isSupabaseConfigured()) redirect("/");
+
   const user = await getSessionUser();
   if (user) redirect("/dashboard");
 

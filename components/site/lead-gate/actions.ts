@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers";
 import { z } from "zod";
+import { getServerEnv, isSupabaseConfigured } from "@/lib/env";
 import { getServerSupabase } from "@/lib/supabase/server";
 import { log } from "@/lib/logger";
 import {
@@ -44,10 +45,9 @@ export async function submitLead(input: LeadInput): Promise<LeadResult> {
     return { ok: true };
   }
 
-  const supabase = await getServerSupabase();
   const userAgent = (await headers()).get("user-agent")?.slice(0, 400) ?? null;
 
-  const { error } = await supabase.from("leads").insert({
+  const lead = {
     name: data.name,
     whatsapp: data.whatsapp,
     intent: data.intent satisfies LeadIntent,
@@ -56,10 +56,49 @@ export async function submitLead(input: LeadInput): Promise<LeadResult> {
     qualified: isQualified(data.traffic, data.commercial),
     source_path: data.sourcePath ?? null,
     user_agent: userAgent,
-  });
+  };
 
-  if (error) {
-    log.error("lead_submit_failed", { code: error.code, message: error.message });
+  if (isSupabaseConfigured()) {
+    const supabase = await getServerSupabase();
+    const { error } = await supabase.from("leads").insert(lead);
+
+    if (error) {
+      log.error("lead_submit_failed", { code: error.code, message: error.message });
+      return { ok: false, error: "Não foi possível enviar agora. Tente novamente." };
+    }
+
+    return { ok: true };
+  }
+
+  // Sem Supabase: mesmo destino do site anterior (LEAD_WEBHOOK_URL).
+  const webhookUrl = getServerEnv().LEAD_WEBHOOK_URL;
+  if (!webhookUrl) {
+    log.error("lead_submit_failed", {
+      code: "no_destination",
+      message: "Sem Supabase e sem LEAD_WEBHOOK_URL",
+    });
+    return { ok: false, error: "Não foi possível enviar agora. Tente novamente." };
+  }
+
+  try {
+    const res = await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ source: "site-arven", lead }),
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (!res.ok) {
+      log.error("lead_submit_failed", {
+        code: `webhook_${String(res.status)}`,
+        message: res.statusText,
+      });
+      return { ok: false, error: "Não foi possível enviar agora. Tente novamente." };
+    }
+  } catch (err) {
+    log.error("lead_submit_failed", {
+      code: "webhook_error",
+      message: err instanceof Error ? err.message : String(err),
+    });
     return { ok: false, error: "Não foi possível enviar agora. Tente novamente." };
   }
 

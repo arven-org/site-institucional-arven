@@ -7,8 +7,11 @@ export const metadata: Metadata = {
     "Ideias sobre performance, criativos e crescimento em mercados de alto valor. Método e bastidores da Arven.",
 };
 
-export default function BlogIndex() {
-  const posts = getAllPosts();
+// Revalida a lista periodicamente: posts novos no Sanity entram sem redeploy.
+export const revalidate = 300;
+
+export default async function BlogIndex() {
+  const posts = await getAllPosts();
   return (
     <section className="relative overflow-hidden">
       <div className="shell pt-32 pb-24 md:pt-40 md:pb-32">

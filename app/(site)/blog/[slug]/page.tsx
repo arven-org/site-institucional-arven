@@ -10,13 +10,16 @@ interface Params {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return getAllPosts().map((p) => ({ slug: p.slug }));
+// Revalida periodicamente: posts novos no Sanity entram sem redeploy.
+export const revalidate = 300;
+
+export async function generateStaticParams() {
+  return (await getAllPosts()).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPost(slug);
   if (!post) return { title: "Artigo não encontrado" };
   return {
     title: post.title,
@@ -27,7 +30,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function PostPage({ params }: Params) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = await getPost(slug);
   if (!post) notFound();
 
   return (

@@ -109,12 +109,23 @@ const posts: Post[] = [
   },
 ];
 
-export function getAllPosts(): Post[] {
-  return [...posts].sort((a, b) => (a.date < b.date ? 1 : -1));
+/**
+ * Posts do Sanity (mesmo CMS do site anterior) mesclados com os posts locais.
+ * Slug repetido: o local vence. Sanity fora do ar: o blog local segue sozinho.
+ */
+export async function getAllPosts(): Promise<Post[]> {
+  const { getSanityPosts } = await import("@/lib/site/sanity");
+  const bySlug = new Map<string, Post>();
+  for (const post of await getSanityPosts()) bySlug.set(post.slug, post);
+  for (const post of posts) bySlug.set(post.slug, post);
+  return [...bySlug.values()].sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
-export function getPost(slug: string): Post | undefined {
-  return posts.find((p) => p.slug === slug);
+export async function getPost(slug: string): Promise<Post | undefined> {
+  const local = posts.find((p) => p.slug === slug);
+  if (local) return local;
+  const { getSanityPost } = await import("@/lib/site/sanity");
+  return getSanityPost(slug);
 }
 
 const MESES = [
