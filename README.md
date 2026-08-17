@@ -1,92 +1,106 @@
-# Site institucional Arven
+# Arven, sistema operacional de contratos
 
-Repositório: **[github.com/arven-org/site-institucional-arven](https://github.com/arven-org/site-institucional-arven)**
+Plataforma modular extensivel. Substitui o ArvenOS na gestao de contratos. v1 entrega o modulo de contratos e a camada de metas/forecast; a fundacao aguenta modulos futuros (pipeline de leads, dashboards) sem refatoracao.
 
-Site estático (HTML, CSS, JS). Deploy recomendado: **Vercel** + domínio **arvenoficial.com**.
+A fonte da verdade tecnica esta em [`arven-contratos-spec.md`](./arven-contratos-spec.md).
 
-## Requisitos no teu Mac
+## Stack
 
-- [Git](https://git-scm.com/)
+- Next.js 16 (App Router, RSC, Server Actions)
+- TypeScript estrito
+- Supabase (Postgres + Auth + Storage), RLS em toda tabela
+- Tailwind v4 + tokens CSS, dark-first
+- Recharts, Zod, Vitest
+- pnpm, deploy Vercel
 
-Os VSL em **`public/assets/video/`** estão **codificados para web** (H.264 + AAC, `faststart`):
+## Setup local
 
-- `vsl-arven.mp4` — desktop, 1920×1080, ~5.2 Mbps (master `VSL_SITE_ARVEN).mp4`)
-- `vsl-arven-mobile.mp4` — vertical 720×1280, ~3.2 Mbps (master `vsl_site_arven_mobile.mp4`)
-- `vsl-arven-poster.jpg` / `vsl-arven-mobile-poster.jpg` — pôsteres correspondentes
-
-A escolha entre desktop/mobile **não** usa `<source media>` (não é confiável no Safari iOS). Em vez disso, [`src/scripts/vsl-player.ts`](src/scripts/vsl-player.ts) lê os atributos `data-vsl-src-desktop`, `data-vsl-src-mobile`, `data-vsl-poster-desktop` e `data-vsl-poster-mobile` do `<video>` e troca `src`/`poster` via `matchMedia("(max-width: 900px)")` **antes** de qualquer fetch (o vídeo usa `preload="none"`).
-
-## Clonar / clone
-
-```bash
-git clone https://github.com/arven-org/site-institucional-arven.git
-cd site-institucional-arven
-```
-
-## Primeiro push (referência)
+Pre-requisitos: Node 22+, pnpm 11+, [OrbStack](https://orbstack.dev) rodando, [Supabase CLI](https://supabase.com/docs/guides/local-development/cli/getting-started).
 
 ```bash
-git remote add origin https://github.com/arven-org/site-institucional-arven.git
-git branch -M main
-git push -u origin main
+# 1. Instalar deps
+pnpm install
+
+# 2. Subir Supabase local (Postgres + Auth + Storage + Studio + Inbucket)
+pnpm db:start
+
+# 3. Pegar as keys do stack local (output do `db:start`) e popular .env.local
+cp .env.example .env.local
+# edite .env.local com URL, anon key e service-role key
+
+# 4. Aplicar migrations
+supabase db reset
+
+# 5. Subir o dev server
+pnpm dev
 ```
 
-Para **regenerar** os ficheiros a partir dos masters (ajusta caminhos):
+Aberto em `http://localhost:3000`. Supabase Studio em `http://localhost:54323`. Inbox de emails (magic link) em `http://localhost:54324`.
+
+### Criar usuario inicial
+
+Como `enable_signup = false`, novos usuarios sao criados via Studio ou via service-role:
 
 ```bash
-# Desktop — 1920×1080, 5.2 Mbps
-ffmpeg -y -i "/caminho/VSL_SITE_ARVEN).mp4" \
-  -c:v libx264 -preset medium -profile:v high -pix_fmt yuv420p \
-  -b:v 5200k -maxrate 5600k -bufsize 11200k \
-  -c:a aac -b:a 160k -ac 2 -movflags +faststart \
-  public/assets/video/vsl-arven.mp4
-
-# Mobile — vertical 720×1280, 3.2 Mbps
-ffmpeg -y -i "/caminho/vsl_site_arven_mobile.mp4" \
-  -c:v libx264 -preset medium -profile:v high -pix_fmt yuv420p \
-  -b:v 3200k -maxrate 3500k -bufsize 7000k \
-  -vf "scale=720:1280" \
-  -c:a aac -b:a 128k -ac 2 -movflags +faststart \
-  public/assets/video/vsl-arven-mobile.mp4
-
-# Pôsteres (1 frame ~1.5s do início)
-ffmpeg -y -ss 1.5 -i public/assets/video/vsl-arven.mp4 \
-  -frames:v 1 -vf "scale=1280:720" -q:v 4 \
-  public/assets/video/vsl-arven-poster.jpg
-ffmpeg -y -ss 1.5 -i public/assets/video/vsl-arven-mobile.mp4 \
-  -frames:v 1 -vf "scale=720:1280" -q:v 4 \
-  public/assets/video/vsl-arven-mobile-poster.jpg
+# Via Studio: http://localhost:54323 > Authentication > Users > Add user
+# Defina email + senha temporaria. O profile e auto-criado pelo trigger.
+# Pra promover a admin, edite a tabela profiles direto no Studio.
 ```
 
-## Vercel
+No fluxo de login, voce so digita o email, recebe o magic link no Inbucket local, clica, entra.
 
-Se o projeto na Vercel ainda apontar para outro repo GitHub, em **Settings → Git** reconecta a **[site-institucional-arven](https://github.com/arven-org/site-institucional-arven)** (ou importa de novo este repositório).
-
-1. [vercel.com](https://vercel.com) → **Add New** → **Project** → importar **site-institucional-arven**.
-2. **Framework Preset:** Other (site estático).
-3. **Root Directory:** `.` (raiz do repositório = esta pasta).
-4. **Build Command:** vazio.
-5. **Output Directory:** vazio (ficheiros na raiz).
-
-### Domínio `arvenoficial.com`
-
-1. No projeto Vercel → **Settings** → **Domains** → adicionar `arvenoficial.com` e `www.arvenoficial.com`.
-2. Na OVH/Registro.br onde está o domínio, aponta os registos que a Vercel indicar (normalmente **A** para Vercel ou **CNAME** para `cname.vercel-dns.com`).
-3. Ativa **redirect** de `www` → apex ou o contrário, conforme preferires.
-
-O ficheiro `vercel.json` define **cabeçalhos de segurança** (X-Content-Type-Options, X-Frame-Options, Referrer-Policy, etc.) e cache longo para imagens/SVG em `/assets/`.
-
-## Auditoria (CI)
-
-No GitHub Actions corre **Lighthouse CI** em cada push/PR para `main`/`master`, com base em `lighthouserc.json` (páginas principais + limites mínimos de acessibilidade e SEO).
-
-Para testar localmente:
+## Comandos
 
 ```bash
-npx --yes @lhci/cli@0.14.x autorun
+pnpm dev               # dev server (Turbopack)
+pnpm build             # build de prod
+pnpm lint              # ESLint
+pnpm typecheck         # tsc --noEmit
+pnpm format            # Prettier
+pnpm test              # Vitest, tudo
+pnpm test:rls          # so a suite de RLS (precisa do stack local)
+pnpm db:start          # supabase start
+pnpm db:stop           # supabase stop
+pnpm db:reset          # reset + reaplica migrations + seed
+pnpm db:types          # gera lib/supabase/types.ts do schema local
 ```
 
-## Estrutura útil
+## Estrutura
 
-- `index.html`, `cases.html`, `servicos.html`, `sobre.html`, `qualificacao.html`, `blog/index.html`
-- `styles.css`, `js/`, `assets/`
+```
+app/              Rotas Next.js (camada fina, so apresentacao)
+modules/          Logica de negocio, um modulo por dominio
+lib/              Infra transversal (supabase, auth, money, dates, errors)
+components/       Design system (primitives, charts, layout)
+design-tokens/    Tokens CSS, tipografia, motion
+supabase/         Banco como codigo (migrations, config, policies docs)
+tests/            Setup, suite de RLS, integration
+```
+
+Boundaries forcadas por ESLint (`eslint.config.mjs`):
+
+- `modules/*` nao se importam entre si
+- `lib/` nao depende de modules/app/components
+- `components/` nao depende de modules
+- `@/lib/supabase/service` (bypassa RLS) so importavel em `app/api/cron`, `app/api/webhooks`, `scripts/`, `modules/*/jobs/`
+
+## Padroes nao negociaveis
+
+- RLS habilitado em toda tabela, policy na mesma migration que cria a tabela
+- Valor monetario sempre em centavos (`bigint`), nunca em reais. `mrr_cents` e a fonte da verdade
+- Contrato nunca apagado, mudancas de status sao append-only via trigger
+- Historico de MRR vive em `mrr_snapshots`, congelado, nao recalculado ao vivo
+- Zod em toda fronteira de entrada (form, webhook, action)
+- Sem travessao em nenhum texto (lint reprova)
+
+## Sequencia de construcao
+
+1. ~~Fundacao~~ (esta fatia)
+2. Schema completo + triggers + RLS (clients, contracts, contract*status_log, mrr_snapshots, alerts, growth*\*)
+3. Modulo de contratos (CRUD, 4 estados, PDF storage)
+4. Seed dos 21 clientes (valida soma R$ 64.100)
+5. Job diario de snapshot + motor de status + alertas
+6. Camada de metas/forecast + tela principal sobreposta
+7. Ingestao Google Form com portao de aprovacao
+
+Cada fatia entregue com testes passando.

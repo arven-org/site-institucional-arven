@@ -1,23 +1,87 @@
 {
-  "name": "site-institucional-arven",
+  "name": "arven-solutions",
+  "version": "0.1.0",
   "private": true,
-  "description": "Site institucional Arven — Astro",
+  "description": "Sistema operacional de contratos da Arven. Plataforma modular extensivel.",
+  "packageManager": "pnpm@11.3.0",
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=11.0.0"
+  },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "dev": "next dev --turbo",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:rls": "vitest run tests/db",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
+    "db:reset": "supabase db reset",
+    "db:diff": "supabase db diff --schema public --linked=false",
+    "db:types": "supabase gen types typescript --local 2>/dev/null > lib/supabase/types.ts",
+    "user:bootstrap": "tsx scripts/bootstrap-user.ts",
+    "migrate:arvenos": "tsx scripts/migrate-arvenos.ts",
+    "prepare": "husky"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.2",
-    "@astrojs/vercel": "^10.0.4",
-    "@portabletext/to-html": "^5.0.2",
-    "@sanity/client": "^7.20.0",
-    "astro": "^6.1.4",
-    "gsap": "^3.14.2"
+    "@radix-ui/react-dialog": "1.1.15",
+    "@radix-ui/react-dropdown-menu": "2.1.16",
+    "@radix-ui/react-label": "2.1.8",
+    "@radix-ui/react-popover": "1.1.15",
+    "@radix-ui/react-select": "2.2.6",
+    "@radix-ui/react-separator": "1.1.8",
+    "@radix-ui/react-slot": "1.2.4",
+    "@radix-ui/react-tooltip": "1.2.8",
+    "@radix-ui/react-visually-hidden": "1.2.4",
+    "@supabase/ssr": "0.10.3",
+    "@supabase/supabase-js": "2.106.1",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "lucide-react": "1.16.0",
+    "next": "16.2.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "recharts": "3.8.1",
+    "server-only": "0.0.1",
+    "sonner": "2.0.7",
+    "tailwind-merge": "3.6.0",
+    "zod": "4.4.3"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
-    "tinify": "^1.8.2",
-    "typescript": "^5.9.3"
+    "@tailwindcss/postcss": "4.3.0",
+    "@types/node": "25.9.1",
+    "@types/react": "19.2.15",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.2",
+    "dotenv": "17.4.2",
+    "eslint": "9.39.4",
+    "tsx": "4.22.3",
+    "eslint-config-next": "16.2.6",
+    "eslint-plugin-import": "2.32.0",
+    "husky": "9.1.7",
+    "jsdom": "29.1.1",
+    "lint-staged": "17.0.5",
+    "postcss": "8.5.15",
+    "prettier": "3.8.3",
+    "prettier-plugin-tailwindcss": "0.8.0",
+    "tailwindcss": "4.3.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.59.4",
+    "vitest": "4.1.7"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{js,jsx,json,md,css,yml,yaml}": [
+      "prettier --write"
+    ]
   }
 }

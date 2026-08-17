@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "22"
+  PNPM_VERSION: "11"
+
+jobs:
+  quality:
+    name: Lint + Typecheck + Unit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm format:check
+      - name: Unit tests (sem RLS, sem banco)
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: http://localhost:54321
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: dummy_anon_key_for_typecheck_only_xxxxxxxx
+          SUPABASE_SERVICE_ROLE_KEY: dummy_service_key_for_typecheck_only_xxxxx
+        run: pnpm vitest run --exclude "tests/db/**"
+
+  db:
+    name: Supabase migrations + RLS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - run: pnpm install --frozen-lockfile
+      - name: Start Supabase
+        run: supabase start
+      - name: Capturar segredos do stack local
+        id: keys
+        run: |
+          status=$(supabase status --output json)
+          echo "url=$(echo "$status" | jq -r '.API_URL')" >> "$GITHUB_OUTPUT"
+          echo "anon=$(echo "$status" | jq -r '.ANON_KEY')" >> "$GITHUB_OUTPUT"
+          echo "service=$(echo "$status" | jq -r '.SERVICE_ROLE_KEY')" >> "$GITHUB_OUTPUT"
+      - name: Aplicar migrations (validacao)
+        run: supabase db reset --no-seed
+      - name: RLS suite
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ steps.keys.outputs.url }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ steps.keys.outputs.anon }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ steps.keys.outputs.service }}
+        run: pnpm test:rls
+      - name: Stop Supabase
+        if: always()
+        run: supabase stop --no-backup
+
+  build:
+    name: Build (Next.js)
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: http://localhost:54321
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: dummy_anon_key_for_build_only_xxxxxxxxxxxx
+          SUPABASE_SERVICE_ROLE_KEY: dummy_service_key_for_build_only_xxxxxxxxxx
+        run: pnpm build

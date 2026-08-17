@@ -1,2 +1,0 @@
-# Vídeos em `assets/video/` devem ficar abaixo de ~95 MB para GitHub + Vercel Hobby sem Git LFS.
-# (Ficheiros >100 MB no Git normal são rejeitados pelo GitHub; LFS na Vercel exige opção extra no dashboard.)

@@ -1,0 +1,12 @@
+# Single-package por enquanto, formato workspace porque pnpm 11+ moveu
+# essas configuracoes pra ca. Quando dividirmos em packages no futuro,
+# ja esta no lugar.
+
+packages:
+  - "."
+
+allowBuilds:
+  sharp: true
+  unrs-resolver: true
+  "@tailwindcss/oxide": true
+  esbuild: true

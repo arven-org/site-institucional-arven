@@ -1,0 +1,45 @@
+{
+  "_doc": "Template do JSON da migracao do ArvenOS. Copie pra migration-clients.json (gitignored) e preencha. Um cliente pode ter N contratos. expected_total_cents PRECISA bater com a soma de TODOS os mrr_cents (em centavos).",
+  "snapshot_date": "2026-05-25",
+  "expected_total_cents": 950000,
+  "clients": [
+    {
+      "seed_ref": "ARV-001",
+      "name": "Acme Solucoes Ltda",
+      "trade_name": "Acme",
+      "document": "00.000.000/0001-00",
+      "email": "financeiro@acme.com",
+      "phone": "(11) 99999-0000",
+      "contracts": [
+        {
+          "seed_ref": "ARV-001-C1",
+          "mrr_cents": 350000,
+          "start_date": "2024-03-01",
+          "end_date": null
+        }
+      ]
+    },
+    {
+      "seed_ref": "ARV-002",
+      "name": "Beta Holding Ltda",
+      "trade_name": null,
+      "document": "11.111.111/0001-11",
+      "email": null,
+      "phone": null,
+      "contracts": [
+        {
+          "seed_ref": "ARV-002-C1",
+          "mrr_cents": 250000,
+          "start_date": "2024-08-15",
+          "end_date": "2026-08-15"
+        },
+        {
+          "seed_ref": "ARV-002-C2",
+          "mrr_cents": 350000,
+          "start_date": "2025-01-10",
+          "end_date": null
+        }
+      ]
+    }
+  ]
+}

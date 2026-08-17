@@ -1,0 +1,3 @@
+-- Seed local. NAO usado em prod (Supabase CLI so aplica em `db reset` local).
+-- Vazio na fatia 1. A migracao dos 21 clientes entra na fatia 4
+-- como script versionado em scripts/seed-clients.ts, nao como SQL solto.
