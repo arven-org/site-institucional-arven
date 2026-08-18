@@ -71,7 +71,7 @@ function LeadFlow({ intent }: { intent: LeadIntent }) {
   }
 
   function redirect() {
-    // mailto (agendar) mantem a pagina; checkout do ebook navega para fora.
+    // Agendar leva pro Google Calendar (30min); checkout do ebook navega para fora.
     window.location.href = config.destination;
   }
 

@@ -67,6 +67,22 @@ export default async function PostPage({ params }: Params) {
           </h1>
         </div>
 
+        {/* capa (vem do Sanity, como no site anterior) */}
+        {post.image && (
+          <figure className="mx-auto mt-12 max-w-[52rem]" data-reveal>
+            <img
+              src={`${post.image.url}?w=1600&fm=webp`}
+              alt={post.image.alt ?? post.title}
+              width={1600}
+              height={900}
+              loading="eager"
+              decoding="async"
+              className="aspect-[16/9] w-full rounded-2xl object-cover"
+              style={{ backgroundColor: "var(--line)" }}
+            />
+          </figure>
+        )}
+
         {/* corpo */}
         <div className="mt-14" data-reveal>
           <PostBody body={post.body} />

@@ -13,7 +13,7 @@ export const brand = {
   location: "Santa Catarina, Brasil",
   presence: "Time 100% presencial",
   // Fonte unica de verdade dos CTAs. Trocar por Calendly/Cal.com quando houver.
-  scheduleUrl: "mailto:contato@arvenoficial.com?subject=Quero%20agendar%20uma%20reuni%C3%A3o",
+  scheduleUrl: "https://calendar.app.google/bzx5Q6wW5uhBfY7r6",
   scheduleLabel: "Agendar reunião",
   // Checkout do ebook (Hotmart). Destino apos o lead passar pela qualificacao.
   checkoutUrl: "https://pay.hotmart.com/A107100553U",

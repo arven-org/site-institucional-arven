@@ -32,6 +32,7 @@ interface SanityPost {
   slug?: { current?: string };
   publishedAt?: string;
   excerpt?: string;
+  image?: { url?: string; alt?: string };
   body?: SanityBlock[];
 }
 
@@ -120,6 +121,8 @@ function toPost(raw: SanityPost): Post | null {
   if (!slug || !title || !publishedAt) return null;
 
   const body = toBlocks(raw.body);
+  const imageUrl = raw.image?.url;
+  const alt = raw.image?.alt;
   return {
     slug,
     title,
@@ -128,10 +131,11 @@ function toPost(raw: SanityPost): Post | null {
     date: publishedAt.slice(0, 10),
     readingMinutes: readingMinutes(body),
     body,
+    ...(imageUrl ? { image: { url: imageUrl, ...(alt ? { alt } : {}) } } : {}),
   };
 }
 
-const LIST_FIELDS = "title, slug, publishedAt, excerpt";
+const LIST_FIELDS = 'title, slug, publishedAt, excerpt, image { alt, "url": asset->url }';
 
 export async function getSanityPosts(): Promise<Post[]> {
   try {

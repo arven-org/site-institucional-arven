@@ -40,8 +40,8 @@ export default async function BlogIndex() {
               }
               data-reveal
             >
-              <div className="grid gap-6 md:grid-cols-[0.9fr_1.6fr] md:items-baseline">
-                <div className="flex items-center gap-3">
+              <div className="grid gap-6 md:grid-cols-[0.9fr_1.6fr] md:items-start">
+                <div className="flex items-center gap-3 md:pt-2">
                   <span className="eyebrow" style={{ color: "var(--sand)" }}>
                     {post.category}
                   </span>
@@ -49,23 +49,41 @@ export default async function BlogIndex() {
                     {formatDate(post.date)}
                   </span>
                 </div>
-                <div>
-                  <h2
-                    className="display transition-opacity group-hover:opacity-70"
-                    style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)" }}
-                  >
-                    {post.title}
-                  </h2>
-                  <p className="lead mt-4 max-w-xl text-[1rem]">{post.excerpt}</p>
-                  <span
-                    className="mt-5 inline-flex items-center gap-2 text-sm font-medium"
-                    style={{ color: "var(--fg)" }}
-                  >
-                    Ler artigo
-                    <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      &rarr;
+                <div
+                  className={
+                    post.image ? "grid gap-6 sm:grid-cols-[220px_1fr] sm:items-start" : undefined
+                  }
+                >
+                  {post.image && (
+                    <img
+                      src={`${post.image.url}?w=500&fm=webp`}
+                      alt={post.image.alt ?? post.title}
+                      width={500}
+                      height={375}
+                      loading="lazy"
+                      decoding="async"
+                      className="aspect-[4/3] w-full rounded-xl object-cover transition-opacity group-hover:opacity-85"
+                      style={{ backgroundColor: "var(--line)" }}
+                    />
+                  )}
+                  <div>
+                    <h2
+                      className="display transition-opacity group-hover:opacity-70"
+                      style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)" }}
+                    >
+                      {post.title}
+                    </h2>
+                    <p className="lead mt-4 max-w-xl text-[1rem]">{post.excerpt}</p>
+                    <span
+                      className="mt-5 inline-flex items-center gap-2 text-sm font-medium"
+                      style={{ color: "var(--fg)" }}
+                    >
+                      Ler artigo
+                      <span className="transition-transform duration-300 group-hover:translate-x-1">
+                        &rarr;
+                      </span>
                     </span>
-                  </span>
+                  </div>
                 </div>
               </div>
             </a>

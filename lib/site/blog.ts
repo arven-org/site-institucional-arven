@@ -25,6 +25,11 @@ interface QuoteBlock {
 }
 export type Block = LeadBlock | ParagraphBlock | HeadingBlock | ListBlock | QuoteBlock;
 
+export interface PostImage {
+  url: string;
+  alt?: string;
+}
+
 export interface Post {
   slug: string;
   title: string;
@@ -33,6 +38,7 @@ export interface Post {
   date: string; // ISO
   readingMinutes: number;
   body: Block[];
+  image?: PostImage;
 }
 
 const posts: Post[] = [
