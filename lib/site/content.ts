@@ -183,7 +183,6 @@ export const integrations: IntegrationGroup[] = [
  */
 /** Clientes em destaque, com nome e nicho. Carrossel principal. */
 export const clients = [
-  { photo: "adrian-carvalho.png", name: "Adrian Carvalho", kind: "Engenharia Patrimonial" },
   { photo: "germano-eag.jpg", name: "Marcelo Germano", kind: "EAG" },
   { photo: "alan-ribeiro.png", name: "Allan Ribeiro", kind: "Advogado Bancário" },
   { photo: "paulo-freitas.png", name: "Paulo H. De Freitas", kind: "Direito Bancário" },
