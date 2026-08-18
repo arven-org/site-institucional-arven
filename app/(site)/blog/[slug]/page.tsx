@@ -2,6 +2,7 @@ import { type Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPost, formatDate } from "@/lib/site/blog";
+import { JsonLd } from "@/components/site/json-ld";
 import { PostBody } from "@/components/site/post-body";
 import { ScheduleButton } from "@/components/site/schedule-button";
 import { EbookButton } from "@/components/site/ebook-button";
@@ -17,14 +18,33 @@ export async function generateStaticParams() {
   return (await getAllPosts()).map((p) => ({ slug: p.slug }));
 }
 
+function postDescription(post: { excerpt: string; body: { type: string }[] }): string {
+  if (post.excerpt) return post.excerpt;
+  const first = post.body.find((b): b is { type: "lead" | "p"; text: string } =>
+    ["lead", "p"].includes(b.type),
+  );
+  return first ? first.text.slice(0, 160) : "Leia este artigo no blog da Arven.";
+}
+
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) return { title: "Artigo não encontrado" };
+  const description = postDescription(post);
+  const ogImage = post.image ? `${post.image.url}?w=1200&fm=webp` : "/og.png";
   return {
     title: post.title,
-    description: post.excerpt,
-    openGraph: { type: "article", title: post.title, description: post.excerpt },
+    description,
+    alternates: { canonical: `/blog/${post.slug}` },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description,
+      url: `/blog/${post.slug}`,
+      publishedTime: post.date,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: post.image?.alt ?? post.title }],
+    },
+    twitter: { card: "summary_large_image" },
   };
 }
 
@@ -33,8 +53,41 @@ export default async function PostPage({ params }: Params) {
   const post = await getPost(slug);
   if (!post) notFound();
 
+  const postUrl = `https://www.arvenoficial.com/blog/${post.slug}`;
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${postUrl}#article`,
+    headline: post.title,
+    description: postDescription(post),
+    url: postUrl,
+    mainEntityOfPage: { "@type": "WebPage", "@id": postUrl },
+    datePublished: post.date,
+    dateModified: post.date,
+    inLanguage: "pt-BR",
+    ...(post.image ? { image: [`${post.image.url}?w=1200&fm=webp`] } : {}),
+    author: { "@id": "https://www.arvenoficial.com/#organization" },
+    publisher: { "@id": "https://www.arvenoficial.com/#organization" },
+    isPartOf: { "@id": "https://www.arvenoficial.com/#website" },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "article p:first-of-type"],
+    },
+  };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Início", item: "https://www.arvenoficial.com" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.arvenoficial.com/blog" },
+      { "@type": "ListItem", position: 3, name: post.title, item: postUrl },
+    ],
+  };
+
   return (
     <article className="relative overflow-hidden">
+      <JsonLd data={articleJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <div className="shell pt-32 pb-24 md:pt-40 md:pb-32">
         {/* cabecalho */}
         <div className="mx-auto max-w-[42rem]">

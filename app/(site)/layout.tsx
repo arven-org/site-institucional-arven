@@ -5,6 +5,8 @@ import { SiteNav } from "@/components/site/nav";
 import { SiteFooter } from "@/components/site/footer";
 import { RevealProvider } from "@/components/site/reveal-provider";
 import { LeadGateProvider } from "@/components/site/lead-gate/provider";
+import { JsonLd } from "@/components/site/json-ld";
+import { brand } from "@/lib/site/content";
 
 /**
  * Tipografia do site. A marca usa NewBlack (fonte comercial, minimalista).
@@ -46,7 +48,61 @@ export const metadata: Metadata = {
     siteName: "Arven",
     title,
     description,
+    url: "https://www.arvenoficial.com",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Arven" }],
   },
+  twitter: {
+    card: "summary_large_image",
+  },
+};
+
+/** Entidade Arven legivel por maquina: desambigua a marca para Google e LLMs. */
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://www.arvenoficial.com/#organization",
+  name: "Arven",
+  alternateName: ["Arven Oficial", "Arven Solutions"],
+  url: "https://www.arvenoficial.com",
+  logo: {
+    "@type": "ImageObject",
+    url: "https://www.arvenoficial.com/icon-512.png",
+    width: 512,
+    height: 512,
+  },
+  description:
+    "Time de performance que transforma dados, midia e tecnologia em crescimento real e escalavel. Trafego pago, qualificacao e CRM, criativos (metodo ADv), automacao e IA para mercados de alto valor, como advogados e mentores.",
+  slogan: brand.promise,
+  email: brand.email,
+  address: { "@type": "PostalAddress", addressRegion: "SC", addressCountry: "BR" },
+  areaServed: { "@type": "Country", name: "Brasil" },
+  sameAs: [brand.social.instagram, brand.social.linkedin],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    email: brand.email,
+    availableLanguage: "Portuguese",
+  },
+  knowsAbout: [
+    "Marketing de performance",
+    "Trafego pago",
+    "Geracao de leads qualificados",
+    "CRM e qualificacao de leads",
+    "Criativos para midia paga",
+    "Automacao de marketing",
+    "Inteligencia artificial aplicada a marketing",
+  ],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://www.arvenoficial.com/#website",
+  url: "https://www.arvenoficial.com",
+  name: "Arven",
+  description,
+  inLanguage: "pt-BR",
+  publisher: { "@id": "https://www.arvenoficial.com/#organization" },
 };
 
 export const viewport: Viewport = {
@@ -57,6 +113,9 @@ export const viewport: Viewport = {
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className={`arven-site ${newblack.variable}`}>
+      <link rel="preconnect" href="https://cdn.sanity.io" />
+      <JsonLd data={organizationJsonLd} />
+      <JsonLd data={websiteJsonLd} />
       <LeadGateProvider>
         <RevealProvider />
         <SiteNav />

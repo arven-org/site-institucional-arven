@@ -6,7 +6,7 @@ export function ImageBand() {
       <div className="media media--flat media--mono relative flex min-h-[70svh] items-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/band-buildings.jpg"
+          src="/images/band-buildings.webp"
           alt="Arranha-céus vistos de baixo entre a neblina"
           loading="lazy"
           className="absolute inset-0"

@@ -20,7 +20,10 @@ export function Counter({
   duration?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const [display, setDisplay] = useState(0);
+  // Inicia no valor FINAL: o HTML servido (SSR) mostra o numero real para
+  // usuarios sem JS e para crawlers de IA (que liam "R$0Mi" antes).
+  // A animacao parte do zero so quando o elemento entra na viewport.
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
     const el = ref.current;

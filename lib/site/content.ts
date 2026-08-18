@@ -183,31 +183,31 @@ export const integrations: IntegrationGroup[] = [
  */
 /** Clientes em destaque, com nome e nicho. Carrossel principal. */
 export const clients = [
-  { photo: "germano-eag.jpg", name: "Marcelo Germano", kind: "EAG" },
-  { photo: "alan-ribeiro.png", name: "Allan Ribeiro", kind: "Advogado Bancário" },
-  { photo: "paulo-freitas.png", name: "Paulo H. De Freitas", kind: "Direito Bancário" },
+  { photo: "germano-eag.webp", name: "Marcelo Germano", kind: "EAG" },
+  { photo: "alan-ribeiro.webp", name: "Allan Ribeiro", kind: "Advogado Bancário" },
+  { photo: "paulo-freitas.webp", name: "Paulo H. De Freitas", kind: "Direito Bancário" },
   { photo: "daniel-cheida.webp", name: "Daniel Cheida", kind: "Direito Bancário" },
-  { photo: "araujo-refosco.png", name: "Araújo & Refosco", kind: "Reestruturação de Dívidas" },
-  { photo: "tulio-parca.png", name: "Túlio Parça", kind: "Direito do Agronegócio" },
-  { photo: "leonardo-cabral.png", name: "Leonardo Cabral", kind: "Advocacia" },
-  { photo: "luis-hungaro.png", name: "Luis Hungaro", kind: "Licitações" },
+  { photo: "araujo-refosco.webp", name: "Araújo & Refosco", kind: "Reestruturação de Dívidas" },
+  { photo: "tulio-parca.webp", name: "Túlio Parça", kind: "Direito do Agronegócio" },
+  { photo: "leonardo-cabral.webp", name: "Leonardo Cabral", kind: "Advocacia" },
+  { photo: "luis-hungaro.webp", name: "Luis Hungaro", kind: "Licitações" },
 ] as const;
 
 /** Demais clientes, fileira menor de avatares. "E muitos outros". */
 export const moreClients = [
-  { photo: "saraiva-e-castro.png", name: "Saraiva e Castro" },
-  { photo: "guido-chicata.jpg", name: "Guido Chicata" },
-  { photo: "gustavo-souza.png", name: "Gustavo Souza" },
+  { photo: "saraiva-e-castro.webp", name: "Saraiva e Castro" },
+  { photo: "guido-chicata.webp", name: "Guido Chicata" },
+  { photo: "gustavo-souza.webp", name: "Gustavo Souza" },
   { photo: "matheus-emanuel.webp", name: "Matheus Emanuel" },
   { photo: "isabele-martins.webp", name: "Isabele Martins" },
-  { photo: "santos-barros.jpg", name: "Santos Barros" },
-  { photo: "viviane-macedo-brandao.png", name: "Viviane Macedo e Brandão" },
+  { photo: "santos-barros.webp", name: "Santos Barros" },
+  { photo: "viviane-macedo-brandao.webp", name: "Viviane Macedo e Brandão" },
   { photo: "daniel-vatanabe.webp", name: "Daniel Vatanabe" },
-  { photo: "nenger-lima.jpg", name: "Nenger Lima" },
-  { photo: "ppa-advogados.jpeg", name: "PPA Advogados" },
+  { photo: "nenger-lima.webp", name: "Nenger Lima" },
+  { photo: "ppa-advogados.webp", name: "PPA Advogados" },
   { photo: "douglas-ibarra.webp", name: "Douglas Ibarra" },
   { photo: "jose-cajazeiro.webp", name: "José Cajazeiro" },
-  { photo: "rhuan-christo.jpeg", name: "Rhuan Christo" },
+  { photo: "rhuan-christo.webp", name: "Rhuan Christo" },
   { photo: "rodolfo-clivati.webp", name: "Rodolfo Clivati" },
 ] as const;
 

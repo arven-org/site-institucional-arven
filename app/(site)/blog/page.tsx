@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Blog",
   description:
     "Ideias sobre performance, criativos e crescimento em mercados de alto valor. Método e bastidores da Arven.",
+  alternates: { canonical: "/blog" },
 };
 
 // Revalida a lista periodicamente: posts novos no Sanity entram sem redeploy.

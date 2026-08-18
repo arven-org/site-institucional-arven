@@ -1,3 +1,11 @@
 {
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "arvenoficial.com" }],
+      "destination": "https://www.arvenoficial.com/:path*",
+      "permanent": true
+    }
+  ]
 }
