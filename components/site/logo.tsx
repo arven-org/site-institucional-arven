@@ -1,11 +1,12 @@
 import { type SVGProps } from "react";
 
 /**
- * Simbolo oficial Arven. Chevron apontando a direita (vertice unico no centro,
- * caudas para a esquerda) somado as tres barras horizontais: a do meio mais
- * longa, atravessando o vertice; topo e base mais curtas e alinhadas a direita.
- * Traco uniforme, vertice limpo (path unico). Herda cor via currentColor.
- * pathLength=100 normaliza o comprimento para a animacao de desenho.
+ * Simbolo oficial Arven (versao do icone ARVEN_icone_preto_transparente).
+ * Flecha apontando a direita: haste horizontal completa (a barra do meio) e
+ * duas diagonais que MORREM na haste, sem vertice pontudo; a junta e reta.
+ * Topo e base sao barras mais curtas alinhadas a direita. Geometria medida
+ * por scanline do PNG oficial (569x465, reduzida 4x). Herda cor via
+ * currentColor. pathLength=100 normaliza o comprimento para a animacao.
  */
 export function ArvenMark({
   title = "Arven",
@@ -13,22 +14,22 @@ export function ArvenMark({
 }: SVGProps<SVGSVGElement> & { title?: string }) {
   return (
     <svg
-      viewBox="0 0 150 104"
+      viewBox="0 0 142 116"
       role="img"
       aria-label={title}
       fill="none"
       stroke="currentColor"
-      strokeWidth={11}
+      strokeWidth={10}
       strokeLinecap="butt"
       strokeLinejoin="miter"
       {...props}
     >
-      {/* chevron, path unico: cauda superior -> vertice -> cauda inferior */}
-      <path d="M22 9 L74 52 L22 95" pathLength={100} />
-      {/* tres barras, os multiplos dados */}
-      <line x1="78" y1="26" x2="146" y2="26" pathLength={100} />
-      <line x1="20" y1="52" x2="146" y2="52" pathLength={100} />
-      <line x1="78" y1="78" x2="146" y2="78" pathLength={100} />
+      {/* diagonais da flecha: terminam na haste central, junta reta (sem bico) */}
+      <path d="M29 8 L80 57 M29 108 L80 57" pathLength={100} strokeWidth={11} />
+      {/* tres barras, os multiplos dados; a do meio e a haste da flecha */}
+      <line x1="68" y1="25" x2="136" y2="25" pathLength={100} />
+      <line x1="6" y1="57" x2="136" y2="57" pathLength={100} />
+      <line x1="68" y1="90" x2="136" y2="90" pathLength={100} />
     </svg>
   );
 }
