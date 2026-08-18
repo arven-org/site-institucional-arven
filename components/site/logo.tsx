@@ -31,11 +31,26 @@ export function ArvenMark({
        * vies do butt cap). O bevel no vertice fica escondido sob a haste,
        * entao a junta e reta, sem bico.
        */}
-      <path d="M22.7 -6 L80 49 L20.8 106" pathLength={100} strokeWidth={11} />
-      {/* tres barras, os multiplos dados; a do meio e a haste da flecha */}
-      <line x1="68" y1="16.4" x2="136" y2="16.4" pathLength={100} />
+      <path d="M22.7 -6 L80 49 L20.8 106" pathLength={100} strokeWidth={11.5} />
+      {/*
+       * Barras curtas: poligonos preenchidos porque o lado esquerdo tem corte
+       * INCLINADO (paralelo a diagonal vizinha), impossivel com stroke. No
+       * hero elas revelam por wipe (ver .mark-bar no site.css).
+       */}
+      <path
+        className="mark-bar"
+        fill="currentColor"
+        stroke="none"
+        d="M64 12.25 L136 12.25 L136 20.5 L72.25 20.5 Z"
+      />
+      {/* haste da flecha, a barra do meio */}
       <line x1="6" y1="49" x2="136" y2="49" pathLength={100} />
-      <line x1="68" y1="81.4" x2="136" y2="81.4" pathLength={100} />
+      <path
+        className="mark-bar"
+        fill="currentColor"
+        stroke="none"
+        d="M72.25 77.25 L136 77.25 L136 85.5 L64 85.5 Z"
+      />
     </svg>
   );
 }
