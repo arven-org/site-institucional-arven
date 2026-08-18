@@ -14,7 +14,7 @@ export function ArvenMark({
 }: SVGProps<SVGSVGElement> & { title?: string }) {
   return (
     <svg
-      viewBox="0 0 142 100"
+      viewBox="0 0 142 105.4"
       role="img"
       aria-label={title}
       fill="none"
@@ -31,7 +31,7 @@ export function ArvenMark({
        * vies do butt cap). O bevel no vertice fica escondido sob a haste,
        * entao a junta e reta, sem bico.
        */}
-      <path d="M22.7 -6 L80 49 L20.8 106" pathLength={100} strokeWidth={11.5} />
+      <path d="M20 -6 L80 51.35 L19.8 111" pathLength={100} strokeWidth={11.5} />
       {/*
        * Barras curtas: poligonos preenchidos porque o lado esquerdo tem corte
        * INCLINADO (paralelo a diagonal vizinha), impossivel com stroke. No
@@ -41,15 +41,15 @@ export function ArvenMark({
         className="mark-bar"
         fill="currentColor"
         stroke="none"
-        d="M64 12.25 L136 12.25 L136 20.5 L72.25 20.5 Z"
+        d="M64 14.6 L136 14.6 L136 22.85 L72.25 22.85 Z"
       />
       {/* haste da flecha, a barra do meio */}
-      <line x1="6" y1="49" x2="136" y2="49" pathLength={100} />
+      <line x1="6" y1="51.35" x2="136" y2="51.35" pathLength={100} />
       <path
         className="mark-bar"
         fill="currentColor"
         stroke="none"
-        d="M72.25 77.25 L136 77.25 L136 85.5 L64 85.5 Z"
+        d="M72.25 79.6 L136 79.6 L136 87.85 L64 87.85 Z"
       />
     </svg>
   );
