@@ -14,22 +14,28 @@ export function ArvenMark({
 }: SVGProps<SVGSVGElement> & { title?: string }) {
   return (
     <svg
-      viewBox="0 0 142 116"
+      viewBox="0 0 142 100"
       role="img"
       aria-label={title}
       fill="none"
       stroke="currentColor"
       strokeWidth={10}
       strokeLinecap="butt"
-      strokeLinejoin="miter"
+      strokeLinejoin="bevel"
       {...props}
     >
-      {/* diagonais da flecha: terminam na haste central, junta reta (sem bico) */}
-      <path d="M29 8 L80 57 M29 108 L80 57" pathLength={100} strokeWidth={11} />
+      {/*
+       * Flecha em path continuo (mesma animacao de desenho de antes).
+       * As pontas ultrapassam o viewBox de proposito: o clip do svg corta as
+       * extremidades na horizontal, como no icone oficial (nada de corte de
+       * vies do butt cap). O bevel no vertice fica escondido sob a haste,
+       * entao a junta e reta, sem bico.
+       */}
+      <path d="M22.7 -6 L80 49 L20.8 106" pathLength={100} strokeWidth={11} />
       {/* tres barras, os multiplos dados; a do meio e a haste da flecha */}
-      <line x1="68" y1="25" x2="136" y2="25" pathLength={100} />
-      <line x1="6" y1="57" x2="136" y2="57" pathLength={100} />
-      <line x1="68" y1="90" x2="136" y2="90" pathLength={100} />
+      <line x1="68" y1="16.4" x2="136" y2="16.4" pathLength={100} />
+      <line x1="6" y1="49" x2="136" y2="49" pathLength={100} />
+      <line x1="68" y1="81.4" x2="136" y2="81.4" pathLength={100} />
     </svg>
   );
 }
